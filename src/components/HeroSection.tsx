@@ -71,8 +71,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenBooking }) => {
           </div>
 
           <div className="flex items-center space-x-2">
-            <span className="font-sans-editorial text-[11px] text-[#c5a059] bg-[#1a1814] border border-[#3d321d] px-2.5 py-0.5 rounded-sm">
-              ජානක ඔටෝ ඒසී — ගම්පහ
+            <span className="font-mono-editorial text-[11px] text-[#c5a059] bg-[#1a1814] border border-[#3d321d] px-2.5 py-0.5 rounded-sm uppercase tracking-wider">
+              JANAKA AUTO AC // GAMPAHA
             </span>
             <span className="font-mono-editorial text-[10px] text-[#777777] uppercase tracking-wider hidden md:inline">
               Est. 15+ Years
@@ -89,7 +89,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenBooking }) => {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-7 space-y-6 text-left"
           >
-            {/* Sinhala Tropical Heat Notice Badge */}
+            {/* Tropical Heat Notice Badge */}
             <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-sm bg-[#161d26] border border-[#1e344d] text-cyan-300 text-xs font-mono-editorial">
               <ThermometerSnowflake className="w-3.5 h-3.5 text-cyan-400 animate-spin-slow" />
               <span>BEAT SRI LANKA&apos;S 34°C HEAT → 4.5°C SUB-ZERO CHILL</span>
@@ -103,26 +103,26 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenBooking }) => {
               </span>
             </h1>
 
-            {/* Sinhala & English Description connecting with Lankan drivers */}
+            {/* English Description connecting with drivers */}
             <div className="space-y-3">
               <p className="font-serif-editorial text-xl sm:text-2xl text-[#E8E6DF] leading-relaxed">
                 Architecting Pure Cool. Elevating Every Journey.
               </p>
-              <p className="font-sans-editorial text-sm sm:text-base text-[#aaaaaa] leading-relaxed max-w-xl">
-                ලංකාවේ දැඩි දහවල් රස්නයට ඔබේ වාහනයේ A/C එක මදිද? නියමිත පීඩනයට පිරිසිදු 100% Virgin ගෑස් පිරවීම, කොම්ප්‍රෙෂර් අලුත්වැඩියාව සහ 280 PSI නයිට්‍රජන් කාන්දු පරීක්ෂාව සමඟ අයිස් වගේ සීතලක් ලබාගන්න.
+              <p className="font-sans-editorial text-sm sm:text-base text-[#DCD9D0] leading-relaxed max-w-xl">
+                Is your vehicle struggling under Sri Lanka&apos;s severe tropical heat? Experience true sub-zero cabin chill with calibrated 100% pure virgin refrigerant charging, compressor overhauls, and 280 PSI dry nitrogen leak testing.
               </p>
               <p className="font-mono-editorial text-xs text-[#888888] leading-relaxed max-w-xl">
                 Denso OEM precision diagnostics, variable displacement overhauls, and sub-zero 4.5°C vent output validation at 366 Miriswatta Road, Gampaha.
               </p>
             </div>
 
-            {/* Lankan Driver Trust Value Grid (4 Key Highlights) */}
+            {/* Driver Trust Value Grid (4 Key Highlights) */}
             <div className="grid grid-cols-2 gap-3 pt-2 text-xs font-mono-editorial">
               <div className="p-3 rounded-sm bg-[#151515] border border-[#252525] flex items-start space-x-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400 mt-0.5 flex-shrink-0" />
                 <div>
                   <span className="text-[#F5F4EF] font-semibold block">100% Virgin R134a</span>
-                  <span className="text-[10px] text-[#777777]">බාල හෝ ව්‍යාජ ගෑස් නැත</span>
+                  <span className="text-[10px] text-[#777777]">Zero Counterfeit Gas</span>
                 </div>
               </div>
 
@@ -138,7 +138,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenBooking }) => {
                 <Snowflake className="w-4 h-4 text-cyan-400 mt-0.5 flex-shrink-0" />
                 <div>
                   <span className="text-[#F5F4EF] font-semibold block">4.5°C Vent Guarantee</span>
-                  <span className="text-[10px] text-[#777777]">ඩිජිටල් තර්මෝමීටර් පරීක්ෂාව</span>
+                  <span className="text-[10px] text-[#777777]">Digital Probe Verified</span>
                 </div>
               </div>
 
@@ -146,7 +146,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenBooking }) => {
                 <Award className="w-4 h-4 text-[#c5a059] mt-0.5 flex-shrink-0" />
                 <div>
                   <span className="text-[#F5F4EF] font-semibold block">Same-Day Service</span>
-                  <span className="text-[10px] text-[#777777]">එදිනම සාදා භාරදීම</span>
+                  <span className="text-[10px] text-[#777777]">Priority Bay Handover</span>
                 </div>
               </div>
             </div>

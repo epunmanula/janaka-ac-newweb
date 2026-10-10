@@ -37,7 +37,6 @@ export interface BookingSlotOption {
 // 1. Business & Contact Information
 export const businessInfo = {
   name: "Janaka Auto AC",
-  nameSinhala: "ජානක ඔටෝ ඒසී",
   tagline: "Architecting Pure Cool. Elevating Every Journey.",
   subTagline: "Keep cool. Drive comfortable.",
   phone: "+94 71 455 1409",

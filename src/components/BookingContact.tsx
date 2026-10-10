@@ -225,8 +225,8 @@ export const BookingContact: React.FC<BookingContactProps> = ({
               <h3 className="font-serif-editorial text-3xl text-[#F5F4EF] mb-1">
                 {businessInfo.name}
               </h3>
-              <span className="font-serif-editorial text-lg text-[#c5a059] block mb-3">
-                {businessInfo.nameSinhala}
+              <span className="font-mono-editorial text-xs text-[#c5a059] uppercase tracking-wider block mb-3">
+                Precision Automotive Climate Engineering
               </span>
               <p className="font-serif-editorial text-base text-[#DCD9D0] leading-relaxed">
                 Specialized automotive air conditioning diagnostic facility located on the primary Minuwangoda–Miriswatta corridor in Gampaha.
