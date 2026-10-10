@@ -9,7 +9,6 @@ export const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { href: '#services', label: 'Services' },
     { href: '#gallery', label: 'Gallery' },
     { href: '#about', label: 'About Us' },
     { href: '#contact', label: 'Book & Contact' },

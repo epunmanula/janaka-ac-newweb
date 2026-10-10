@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { Navbar } from '@/components/Navbar';
 import { HeroSection } from '@/components/HeroSection';
 import { DashboardGrid } from '@/components/DashboardGrid';
-import { ServicesBento } from '@/components/ServicesBento';
 import { GalleryReviews } from '@/components/GalleryReviews';
 import { AboutSection } from '@/components/AboutSection';
 import { BookingContact } from '@/components/BookingContact';
@@ -14,16 +13,6 @@ import { businessInfo, businessHours } from '@/data/janakaData';
 import { ExternalLink, MapPin, Phone, Mail } from 'lucide-react';
 
 export default function Home() {
-  const [selectedService, setSelectedService] = useState<string>('');
-
-  const handleSelectServiceForBooking = (serviceName: string) => {
-    setSelectedService(serviceName);
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   const handleOpenBooking = () => {
     const contactSection = document.getElementById('contact');
     if (contactSection) {
@@ -43,17 +32,14 @@ export default function Home() {
         {/* 3. 3-COLUMN STATUS DASHBOARD */}
         <DashboardGrid />
 
-        {/* 4. SERVICES BENTO GRID SECTION (6 CORE SERVICES) */}
-        <ServicesBento onSelectServiceForBooking={handleSelectServiceForBooking} />
-
-        {/* 5. REAL WORKSHOP GALLERY & VERIFIED REVIEWS */}
+        {/* 4. REAL WORKSHOP 3D GALLERY & VERIFIED REVIEWS */}
         <GalleryReviews />
 
-        {/* 7. HERITAGE & QUALITY STANDARDS */}
+        {/* 5. HERITAGE & QUALITY STANDARDS */}
         <AboutSection />
 
-        {/* 8. WORKSHOP BAY BOOKING & CONTACT */}
-        <BookingContact initialService={selectedService} />
+        {/* 6. WORKSHOP BAY BOOKING & CONTACT */}
+        <BookingContact />
       </main>
 
       {/* EDITORIAL FOOTER */}
@@ -81,7 +67,6 @@ export default function Home() {
             </div>
 
             <div className="flex flex-wrap items-center gap-6 font-mono-editorial text-xs text-[#888888]">
-              <a href="#services" className="hover:text-[#F5F4EF] transition-colors">Services</a>
               <a href="#gallery" className="hover:text-[#F5F4EF] transition-colors">Gallery</a>
               <a href="#about" className="hover:text-[#F5F4EF] transition-colors">About</a>
               <a href="#contact" className="hover:text-[#F5F4EF] transition-colors">Book Bay</a>
