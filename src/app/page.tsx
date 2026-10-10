@@ -6,7 +6,6 @@ import { Navbar } from '@/components/Navbar';
 import { HeroSection } from '@/components/HeroSection';
 import { DashboardGrid } from '@/components/DashboardGrid';
 import { ServicesBento } from '@/components/ServicesBento';
-import { DiagnosticsCalculator } from '@/components/DiagnosticsCalculator';
 import { GalleryReviews } from '@/components/GalleryReviews';
 import { AboutSection } from '@/components/AboutSection';
 import { BookingContact } from '@/components/BookingContact';
@@ -47,10 +46,7 @@ export default function Home() {
         {/* 4. SERVICES BENTO GRID SECTION (6 CORE SERVICES) */}
         <ServicesBento onSelectServiceForBooking={handleSelectServiceForBooking} />
 
-        {/* 5. INTERACTIVE DIAGNOSTICS & TROUBLESHOOTER */}
-        <DiagnosticsCalculator />
-
-        {/* 6. REAL WORKSHOP GALLERY & VERIFIED REVIEWS */}
+        {/* 5. REAL WORKSHOP GALLERY & VERIFIED REVIEWS */}
         <GalleryReviews />
 
         {/* 7. HERITAGE & QUALITY STANDARDS */}
@@ -86,7 +82,6 @@ export default function Home() {
 
             <div className="flex flex-wrap items-center gap-6 font-mono-editorial text-xs text-[#888888]">
               <a href="#services" className="hover:text-[#F5F4EF] transition-colors">Services</a>
-              <a href="#diagnostics" className="hover:text-[#F5F4EF] transition-colors">Diagnostics</a>
               <a href="#gallery" className="hover:text-[#F5F4EF] transition-colors">Gallery</a>
               <a href="#about" className="hover:text-[#F5F4EF] transition-colors">About</a>
               <a href="#contact" className="hover:text-[#F5F4EF] transition-colors">Book Bay</a>
