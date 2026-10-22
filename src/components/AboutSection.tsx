@@ -3,7 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { CheckCircle, MapPin, ShieldCheck, Award, Zap, ThermometerSnowflake } from 'lucide-react';
+import { CheckCircle, MapPin, Star } from 'lucide-react';
 import { businessInfo, trustMetrics } from '@/data/janakaData';
 
 export const AboutSection: React.FC = () => {
@@ -21,22 +21,22 @@ export const AboutSection: React.FC = () => {
               Excellence in Automotive Thermodynamics
             </h2>
 
-            <p className="font-serif-editorial text-xl sm:text-2xl text-[#DCD9D0] leading-relaxed">
+            <p className="font-serif-editorial text-xl sm:text-2xl text-[#DCD9D0] leading-relaxed font-light">
               At Janaka Auto AC in Gampaha, automotive air conditioning is treated not as arbitrary topping up, but as a calibrated thermodynamic science. From Japanese family sedans and high-voltage hybrids to German prestige cruisers, every climate system demands microscopic leak integrity, exact vacuum evacuation, and uncompromised lubricant purity.
             </p>
 
-            <p className="font-serif-editorial text-lg text-[#999999] leading-relaxed">
+            <p className="font-serif-editorial text-lg text-[#999999] leading-relaxed font-light">
               Equipped with 280 PSI digital dry nitrogen pressure testing, automated recovery stations, and 100% virgin R134a/R1234yf refrigerants, our workshop validates every repaired vehicle to our signature sub-zero vent standard — achieving an ice-cold 4.5°C cabin output even under blistering mid-day Sri Lankan heat.
             </p>
 
             {/* Workshop image highlight banner */}
-            <div className="relative h-48 sm:h-60 w-full rounded-sm overflow-hidden border border-[#2b2b2b] my-4 shadow-lg">
+            <div className="relative h-48 sm:h-60 w-full rounded-sm overflow-hidden border border-[#2b2b2b] my-4 shadow-lg group">
               <Image
                 src="/workshop-exterior.webp"
                 alt="Janaka Auto AC Workshop in Miriswatta, Gampaha"
                 fill
                 sizes="(max-width: 1024px) 100vw, 60vw"
-                className="object-cover object-center filter brightness-95"
+                className="object-cover object-center filter brightness-95 group-hover:scale-105 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex items-end p-4">
                 <span className="font-mono-editorial text-xs text-[#F5F4EF] flex items-center space-x-2">
@@ -51,7 +51,7 @@ export const AboutSection: React.FC = () => {
               {trustMetrics.badges.map((badge, idx) => (
                 <div
                   key={idx}
-                  className="flex items-center space-x-2 border border-[#262626] bg-[#121212] px-3.5 py-2 rounded-sm"
+                  className="flex items-center space-x-2 border border-[#262626] bg-[#121212] px-3.5 py-2 rounded-sm hover:border-[#383838] transition-colors"
                 >
                   <CheckCircle className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
                   <div>
@@ -105,8 +105,15 @@ export const AboutSection: React.FC = () => {
               <span className="font-mono-editorial text-xs text-[#888888] uppercase tracking-[0.2em] block mb-2">
                 GOOGLE REVIEWS RATING
               </span>
-              <div className="font-serif-editorial text-5xl sm:text-6xl text-[#F5F4EF]">
-                4.9 ★★★★★
+              <div className="flex items-center space-x-3">
+                <span className="font-serif-editorial text-5xl sm:text-6xl text-[#F5F4EF]">
+                  4.9
+                </span>
+                <div className="flex text-amber-400 space-x-1">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-5 h-5 fill-amber-400 text-amber-400" />
+                  ))}
+                </div>
               </div>
               <p className="font-mono-editorial text-xs text-[#666666] uppercase mt-2">
                 {trustMetrics.reviewsCount} Google Verified Driver Testimonials in Miriswatta, Gampaha

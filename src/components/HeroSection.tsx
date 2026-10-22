@@ -1,22 +1,19 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import {
-  Phone,
   Calendar,
-  ArrowRight,
-  ThermometerSnowflake,
-  ShieldCheck,
-  Star,
-  Award,
-  Zap,
   MessageCircle,
-  MapPin,
-  CheckCircle2,
-  Flame,
+  Phone,
+  Star,
   Snowflake,
+  Flame,
+  ThermometerSnowflake,
+  ArrowRight,
+  ShieldCheck,
+  Award,
 } from 'lucide-react';
 import { businessInfo, trustMetrics } from '@/data/janakaData';
 
@@ -25,150 +22,64 @@ interface HeroSectionProps {
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenBooking }) => {
-  const [isOpenNow, setIsOpenNow] = useState(true);
-
-  // Compute live workshop status based on Sri Lanka Time (UTC+05:30)
-  // Monday: Closed. Tue-Sun: 8:30 AM to 6:00 PM
-  useEffect(() => {
-    try {
-      const now = new Date();
-      const utc = now.getTime() + now.getTimezoneOffset() * 60000;
-      const slDate = new Date(utc + 3600000 * 5.5);
-      const day = slDate.getDay();
-      const hour = slDate.getHours();
-      const minute = slDate.getMinutes();
-      const timeDecimal = hour + minute / 60;
-
-      const isWorkshopHours = day !== 1 && timeDecimal >= 8.5 && timeDecimal < 18.0;
-      setIsOpenNow(isWorkshopHours);
-    } catch {
-      setIsOpenNow(true);
-    }
-  }, []);
-
   return (
-    <section className="relative w-full pt-12 pb-16 md:pt-16 md:pb-24 border-b border-[#222222] overflow-hidden bg-[#121212]">
-      {/* Ambient background glow & cold mist lighting */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-32 left-1/4 w-[650px] h-[550px] bg-gradient-to-br from-[#0066cc]/15 via-[#0e2740]/10 to-transparent blur-[120px] opacity-70" />
-        <div className="absolute top-1/3 right-10 w-[500px] h-[450px] bg-gradient-to-bl from-[#c5a059]/10 via-transparent to-transparent blur-[100px] opacity-40" />
-      </div>
+    <section className="relative w-full border-b border-[#222222] bg-[#121212] overflow-hidden pt-8 pb-16 md:py-24">
+      {/* Background ambient cool glow */}
+      <div className="absolute top-1/4 -right-28 w-96 h-96 bg-cyan-950/20 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-16 left-1/4 w-96 h-96 bg-blue-950/15 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Top Metadata Strip with Sinhala Accent */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-6 mb-8 border-b border-[#222222]/80">
-          <div className="inline-flex items-center space-x-2.5">
-            <span className={`w-2 h-2 rounded-full ${isOpenNow ? 'bg-emerald-400' : 'bg-amber-400'} animate-pulse`} />
-            <span className="font-mono-editorial text-xs uppercase tracking-widest text-[#aaaaaa]">
-              {isOpenNow
-                ? 'WORKSHOP ACTIVE // GAMPAHA INTAKE BAY OPEN'
-                : 'WORKSHOP CLOSED // OPENS TUE–SUN AT 8:30 AM'}
-            </span>
-            <span className="text-[#444444] hidden sm:inline">•</span>
-            <span className="text-[#888888] font-mono-editorial text-xs hidden sm:inline">
-              366 Miriswatta Road, Gampaha
-            </span>
-          </div>
-
-          <div className="flex items-center space-x-2">
-            <span className="font-mono-editorial text-[11px] text-[#c5a059] bg-[#1a1814] border border-[#3d321d] px-2.5 py-0.5 rounded-sm uppercase tracking-wider">
-              JANAKA AUTO AC // GAMPAHA
-            </span>
-            <span className="font-mono-editorial text-[10px] text-[#777777] uppercase tracking-wider hidden md:inline">
-              Est. 15+ Years
-            </span>
-          </div>
-        </div>
-
-        {/* 2-Column Hero Grid: Left Content, Right Visual Masterpiece */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-          {/* Left Column: Headlines & Lankan Appeal */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          {/* Left Column: Editorial Headline & Actions */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-7 space-y-6 text-left"
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-7 space-y-7"
           >
-            {/* Tropical Heat Notice Badge */}
-            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-sm bg-[#161d26] border border-[#1e344d] text-cyan-300 text-xs font-mono-editorial">
-              <ThermometerSnowflake className="w-3.5 h-3.5 text-cyan-400 animate-spin-slow" />
-              <span>BEAT SRI LANKA&apos;S 34°C HEAT → 4.5°C SUB-ZERO CHILL</span>
+            {/* Top Micro Eyebrow with Active Workshop Badge */}
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="font-mono-editorial text-xs uppercase tracking-[0.25em] text-[#888888] flex items-center space-x-2">
+                <span>EST. 2011</span>
+                <span className="text-[#444444]">•</span>
+                <span>GAMPAHA, SRI LANKA</span>
+              </span>
+
+              <span className="inline-flex items-center space-x-1.5 font-mono-editorial text-[10px] uppercase tracking-widest bg-[#15231a] text-emerald-400 border border-[#23452f] px-2.5 py-1 rounded-sm">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span>Open Today // 8 Bays Active</span>
+              </span>
             </div>
 
-            {/* Massive Headline */}
-            <h1 className="font-serif-editorial text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] xl:text-[6.2rem] text-[#F5F4EF] leading-[0.96] tracking-tight font-normal">
-              Keep Cool.{' '}
-              <span className="italic block sm:inline font-serif-editorial text-[#F5F4EF] hover:text-white transition-colors">
-                Drive Comfortable.
-              </span>
+            {/* Main Editorial Masthead Headline */}
+            <h1 className="font-serif-editorial text-5xl sm:text-6xl md:text-7xl lg:text-[5.25rem] text-[#F5F4EF] leading-[1.04] tracking-tight">
+              Architecting Pure Cool. Elevating Every Journey.
             </h1>
 
-            {/* English Description connecting with drivers */}
-            <div className="space-y-3">
-              <p className="font-serif-editorial text-xl sm:text-2xl text-[#E8E6DF] leading-relaxed">
-                Architecting Pure Cool. Elevating Every Journey.
-              </p>
-              <p className="font-sans-editorial text-sm sm:text-base text-[#DCD9D0] leading-relaxed max-w-xl">
-                Is your vehicle struggling under Sri Lanka&apos;s severe tropical heat? Experience true sub-zero cabin chill with calibrated 100% pure virgin refrigerant charging, compressor overhauls, and 280 PSI dry nitrogen leak testing.
-              </p>
-              <p className="font-mono-editorial text-xs text-[#888888] leading-relaxed max-w-xl">
-                Denso OEM precision diagnostics, variable displacement overhauls, and sub-zero 4.5°C vent output validation at 366 Miriswatta Road, Gampaha.
-              </p>
-            </div>
+            {/* Editorial Lead Paragraph */}
+            <p className="font-serif-editorial text-xl sm:text-2xl text-[#DCD9D0] leading-relaxed max-w-2xl font-light">
+              Gampaha&apos;s authoritative automotive climate engineering facility. From micro-leak detection to multi-stage compressor overhauls, we restore factory-standard sub-zero airflow for Japanese, European, and hybrid vehicles.
+            </p>
 
-            {/* Driver Trust Value Grid (4 Key Highlights) */}
-            <div className="grid grid-cols-2 gap-3 pt-2 text-xs font-mono-editorial">
-              <div className="p-3 rounded-sm bg-[#151515] border border-[#252525] flex items-start space-x-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400 mt-0.5 flex-shrink-0" />
-                <div>
-                  <span className="text-[#F5F4EF] font-semibold block">100% Virgin R134a</span>
-                  <span className="text-[10px] text-[#777777]">Zero Counterfeit Gas</span>
-                </div>
-              </div>
-
-              <div className="p-3 rounded-sm bg-[#151515] border border-[#252525] flex items-start space-x-2">
-                <Zap className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" />
-                <div>
-                  <span className="text-[#F5F4EF] font-semibold block">Hybrid / EV POE Oil</span>
-                  <span className="text-[10px] text-[#777777]">Prius, Vezel, Aqua, Leaf</span>
-                </div>
-              </div>
-
-              <div className="p-3 rounded-sm bg-[#151515] border border-[#252525] flex items-start space-x-2">
-                <Snowflake className="w-4 h-4 text-cyan-400 mt-0.5 flex-shrink-0" />
-                <div>
-                  <span className="text-[#F5F4EF] font-semibold block">4.5°C Vent Guarantee</span>
-                  <span className="text-[10px] text-[#777777]">Digital Probe Verified</span>
-                </div>
-              </div>
-
-              <div className="p-3 rounded-sm bg-[#151515] border border-[#252525] flex items-start space-x-2">
-                <Award className="w-4 h-4 text-[#c5a059] mt-0.5 flex-shrink-0" />
-                <div>
-                  <span className="text-[#F5F4EF] font-semibold block">Same-Day Service</span>
-                  <span className="text-[10px] text-[#777777]">Priority Bay Handover</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Action Buttons: High-Contrast Primary & WhatsApp */}
-            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
-              {/* Primary: Inverted Cream */}
+            {/* Direct Primary Action Buttons */}
+            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+              {/* Primary: Reserve Bay */}
               <button
+                type="button"
                 onClick={onOpenBooking}
-                className="inline-flex items-center justify-center space-x-2 font-mono-editorial text-xs uppercase tracking-[0.2em] bg-[#F5F4EF] text-[#121212] px-7 py-4 rounded-sm font-semibold hover:bg-white hover:shadow-2xl transition-all duration-200 active:scale-[0.98]"
+                className="inline-flex items-center justify-center space-x-3 font-mono-editorial text-xs uppercase tracking-[0.2em] bg-[#F5F4EF] text-[#121212] px-7 py-4 rounded-sm font-semibold hover:bg-white transition-all duration-200 shadow-xl hover:shadow-cyan-500/10 group cursor-pointer"
               >
-                <Calendar className="w-4 h-4" />
-                <span>Reserve Bay</span>
-                <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                <Calendar className="w-4 h-4 text-[#121212]" />
+                <span>Book Diagnostic Bay</span>
+                <ArrowRight className="w-3.5 h-3.5 text-[#121212] group-hover:translate-x-1 transition-transform" />
               </button>
 
-              {/* WhatsApp Quick CTA in Rich Emerald */}
+              {/* Direct WhatsApp Callout */}
               <a
                 href={businessInfo.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center space-x-2.5 font-mono-editorial text-xs uppercase tracking-[0.18em] bg-[#122e1e] hover:bg-[#183d28] text-emerald-300 border border-[#235834] px-6 py-4 rounded-sm font-semibold transition-all shadow-lg group"
+                className="inline-flex items-center justify-center space-x-2.5 font-mono-editorial text-xs uppercase tracking-wider text-[#F5F4EF] border border-[#23452f] bg-[#14231a] hover:bg-[#1a3023] px-6 py-4 rounded-sm transition-all duration-200 group"
               >
                 <MessageCircle className="w-4 h-4 text-emerald-400 group-hover:scale-110 transition-transform" />
                 <span>WhatsApp ({businessInfo.phone})</span>
@@ -202,15 +113,15 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenBooking }) => {
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-5 relative"
           >
             {/* Main Visual Image Card with Glowing Frame */}
             <div className="relative rounded-sm overflow-hidden border border-[#2e2e2e] bg-[#0c0c0c] shadow-2xl group">
               {/* Cockpit with ice-cold misty AC blast */}
-              <div className="relative h-[420px] sm:h-[480px] lg:h-[520px] w-full overflow-hidden">
+              <div className="relative h-[380px] sm:h-[440px] lg:h-[500px] w-full overflow-hidden">
                 <Image
-                  src="/hero-car-cockpit.jpg"
+                  src="/hero-car-cockpit.webp"
                   alt="Luxury vehicle climate control cockpit blowing ice-cold freezing mist"
                   fill
                   priority
@@ -222,8 +133,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenBooking }) => {
                 <div className="absolute inset-0 bg-gradient-to-r from-[#121212]/50 via-transparent to-transparent" />
               </div>
 
-              {/* FLOATING BADGE 1: Live Tropical vs Sub-Zero Temperature Comparison (Top-Right) */}
-              <div className="absolute top-4 right-4 z-20 bg-[#121212]/90 backdrop-blur-md border border-[#2d2d2d] p-3 rounded-sm shadow-xl max-w-[200px]">
+              {/* FLOATING BADGE 1: Live Tropical vs Sub-Zero Temperature Comparison */}
+              <div className="absolute top-4 right-4 z-20 bg-[#121212]/95 backdrop-blur-md border border-[#2d2d2d] p-3 rounded-sm shadow-xl max-w-[200px]">
                 <div className="flex items-center justify-between text-[10px] font-mono-editorial text-[#888888] pb-1.5 border-b border-[#222222] mb-2">
                   <span>OUTSIDE HEAT</span>
                   <span className="text-amber-400 font-bold flex items-center">
@@ -241,11 +152,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenBooking }) => {
                 </div>
               </div>
 
-              {/* FLOATING BADGE 2: Real Verified Thermometer Photo Card (Bottom-Left) */}
+              {/* FLOATING BADGE 2: Real Verified Thermometer Photo Card */}
               <div className="absolute bottom-4 left-4 z-20 bg-[#141414]/95 backdrop-blur-md border border-[#333333] p-2.5 rounded-sm shadow-2xl flex items-center space-x-3 max-w-[260px]">
                 <div className="relative w-12 h-12 flex-shrink-0 rounded-sm overflow-hidden border border-[#444444]">
                   <Image
-                    src="/ac-temp-test.jpg"
+                    src="/ac-temp-test.webp"
                     alt="Digital thermometer probe test showing 4.5°C"
                     fill
                     sizes="48px"
@@ -263,7 +174,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenBooking }) => {
                 </div>
               </div>
 
-              {/* FLOATING BADGE 3: Workshop Bay Reservation Status (Bottom-Right) */}
+              {/* FLOATING BADGE 3: Workshop Bay Reservation Status */}
               <div className="absolute bottom-4 right-4 z-20 hidden sm:block bg-[#16251b]/95 backdrop-blur-md border border-[#274f35] px-3 py-2 rounded-sm text-right">
                 <span className="font-mono-editorial text-[9px] uppercase tracking-wider text-emerald-400 block font-semibold">
                   8 Bays Daily
@@ -288,19 +199,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenBooking }) => {
 
         {/* Popular Sri Lankan Vehicles & Guarantee Strip */}
         <div className="mt-12 pt-8 border-t border-[#222222] grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-          <div className="p-3 bg-[#151515] border border-[#202020] rounded-sm">
+          <div className="p-3 bg-[#151515] border border-[#202020] rounded-sm hover:border-[#333333] transition-colors">
             <span className="font-serif-editorial text-2xl text-[#F5F4EF] block">Denso OEM</span>
             <span className="font-mono-editorial text-[10px] text-[#777777] uppercase">Factory Authorized Quality</span>
           </div>
-          <div className="p-3 bg-[#151515] border border-[#202020] rounded-sm">
+          <div className="p-3 bg-[#151515] border border-[#202020] rounded-sm hover:border-cyan-500/40 transition-colors">
             <span className="font-serif-editorial text-2xl text-cyan-400 block">4.5°C Tested</span>
             <span className="font-mono-editorial text-[10px] text-[#777777] uppercase">Sub-Zero Digital Probe</span>
           </div>
-          <div className="p-3 bg-[#151515] border border-[#202020] rounded-sm">
+          <div className="p-3 bg-[#151515] border border-[#202020] rounded-sm hover:border-emerald-500/40 transition-colors">
             <span className="font-serif-editorial text-2xl text-emerald-400 block">280 PSI Hold</span>
             <span className="font-mono-editorial text-[10px] text-[#777777] uppercase">Dry Nitrogen Leak Test</span>
           </div>
-          <div className="p-3 bg-[#151515] border border-[#202020] rounded-sm">
+          <div className="p-3 bg-[#151515] border border-[#202020] rounded-sm hover:border-amber-500/40 transition-colors">
             <span className="font-serif-editorial text-2xl text-[#c5a059] block">15+ Years</span>
             <span className="font-mono-editorial text-[10px] text-[#777777] uppercase">Miriswatta, Gampaha</span>
           </div>

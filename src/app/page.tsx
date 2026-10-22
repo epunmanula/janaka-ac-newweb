@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import { Navbar } from '@/components/Navbar';
 import { HeroSection } from '@/components/HeroSection';
@@ -9,8 +9,8 @@ import { GalleryReviews } from '@/components/GalleryReviews';
 import { AboutSection } from '@/components/AboutSection';
 import { BookingContact } from '@/components/BookingContact';
 import { FloatingWidget } from '@/components/FloatingWidget';
-import { businessInfo, businessHours } from '@/data/janakaData';
-import { ExternalLink, MapPin, Phone, Mail } from 'lucide-react';
+import { businessInfo } from '@/data/janakaData';
+import { ExternalLink } from 'lucide-react';
 
 export default function Home() {
   const handleOpenBooking = () => {
@@ -98,11 +98,11 @@ export default function Home() {
             <div className="flex flex-wrap items-center space-x-4">
               <span className="text-[#888888]">{businessInfo.address}</span>
               <span>•</span>
-              <a href={`tel:${businessInfo.phoneRaw}`} className="text-[#888888] hover:text-[#F5F4EF]">
+              <a href={`tel:${businessInfo.phoneRaw}`} className="text-[#888888] hover:text-[#F5F4EF] transition-colors">
                 {businessInfo.phone}
               </a>
               <span>•</span>
-              <a href={`mailto:${businessInfo.email}`} className="text-[#888888] hover:text-[#F5F4EF]">
+              <a href={`mailto:${businessInfo.email}`} className="text-[#888888] hover:text-[#F5F4EF] transition-colors">
                 {businessInfo.email}
               </a>
             </div>
@@ -110,7 +110,7 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* 9. FLOATING ACTION WIDGET BUTTON (BOTTOM-RIGHT CORNER) */}
+      {/* FLOATING ACTION WIDGET BUTTON (BOTTOM-RIGHT CORNER) */}
       <FloatingWidget />
     </div>
   );

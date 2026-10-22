@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { MapPin, Phone, Clock, ArrowUpRight, MessageCircle, Mail, ShieldAlert } from 'lucide-react';
+import { MapPin, Phone, Clock, ArrowUpRight, MessageCircle } from 'lucide-react';
 import { businessInfo, businessHours, trustMetrics } from '@/data/janakaData';
 
 export const DashboardGrid: React.FC = () => {
@@ -15,7 +15,7 @@ export const DashboardGrid: React.FC = () => {
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            transition={{ duration: 0.4, delay: 0.05 }}
             className="p-6 sm:p-8 lg:p-10 flex flex-col justify-between group hover:bg-[#151515] transition-colors duration-200"
           >
             <div>
@@ -23,7 +23,7 @@ export const DashboardGrid: React.FC = () => {
                 <span className="font-mono-editorial text-xs uppercase tracking-[0.25em] text-[#888888] font-medium">
                   WORKSHOP LOCATION
                 </span>
-                <MapPin className="w-3.5 h-3.5 text-[#666666] group-hover:text-[#F5F4EF] transition-colors" />
+                <MapPin className="w-3.5 h-3.5 text-[#666666] group-hover:text-cyan-400 transition-colors" />
               </div>
 
               <h3 className="font-serif-editorial text-2xl sm:text-3xl lg:text-[1.75rem] text-[#F5F4EF] leading-snug tracking-tight mb-2">
@@ -58,7 +58,7 @@ export const DashboardGrid: React.FC = () => {
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ duration: 0.4, delay: 0.1 }}
             className="p-6 sm:p-8 lg:p-10 flex flex-col justify-between group hover:bg-[#151515] transition-colors duration-200"
           >
             <div>
@@ -66,7 +66,7 @@ export const DashboardGrid: React.FC = () => {
                 <span className="font-mono-editorial text-xs uppercase tracking-[0.25em] text-[#888888] font-medium">
                   DIRECT HOTLINE & EMAIL
                 </span>
-                <Phone className="w-3.5 h-3.5 text-[#666666] group-hover:text-[#F5F4EF] transition-colors" />
+                <Phone className="w-3.5 h-3.5 text-[#666666] group-hover:text-emerald-400 transition-colors" />
               </div>
 
               <a
@@ -105,7 +105,7 @@ export const DashboardGrid: React.FC = () => {
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
+            transition={{ duration: 0.4, delay: 0.15 }}
             className="p-6 sm:p-8 lg:p-10 flex flex-col justify-between group hover:bg-[#151515] transition-colors duration-200"
           >
             <div>
@@ -113,11 +113,11 @@ export const DashboardGrid: React.FC = () => {
                 <span className="font-mono-editorial text-xs uppercase tracking-[0.25em] text-[#888888] font-medium">
                   BUSINESS HOURS & INTAKE
                 </span>
-                <Clock className="w-3.5 h-3.5 text-[#666666] group-hover:text-[#F5F4EF] transition-colors" />
+                <Clock className="w-3.5 h-3.5 text-[#666666] group-hover:text-amber-400 transition-colors" />
               </div>
 
               <h3 className="font-serif-editorial text-xl sm:text-2xl lg:text-[1.65rem] text-[#F5F4EF] leading-snug tracking-tight mb-2">
-                Tue–Sun: {businessHours.tuesdayToSunday}
+                Tue – Sun: {businessHours.tuesdayToSunday}
               </h3>
 
               <p className="font-mono-editorial text-xs text-amber-400/90 tracking-wider">

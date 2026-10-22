@@ -8,7 +8,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Janaka Auto AC — Car A/C Specialists | Gampaha, Sri Lanka",
+  title: "Janaka Auto AC – Car A/C Specialists | Gampaha, Sri Lanka",
   description: "Premier automotive air conditioning specialists in Gampaha, Sri Lanka. Precision diagnostics, A/C gas re-gassing, compressor repair, and climate control overhauls.",
   keywords: [
     "Janaka Auto AC",
@@ -19,6 +19,9 @@ export const metadata: Metadata = {
     "Automotive Climate Control Gampaha",
   ],
   authors: [{ name: "Janaka Auto AC" }],
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
@@ -32,7 +35,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Sinhala:wght@300;400;600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap"
           rel="stylesheet"
         />
       </head>

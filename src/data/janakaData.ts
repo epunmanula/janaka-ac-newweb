@@ -3,6 +3,7 @@ export interface GalleryItem {
   title: string;
   category: string;
   image: string;
+  thumb?: string;
   caption: string;
   badge?: string;
 }
@@ -222,13 +223,14 @@ export const reviewItems: ReviewItem[] = [
   },
 ];
 
-// 7. Image Assets (Stored in /public)
+// 6. Image Assets (Stored in /public and /public/thumbs for instant 60fps streaming)
 export const galleryItems: GalleryItem[] = [
   {
     id: "g1",
     title: "Our Workshop Exterior in Gampaha",
     category: "Miriswatta Facility",
     image: "/workshop-exterior.webp",
+    thumb: "/thumbs/workshop-exterior.webp",
     caption: "Dedicated automotive climate control facility located at 366 Minuwangoda–Gampaha–Miriswatta Road. Equipped with spacious intake bays for sedans, SUVs, and commercial vehicles.",
     badge: "Facility Intake",
   },
@@ -236,7 +238,8 @@ export const galleryItems: GalleryItem[] = [
     id: "g2",
     title: "A/C Gas Refilling & Precision Charging",
     category: "Refrigerant Station",
-    image: "/ac-gas-filling.jpg",
+    image: "/ac-gas-filling.webp",
+    thumb: "/thumbs/ac-gas-filling.webp",
     caption: "Precision recovery, deep vacuum extraction to 500 microns, and gram-exact virgin R134a charging without air or moisture contamination.",
     badge: "Virgin Gas Only",
   },
@@ -245,6 +248,7 @@ export const galleryItems: GalleryItem[] = [
     title: "System Pressure Diagnostics",
     category: "Pressure Diagnostics",
     image: "/ac-diagnostics.webp",
+    thumb: "/thumbs/ac-diagnostics.webp",
     caption: "Simultaneous high-side and low-side manifold gauge diagnostics to evaluate compressor compression ratio, expansion valve behavior, and operating pressures.",
     badge: "Gauge Diagnostics",
   },
@@ -252,7 +256,8 @@ export const galleryItems: GalleryItem[] = [
     id: "g4",
     title: "Compressor Repair & Overhaul",
     category: "Mechanical Precision",
-    image: "/compressor-repair.jpg",
+    image: "/compressor-repair.webp",
+    thumb: "/thumbs/compressor-repair.webp",
     caption: "Full teardown and rebuild of automotive compressors. Replacement of bearings, magnetic clutch coils, and shaft seals calibrated to OEM tolerances.",
     badge: "Clutch & Bearings",
   },
@@ -260,7 +265,8 @@ export const galleryItems: GalleryItem[] = [
     id: "g5",
     title: "Sub-Zero 4.5°C Cooling Test",
     category: "Performance Validation",
-    image: "/ac-temp-test.jpg",
+    image: "/ac-temp-test.webp",
+    thumb: "/thumbs/ac-temp-test.webp",
     caption: "Digital thermal probe test verifying 4.5°C vent exit temperature under tropical ambient conditions following full system calibration and deep vacuum charging.",
     badge: "4.5°C Benchmark",
   },
@@ -269,6 +275,7 @@ export const galleryItems: GalleryItem[] = [
     title: "Condenser & Cooler Replacement",
     category: "Component Servicing",
     image: "/condenser-replacement.webp",
+    thumb: "/thumbs/condenser-replacement.webp",
     caption: "Installation of brand-new high-efficiency aluminum parallel-flow condensers and integrated receiver-driers to solve chronic high-pressure issues.",
     badge: "New OEM Parts",
   },
@@ -277,6 +284,7 @@ export const galleryItems: GalleryItem[] = [
     title: "Vehicles in Active Service",
     category: "Service Bays",
     image: "/workshop-vehicles.webp",
+    thumb: "/thumbs/workshop-vehicles.webp",
     caption: "Simultaneous climate diagnostics and servicing on Japanese family sedans, hybrid crossovers, and commercial vans in our covered workshop bays.",
     badge: "Multi-Bay Workshop",
   },
@@ -285,6 +293,7 @@ export const galleryItems: GalleryItem[] = [
     title: "Hands-on System Repairs",
     category: "Specialist Craft",
     image: "/ac-repair-job.webp",
+    thumb: "/thumbs/ac-repair-job.webp",
     caption: "Precision disassembly of front fascia and cooling supports to access concealed evaporator lines, pressure switches, and cooling fan relays.",
     badge: "Certified Hands-On",
   },
@@ -293,12 +302,13 @@ export const galleryItems: GalleryItem[] = [
     title: "Completed Job Quality Check",
     category: "Quality Assurance",
     image: "/completed-job.webp",
+    thumb: "/thumbs/completed-job.webp",
     caption: "Completed luxury vehicle undergoing final electronic climate control scan, vent sanitization, and temperature test before client handover.",
     badge: "100% Quality QA",
   },
 ];
 
-// 8. Booking Slots Data
+// 7. Booking Slots Data
 export const bookingSlotsData: BookingSlotOption[] = [
   {
     time: "08:30 AM",

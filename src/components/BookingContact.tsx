@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Phone,
   MessageSquare,
@@ -12,6 +12,7 @@ import {
   ArrowUpRight,
   ShieldCheck,
   ExternalLink,
+  AlertCircle,
 } from 'lucide-react';
 import { businessInfo, businessHours, bookingSlotsData, trustMetrics } from '@/data/janakaData';
 
@@ -33,8 +34,15 @@ export const BookingContact: React.FC<BookingContactProps> = ({
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [isMondaySelected, setIsMondaySelected] = useState(false);
+  const [minDate, setMinDate] = useState<string>('');
 
-  React.useEffect(() => {
+  useEffect(() => {
+    // Computed client-side to prevent Next.js prerender hydration error
+    setMinDate(new Date().toISOString().split('T')[0]);
+  }, []);
+
+  useEffect(() => {
     if (initialService) {
       setFormData((prev) => ({ ...prev, service: initialService }));
     }
@@ -45,12 +53,33 @@ export const BookingContact: React.FC<BookingContactProps> = ({
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+
+    if (name === 'date' && value) {
+      const selectedDate = new Date(value + 'T00:00:00');
+      // 1 = Monday
+      setIsMondaySelected(selectedDate.getDay() === 1);
+    }
+  };
+
+  const handleServicePreset = (serviceName: string) => {
+    setFormData((prev) => ({ ...prev, service: serviceName }));
   };
 
   const handleWhatsAppSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const msg = encodeURIComponent(
-      `Hello Janaka Auto AC,\n\nI would like to reserve a workshop bay session:\n- Name: ${formData.name || 'Valued Client'}\n- Phone: ${formData.phone || 'Direct'}\n- Vehicle: ${formData.vehicle || 'Not specified'}\n- Service / Issue: ${formData.service || 'Comprehensive A/C Diagnostics'}\n- Preferred Slot: ${formData.timeSlot}\n- Preferred Date: ${formData.date || 'Earliest Available'}\n- Notes: ${formData.notes || 'None'}\n\nPlease confirm availability for 366 Miriswatta Road, Gampaha.`
+      `Hello Janaka Auto AC,
+
+I would like to reserve a workshop bay session:
+- Name: ${formData.name || 'Valued Client'}
+- Phone: ${formData.phone || 'Direct'}
+- Vehicle: ${formData.vehicle || 'Not specified'}
+- Service / Issue: ${formData.service || 'Comprehensive A/C Diagnostics'}
+- Preferred Slot: ${formData.timeSlot}
+- Preferred Date: ${formData.date || 'Earliest Available'}
+- Notes: ${formData.notes || 'None'}
+
+Please confirm availability for 366 Miriswatta Road, Gampaha.`
     );
     window.open(`https://wa.me/94714551409?text=${msg}`, '_blank');
     setSubmitted(true);
@@ -68,7 +97,7 @@ export const BookingContact: React.FC<BookingContactProps> = ({
               Book Your Diagnostic Session
             </h2>
           </div>
-          <p className="font-serif-editorial text-lg sm:text-xl text-[#888888] max-w-md">
+          <p className="font-serif-editorial text-lg sm:text-xl text-[#888888] max-w-md font-light">
             Reserve an inspection bay with Master Technician Janaka. Booked arrivals receive priority intake with zero queue waiting.
           </p>
         </div>
@@ -98,7 +127,7 @@ export const BookingContact: React.FC<BookingContactProps> = ({
                     value={formData.name}
                     onChange={handleInputChange}
                     placeholder="e.g. Nuwan Jayasuriya"
-                    className="w-full bg-[#181818] border border-[#2e2e2e] focus:border-[#888888] text-[#F5F4EF] px-4 py-3 rounded-sm font-sans-editorial text-sm focus:outline-none transition-colors"
+                    className="w-full bg-[#181818] border border-[#2e2e2e] focus:border-cyan-500 text-[#F5F4EF] px-4 py-3 rounded-sm font-sans-editorial text-sm focus:outline-none transition-colors"
                   />
                 </div>
 
@@ -113,7 +142,7 @@ export const BookingContact: React.FC<BookingContactProps> = ({
                     value={formData.phone}
                     onChange={handleInputChange}
                     placeholder="e.g. 071 455 1409"
-                    className="w-full bg-[#181818] border border-[#2e2e2e] focus:border-[#888888] text-[#F5F4EF] px-4 py-3 rounded-sm font-mono-editorial text-sm focus:outline-none transition-colors"
+                    className="w-full bg-[#181818] border border-[#2e2e2e] focus:border-cyan-500 text-[#F5F4EF] px-4 py-3 rounded-sm font-mono-editorial text-sm focus:outline-none transition-colors"
                   />
                 </div>
               </div>
@@ -130,7 +159,7 @@ export const BookingContact: React.FC<BookingContactProps> = ({
                     value={formData.vehicle}
                     onChange={handleInputChange}
                     placeholder="e.g. Toyota Premio / Vezel / BMW"
-                    className="w-full bg-[#181818] border border-[#2e2e2e] focus:border-[#888888] text-[#F5F4EF] px-4 py-3 rounded-sm font-sans-editorial text-sm focus:outline-none transition-colors"
+                    className="w-full bg-[#181818] border border-[#2e2e2e] focus:border-cyan-500 text-[#F5F4EF] px-4 py-3 rounded-sm font-sans-editorial text-sm focus:outline-none transition-colors"
                   />
                 </div>
 
@@ -141,12 +170,23 @@ export const BookingContact: React.FC<BookingContactProps> = ({
                   <input
                     type="date"
                     name="date"
+                    min={minDate || undefined}
                     value={formData.date}
                     onChange={handleInputChange}
-                    className="w-full bg-[#181818] border border-[#2e2e2e] focus:border-[#888888] text-[#F5F4EF] px-4 py-3 rounded-sm font-mono-editorial text-sm focus:outline-none transition-colors"
+                    className="w-full bg-[#181818] border border-[#2e2e2e] focus:border-cyan-500 text-[#F5F4EF] px-4 py-3 rounded-sm font-mono-editorial text-sm focus:outline-none transition-colors"
                   />
                 </div>
               </div>
+
+              {/* Monday Alert */}
+              {isMondaySelected && (
+                <div className="p-3 bg-amber-950/40 border border-amber-600/50 rounded-sm text-xs font-mono-editorial text-amber-300 flex items-start space-x-2">
+                  <AlertCircle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                  <span>
+                    Note: Our workshop is closed on Mondays for vacuum pump calibration and maintenance. Please select Tuesday – Sunday for active workshop bay intake.
+                  </span>
+                </div>
+              )}
 
               {/* Time Slots Selector */}
               <div>
@@ -163,7 +203,7 @@ export const BookingContact: React.FC<BookingContactProps> = ({
                         onClick={() => setFormData((prev) => ({ ...prev, timeSlot: slot.time }))}
                         className={`text-left p-3 rounded-sm border transition-all text-xs font-mono-editorial ${
                           isSelected
-                            ? 'border-[#F5F4EF] bg-[#222222] text-[#F5F4EF]'
+                            ? 'border-cyan-400 bg-cyan-950/30 text-[#F5F4EF] shadow-md'
                             : 'border-[#282828] bg-[#181818] text-[#888888] hover:border-[#444444]'
                         }`}
                       >
@@ -175,24 +215,47 @@ export const BookingContact: React.FC<BookingContactProps> = ({
                 </div>
               </div>
 
+              {/* Service issue with quick-pills */}
               <div>
-                <label className="font-mono-editorial text-[11px] uppercase tracking-wider text-[#888888] block mb-2">
-                  Reported Symptom or Required Service
-                </label>
+                <div className="flex items-center justify-between mb-2">
+                  <label className="font-mono-editorial text-[11px] uppercase tracking-wider text-[#888888]">
+                    Reported Symptom or Required Service
+                  </label>
+                  <span className="text-[10px] font-mono-editorial text-[#666666]">Quick pick:</span>
+                </div>
+
+                <div className="flex flex-wrap gap-1.5 mb-2.5">
+                  {[
+                    'Gas Refill & Leak Check',
+                    'Compressor Rattling / Rebuild',
+                    'Cooling Drops in Traffic',
+                    'Foul Mildew Odor & Sanitization',
+                  ].map((preset) => (
+                    <button
+                      key={preset}
+                      type="button"
+                      onClick={() => handleServicePreset(preset)}
+                      className="text-[10px] font-mono-editorial px-2.5 py-1 rounded-sm bg-[#1e1e1e] border border-[#333333] text-[#bbbbbb] hover:text-cyan-300 hover:border-cyan-500/50 transition-colors cursor-pointer"
+                    >
+                      + {preset}
+                    </button>
+                  ))}
+                </div>
+
                 <textarea
                   rows={3}
                   name="service"
                   value={formData.service}
                   onChange={handleInputChange}
                   placeholder="Describe your issue (e.g. Blowing warm air at idle, grinding clutch noise, gas refill and nitrogen leak check)"
-                  className="w-full bg-[#181818] border border-[#2e2e2e] focus:border-[#888888] text-[#F5F4EF] px-4 py-3 rounded-sm font-sans-editorial text-sm focus:outline-none transition-colors"
+                  className="w-full bg-[#181818] border border-[#2e2e2e] focus:border-cyan-500 text-[#F5F4EF] px-4 py-3 rounded-sm font-sans-editorial text-sm focus:outline-none transition-colors"
                 />
               </div>
 
               <div className="pt-2 flex flex-col sm:flex-row gap-4 items-center">
                 <button
                   type="submit"
-                  className="w-full sm:w-auto flex-1 inline-flex items-center justify-center space-x-2 font-mono-editorial text-xs uppercase tracking-[0.2em] bg-[#F5F4EF] text-[#121212] px-8 py-4 rounded-sm font-semibold hover:bg-white transition-all shadow-xl"
+                  className="w-full sm:w-auto flex-1 inline-flex items-center justify-center space-x-2 font-mono-editorial text-xs uppercase tracking-[0.2em] bg-[#F5F4EF] text-[#121212] px-8 py-4 rounded-sm font-semibold hover:bg-white transition-all shadow-xl hover:shadow-cyan-500/10 cursor-pointer"
                 >
                   <MessageSquare className="w-4 h-4 text-emerald-600" />
                   <span>Reserve via WhatsApp</span>
@@ -225,10 +288,10 @@ export const BookingContact: React.FC<BookingContactProps> = ({
               <h3 className="font-serif-editorial text-3xl text-[#F5F4EF] mb-1">
                 {businessInfo.name}
               </h3>
-              <span className="font-mono-editorial text-xs text-[#c5a059] uppercase tracking-wider block mb-3">
+              <span className="font-mono-editorial text-xs text-[#c5a059] uppercase tracking-wider block mb-3 font-semibold">
                 Precision Automotive Climate Engineering
               </span>
-              <p className="font-serif-editorial text-base text-[#DCD9D0] leading-relaxed">
+              <p className="font-serif-editorial text-base text-[#DCD9D0] leading-relaxed font-light">
                 Specialized automotive air conditioning diagnostic facility located on the primary Minuwangoda–Miriswatta corridor in Gampaha.
               </p>
             </div>
@@ -248,7 +311,7 @@ export const BookingContact: React.FC<BookingContactProps> = ({
                 <Phone className="w-4 h-4 text-[#c5a059] mt-1 flex-shrink-0" />
                 <div>
                   <span className="font-mono-editorial text-xs text-[#888888] uppercase block">Phone & WhatsApp</span>
-                  <a href={`tel:${businessInfo.phoneRaw}`} className="font-serif-editorial text-lg text-[#F5F4EF] hover:text-white">
+                  <a href={`tel:${businessInfo.phoneRaw}`} className="font-serif-editorial text-lg text-[#F5F4EF] hover:text-white transition-colors">
                     {businessInfo.phone}
                   </a>
                 </div>
@@ -258,7 +321,7 @@ export const BookingContact: React.FC<BookingContactProps> = ({
                 <Mail className="w-4 h-4 text-[#c5a059] mt-1 flex-shrink-0" />
                 <div>
                   <span className="font-mono-editorial text-xs text-[#888888] uppercase block">Email Address</span>
-                  <a href={`mailto:${businessInfo.email}`} className="font-serif-editorial text-base text-[#F5F4EF] hover:text-white">
+                  <a href={`mailto:${businessInfo.email}`} className="font-serif-editorial text-base text-[#F5F4EF] hover:text-white transition-colors">
                     {businessInfo.email}
                   </a>
                 </div>

@@ -1,12 +1,26 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Phone, MessageCircle, MapPin, X, Wrench, ArrowUp, Navigation } from 'lucide-react';
 import { businessInfo } from '@/data/janakaData';
 
 export const FloatingWidget: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const widgetRef = useRef<HTMLDivElement>(null);
+
+  // Click outside to close widget
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (widgetRef.current && !widgetRef.current.contains(e.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isOpen]);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -14,7 +28,7 @@ export const FloatingWidget: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+    <div ref={widgetRef} className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
       {/* Expanded Quick Action Palette */}
       <AnimatePresence>
         {isOpen && (
@@ -23,7 +37,7 @@ export const FloatingWidget: React.FC = () => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.92, y: 12 }}
             transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="mb-3 w-72 bg-[#161616]/95 backdrop-blur-xl border border-[#2a2a2a] rounded-sm p-5 shadow-2xl space-y-4"
+            className="mb-3 w-72 bg-[#161616]/95 backdrop-blur-xl border border-[#2e2e2e] rounded-sm p-5 shadow-2xl space-y-4"
           >
             <div className="flex items-center justify-between border-b border-[#252525] pb-3">
               <div className="flex items-center space-x-2">
@@ -34,7 +48,7 @@ export const FloatingWidget: React.FC = () => {
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="text-[#666666] hover:text-[#F5F4EF] transition-colors"
+                className="text-[#666666] hover:text-[#F5F4EF] transition-colors p-1"
                 aria-label="Close widget"
               >
                 <X className="w-4 h-4" />
@@ -50,7 +64,7 @@ export const FloatingWidget: React.FC = () => {
                 className="w-full flex items-center justify-between p-3 rounded-sm bg-[#121212] border border-[#24452e] hover:border-emerald-500/50 text-[#F5F4EF] transition-colors group"
               >
                 <div className="flex items-center space-x-3">
-                  <MessageCircle className="w-4 h-4 text-emerald-400" />
+                  <MessageCircle className="w-4 h-4 text-emerald-400 group-hover:scale-110 transition-transform" />
                   <span className="font-mono-editorial text-xs uppercase tracking-wider">
                     WhatsApp Chat
                   </span>
@@ -63,7 +77,7 @@ export const FloatingWidget: React.FC = () => {
                 className="w-full flex items-center justify-between p-3 rounded-sm bg-[#121212] border border-[#262626] hover:border-[#444444] text-[#F5F4EF] transition-colors group"
               >
                 <div className="flex items-center space-x-3">
-                  <Phone className="w-4 h-4 text-[#c5a059]" />
+                  <Phone className="w-4 h-4 text-[#c5a059] group-hover:scale-110 transition-transform" />
                   <span className="font-mono-editorial text-xs uppercase tracking-wider">
                     Call Hotline
                   </span>
@@ -78,7 +92,7 @@ export const FloatingWidget: React.FC = () => {
                 className="w-full flex items-center justify-between p-3 rounded-sm bg-[#121212] border border-[#262626] hover:border-[#444444] text-[#F5F4EF] transition-colors group"
               >
                 <div className="flex items-center space-x-3">
-                  <Navigation className="w-4 h-4 text-[#888888]" />
+                  <Navigation className="w-4 h-4 text-[#888888] group-hover:text-cyan-400 transition-colors" />
                   <span className="font-mono-editorial text-xs uppercase tracking-wider">
                     Get Directions
                   </span>
@@ -90,7 +104,7 @@ export const FloatingWidget: React.FC = () => {
             <div className="pt-2 border-t border-[#222222] flex justify-end">
               <button
                 onClick={scrollToTop}
-                className="text-[11px] font-mono-editorial text-[#666666] hover:text-[#F5F4EF] uppercase tracking-widest flex items-center space-x-1"
+                className="text-[11px] font-mono-editorial text-[#666666] hover:text-[#F5F4EF] uppercase tracking-widest flex items-center space-x-1 cursor-pointer"
               >
                 <ArrowUp className="w-3 h-3" />
                 <span>Top of Page</span>
@@ -103,7 +117,7 @@ export const FloatingWidget: React.FC = () => {
       {/* Floating Action Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`group relative flex items-center justify-center w-12 h-12 rounded-full border transition-all duration-300 shadow-2xl focus:outline-none ${
+        className={`group relative flex items-center justify-center w-12 h-12 rounded-full border transition-all duration-300 shadow-2xl focus:outline-none cursor-pointer ${
           isOpen
             ? 'bg-[#F5F4EF] text-[#121212] border-[#F5F4EF] rotate-45'
             : 'bg-[#181818] text-[#F5F4EF] border-[#2e2e2e] hover:border-[#888888] hover:bg-[#202020]'

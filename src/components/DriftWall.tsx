@@ -9,7 +9,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { ZoomIn, Play, Pause, Compass } from 'lucide-react';
+import { ZoomIn, Play, Pause, Compass, Sparkles } from 'lucide-react';
 
 export interface DriftWallItem {
   src: string;
@@ -35,10 +35,6 @@ export interface DriftWallProps {
   variance?: number;
   parallax?: number;
   lift?: number;
-  fade?: number;
-  dim?: number;
-  grayscale?: boolean;
-  overlayColor?: string;
   className?: string;
   style?: CSSProperties;
   onSelectPhoto?: (index: number) => void;
@@ -64,21 +60,16 @@ export const DriftWall: React.FC<DriftWallProps> = ({
   tileWidth = 270,
   tileHeight = 185,
   gap = 18,
-  radius = 12,
-  tilt = 14,
-  turn = -10,
+  radius = 10,
+  tilt = 12,
+  turn = -8,
   roll = 0,
-  perspective = 1100,
-  depth = 90,
-  speed = 36,
+  depth = 80,
+  speed = 34,
   direction = 'up',
-  variance = 0.4,
+  variance = 0.35,
   parallax = 0.5,
-  lift = 52,
-  fade = 0.55,
-  dim = 0.88,
-  grayscale = false,
-  overlayColor = '#061a2d',
+  lift = 48,
   className = '',
   style,
   onSelectPhoto,
@@ -91,15 +82,13 @@ export const DriftWall: React.FC<DriftWallProps> = ({
   const offsetsRef = useRef<number[]>([]);
   const velocitiesRef = useRef<number[]>([]);
   const hoveredColRef = useRef<number>(-1);
-  const wallHoveredRef = useRef<boolean>(false);
   const pointerRef = useRef({ x: 0, y: 0 });
   const pointerDampedRef = useRef({ x: 0, y: 0 });
   const lastTsRef = useRef<number | null>(null);
+  const isVisibleRef = useRef<boolean>(true);
 
-  const [containerHeight, setContainerHeight] = useState(620);
+  const [containerHeight, setContainerHeight] = useState(560);
   const [containerWidth, setContainerWidth] = useState(1200);
-  const [activeId, setActiveId] = useState<string | null>(null);
-  const activeIdRef = useRef<string | null>(null);
   const [reduced, setReduced] = useState(() => prefersReducedMotion());
   const [isPaused, setIsPaused] = useState(false);
   const [is3DMode, setIs3DMode] = useState(true);
@@ -121,8 +110,8 @@ export const DriftWall: React.FC<DriftWallProps> = ({
 
   // Responsive gap
   const responsiveGap = useMemo(() => {
-    if (containerWidth < 480) return 8;
-    if (containerWidth < 600) return 10;
+    if (containerWidth < 480) return 10;
+    if (containerWidth < 600) return 12;
     if (containerWidth < 980) return 14;
     return gap;
   }, [containerWidth, gap]);
@@ -131,11 +120,11 @@ export const DriftWall: React.FC<DriftWallProps> = ({
   const responsiveTileWidth = useMemo(() => {
     if (containerWidth < 480) {
       const available = containerWidth - 28;
-      return Math.min(135, Math.max(92, Math.floor((available - 2 * 8) / 3)));
+      return Math.min(140, Math.max(96, Math.floor((available - 2 * 10) / 3)));
     }
     if (containerWidth < 600) {
       const available = containerWidth - 32;
-      return Math.min(160, Math.max(115, Math.floor((available - 2 * 10) / 3)));
+      return Math.min(165, Math.max(120, Math.floor((available - 2 * 12) / 3)));
     }
     if (containerWidth < 980) return Math.min(tileWidth, 210);
     return tileWidth;
@@ -149,16 +138,11 @@ export const DriftWall: React.FC<DriftWallProps> = ({
     return tileHeight;
   }, [containerWidth, responsiveTileWidth, tileHeight]);
 
-  const responsiveLift = useMemo(() => {
-    if (containerWidth < 600) return Math.min(lift, 20);
-    return lift;
-  }, [containerWidth, lift]);
-
   const isMobile = containerWidth < 600;
-  const planeScale = isMobile ? (containerWidth < 480 ? 1.0 : 1.04) : 1.15;
-  const effectiveTilt = is3DMode ? (isMobile ? Math.min(tilt, 8) : tilt) : 0;
-  const effectiveTurn = is3DMode ? (isMobile ? Math.min(turn, -5) : turn) : 0;
-  const effectiveDepth = is3DMode ? (isMobile ? 25 : depth) : 0;
+  const planeScale = isMobile ? (containerWidth < 480 ? 1.0 : 1.04) : 1.12;
+  const effectiveTilt = is3DMode ? (isMobile ? Math.min(tilt, 7) : tilt) : 0;
+  const effectiveTurn = is3DMode ? (isMobile ? Math.min(turn, -4) : turn) : 0;
+  const effectiveDepth = is3DMode ? (isMobile ? 20 : depth) : 0;
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -177,27 +161,42 @@ export const DriftWall: React.FC<DriftWallProps> = ({
     const unit = responsiveTileHeight + responsiveGap;
     return columnItems.map((col) => {
       const copyHeight = Math.max(unit, col.length * unit);
-      const copies = Math.max(3, Math.ceil((containerHeight * 2.2) / copyHeight) + 1);
+      const copies = Math.max(2, Math.ceil((containerHeight * 1.8) / copyHeight) + 1);
       return { copyHeight, copies };
     });
   }, [columnItems, responsiveTileHeight, responsiveGap, containerHeight]);
 
+  // Use ResizeObserver with throttled state update
   useLayoutEffect(() => {
     if (!containerRef.current) return;
     const ro = new ResizeObserver(([entry]) => {
-      if (entry.contentRect) {
-        setContainerHeight(entry.contentRect.height || 620);
-        setContainerWidth(entry.contentRect.width || 1200);
+      if (entry?.contentRect) {
+        const h = Math.round(entry.contentRect.height);
+        const w = Math.round(entry.contentRect.width);
+        if (h > 0 && Math.abs(h - containerHeight) > 10) setContainerHeight(h);
+        if (w > 0 && Math.abs(w - containerWidth) > 10) setContainerWidth(w);
       }
     });
     ro.observe(containerRef.current);
     return () => ro.disconnect();
+  }, [containerHeight, containerWidth]);
+
+  // Pause rAF when offscreen using IntersectionObserver (critical performance boost!)
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        isVisibleRef.current = entry.isIntersecting;
+      },
+      { threshold: 0.05 }
+    );
+    io.observe(containerRef.current);
+    return () => io.disconnect();
   }, []);
 
   const baseVelocities = useMemo<number[]>(() => {
     const dirSign = direction === 'up' ? 1 : -1;
     return columnItems.map((_, c) => {
-      // Alternating column directions: Even columns go UP, Odd columns go DOWN
       const altSign = c % 2 === 0 ? 1 : -1;
       return speed * columnFactor(c, variance) * dirSign * altSign;
     });
@@ -220,105 +219,75 @@ export const DriftWall: React.FC<DriftWallProps> = ({
     [planeScale, effectiveTilt, effectiveTurn, roll, effectiveDepth]
   );
 
+  // 60-120fps Smooth rAF loop without React re-renders
   useEffect(() => {
+    let animId: number;
+
     const animate = (ts: number) => {
       if (lastTsRef.current === null) lastTsRef.current = ts;
       const dt = Math.min(0.05, Math.max(0, ts - lastTsRef.current) / 1000);
       lastTsRef.current = ts;
 
-      const maxTilt = parallax * 7;
-      const targetX = pointerRef.current.x * maxTilt;
-      const targetY = -pointerRef.current.y * maxTilt;
-      const damp = 1 - Math.exp(-dt / 0.12);
-      pointerDampedRef.current.x += (targetX - pointerDampedRef.current.x) * damp;
-      pointerDampedRef.current.y += (targetY - pointerDampedRef.current.y) * damp;
-      applyPlaneTransform(pointerDampedRef.current.x, pointerDampedRef.current.y);
+      if (isVisibleRef.current) {
+        const maxTilt = parallax * 6;
+        const targetX = pointerRef.current.x * maxTilt;
+        const targetY = -pointerRef.current.y * maxTilt;
+        const damp = 1 - Math.exp(-dt / 0.14);
+        pointerDampedRef.current.x += (targetX - pointerDampedRef.current.x) * damp;
+        pointerDampedRef.current.y += (targetY - pointerDampedRef.current.y) * damp;
+        applyPlaneTransform(pointerDampedRef.current.x, pointerDampedRef.current.y);
 
-      if (!reduced) {
-        for (let c = 0; c < trackRefs.current.length; c++) {
-          const meta = columnMeta[c];
-          if (!meta) continue;
+        if (!reduced) {
+          for (let c = 0; c < trackRefs.current.length; c++) {
+            const meta = columnMeta[c];
+            if (!meta) continue;
 
-          // Pause column if manually paused or hovered
-          const isColHovered = hoveredColRef.current === c;
-          const factor = isPaused || isColHovered ? 0 : 1;
-          const target = baseVelocities[c] * factor;
+            const isColHovered = hoveredColRef.current === c;
+            const factor = isPaused || isColHovered ? 0 : 1;
+            const target = baseVelocities[c] * factor;
 
-          const ease = 1 - Math.exp(-dt / (target === 0 ? 0.18 : 0.28));
-          velocitiesRef.current[c] += (target - velocitiesRef.current[c]) * ease;
-          let next = (offsetsRef.current[c] ?? 0) + velocitiesRef.current[c] * dt;
-          next = ((next % meta.copyHeight) + meta.copyHeight) % meta.copyHeight;
-          offsetsRef.current[c] = next;
+            const ease = 1 - Math.exp(-dt / (target === 0 ? 0.2 : 0.3));
+            velocitiesRef.current[c] += (target - velocitiesRef.current[c]) * ease;
+            let next = (offsetsRef.current[c] ?? 0) + velocitiesRef.current[c] * dt;
+            next = ((next % meta.copyHeight) + meta.copyHeight) % meta.copyHeight;
+            offsetsRef.current[c] = next;
 
-          const el = trackRefs.current[c];
-          if (el) el.style.transform = `translate3d(0, ${-next}px, 0)`;
+            const el = trackRefs.current[c];
+            if (el) {
+              el.style.transform = `translate3d(0, ${-next}px, 0)`;
+            }
+          }
         }
       }
 
-      rafRef.current = requestAnimationFrame(animate);
+      animId = requestAnimationFrame(animate);
     };
 
-    rafRef.current = requestAnimationFrame(animate);
+    animId = requestAnimationFrame(animate);
+    rafRef.current = animId;
+
     return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      cancelAnimationFrame(animId);
     };
-  }, [
-    reduced,
-    columnMeta,
-    baseVelocities,
-    parallax,
-    isPaused,
-    applyPlaneTransform,
-  ]);
+  }, [reduced, columnMeta, baseVelocities, parallax, isPaused, applyPlaneTransform]);
 
-  const release = useCallback((): void => {
-    activeIdRef.current = null;
-    hoveredColRef.current = -1;
-    setActiveId(null);
+  // Fast pointer tracking without layout thrashing
+  const handlePointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>): void => {
+    const container = containerRef.current;
+    if (!container) return;
+    const rect = container.getBoundingClientRect();
+    const nx = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    const ny = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+    pointerRef.current = {
+      x: Math.max(-1, Math.min(1, nx)),
+      y: Math.max(-1, Math.min(1, ny)),
+    };
   }, []);
-
-  const activate = useCallback((id: string, colIndex: number): void => {
-    activeIdRef.current = id;
-    hoveredColRef.current = colIndex;
-    setActiveId(id);
-  }, []);
-
-  const handlePointerMove = useCallback(
-    (e: React.PointerEvent<HTMLDivElement>): void => {
-      const container = containerRef.current;
-      if (!container) return;
-      const rect = container.getBoundingClientRect();
-      const nx = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-      const ny = ((e.clientY - rect.top) / rect.height) * 2 - 1;
-      pointerRef.current = {
-        x: Math.max(-1, Math.min(1, nx)),
-        y: Math.max(-1, Math.min(1, ny)),
-      };
-
-      const el = document.elementFromPoint(e.clientX, e.clientY);
-      const tile = el ? (el.closest('[data-tile-id]') as HTMLElement | null) : null;
-      if (!tile) {
-        release();
-        return;
-      }
-      const id = tile.dataset.tileId ?? null;
-      if (id === activeIdRef.current) return;
-      activeIdRef.current = id;
-      hoveredColRef.current = Number(tile.dataset.col);
-      setActiveId(id);
-    },
-    [release]
-  );
 
   const handlePointerLeaveWall = useCallback((): void => {
-    wallHoveredRef.current = false;
     pointerRef.current = { x: 0, y: 0 };
-    release();
-  }, [release]);
-
-  const maskStyle =
-    'radial-gradient(ellipse 85% 88% at 50% 50%, #000 var(--dw-edge), transparent 100%), ' +
-    'linear-gradient(to top, transparent 0%, #000 10%, #000 90%, transparent 100%)';
+    hoveredColRef.current = -1;
+  }, []);
 
   const cssVars = useMemo<CSSProperties>(
     () =>
@@ -326,71 +295,41 @@ export const DriftWall: React.FC<DriftWallProps> = ({
         '--dw-tile-w': `${responsiveTileWidth}px`,
         '--dw-tile-h': `${responsiveTileHeight}px`,
         '--dw-gap': `${responsiveGap}px`,
-        '--dw-radius': `${isMobile ? 10 : radius}px`,
-        '--dw-lift': `${responsiveLift}px`,
-        '--dw-dim': dim,
-        '--dw-gray': grayscale ? 1 : 0.25,
-        '--dw-overlay': overlayColor,
-        '--dw-edge': `${Math.max(0, (1 - fade) * 100)}%`,
-        perspective: is3DMode ? `${perspective}px` : 'none',
-        perspectiveOrigin: '50% 50%',
-        WebkitMaskImage: maskStyle,
-        maskImage: maskStyle,
-        WebkitMaskComposite: 'source-in',
-        maskComposite: 'intersect',
-        ...style,
-      }) as CSSProperties,
-    [
-      responsiveTileWidth,
-      responsiveTileHeight,
-      responsiveGap,
-      isMobile,
-      radius,
-      responsiveLift,
-      dim,
-      grayscale,
-      overlayColor,
-      fade,
-      perspective,
-      maskStyle,
-      is3DMode,
-      style,
-    ]
+        '--dw-radius': `${isMobile ? 8 : radius}px`,
+        '--dw-lift': `${isMobile ? 18 : lift}px`,
+      } as CSSProperties),
+    [responsiveTileWidth, responsiveTileHeight, responsiveGap, isMobile, radius, lift]
   );
 
   const tileClass = cx(
-    'group/tile relative block flex-none cursor-pointer outline-none select-none text-left',
-    'w-full h-[calc(var(--dw-tile-h)+var(--dw-gap))] [transform-style:preserve-3d]'
+    'group/tile relative flex-shrink-0 cursor-pointer overflow-visible bg-transparent p-0 text-left outline-none',
+    'w-[var(--dw-tile-w)] h-[var(--dw-tile-h)] mb-[var(--dw-gap)] [transform-style:preserve-3d]'
   );
 
   const innerClass = cx(
-    'pointer-events-none absolute inset-[calc(var(--dw-gap)/2)] block overflow-hidden bg-[#0c1824]',
-    'rounded-[var(--dw-radius)] opacity-[var(--dw-dim)] [transform:translateZ(0)]',
-    'transition-[transform,opacity,box-shadow,filter] duration-[380ms] ease-[cubic-bezier(0.22,1,0.36,1)] border border-[#222222]',
-    'group-[.is-active]/tile:opacity-100 group-[.is-active]/tile:[transform:translateZ(var(--dw-lift))]',
-    'group-[.is-active]/tile:shadow-[0_24px_60px_-10px_rgba(0,0,0,0.9),0_0_0_2px_rgba(56,189,248,0.7)] group-[.is-active]/tile:border-cyan-400/80',
-    'group-focus-visible/tile:opacity-100 group-focus-visible/tile:[transform:translateZ(var(--dw-lift))]',
-    'group-focus-visible/tile:shadow-[0_24px_60px_-10px_rgba(0,0,0,0.9),0_0_0_2px_rgba(56,189,248,0.9)]'
+    'relative block h-full w-full overflow-hidden bg-[#161616]',
+    'rounded-[var(--dw-radius)] opacity-90 [transform:translateZ(0)]',
+    'transition-[transform,opacity,box-shadow,border-color] duration-[320ms] ease-out border border-[#262626]',
+    'hover:opacity-100 hover:[transform:translateZ(var(--dw-lift))] hover:border-cyan-400/90',
+    'hover:shadow-[0_20px_50px_-10px_rgba(0,0,0,0.9),0_0_0_1.5px_rgba(56,189,248,0.7)]',
+    'focus-visible:opacity-100 focus-visible:[transform:translateZ(var(--dw-lift))] focus-visible:border-cyan-400'
   );
 
   const imgClass = cx(
     'block h-full w-full select-none object-cover',
-    '[filter:grayscale(var(--dw-gray))_saturate(0.95)_brightness(0.9)]',
-    'transition-[filter,transform] duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)]',
-    'group-[.is-active]/tile:[filter:grayscale(0)_saturate(1.2)_brightness(1.05)] group-[.is-active]/tile:scale-105',
-    'group-focus-visible/tile:[filter:grayscale(0)_saturate(1.2)_brightness(1.05)] group-focus-visible/tile:scale-105'
+    'filter saturate-[0.9] brightness-[0.92] contrast-[1.02]',
+    'transition-[filter,transform] duration-[320ms] ease-out',
+    'group-hover/tile:saturate-[1.15] group-hover/tile:brightness-[1.05] group-hover/tile:scale-105'
   );
 
   const overlayClass = cx(
-    'pointer-events-none absolute inset-0 bg-gradient-to-t from-[#080d12]/90 via-[#0a1622]/30 to-transparent opacity-60',
-    'transition-opacity duration-[380ms] ease-[cubic-bezier(0.22,1,0.36,1)]',
-    'group-[.is-active]/tile:opacity-20 group-focus-visible/tile:opacity-20'
+    'pointer-events-none absolute inset-0 bg-gradient-to-t from-[#080d12]/90 via-[#0a1622]/25 to-transparent opacity-60',
+    'transition-opacity duration-[320ms] ease-out group-hover/tile:opacity-20'
   );
 
   const badgeClass = cx(
-    'pointer-events-none absolute bottom-0 inset-x-0 p-2 sm:p-3 flex items-center justify-between gap-1',
-    'text-white transition-[transform,opacity] duration-[300ms] ease-[cubic-bezier(0.22,1,0.36,1)]',
-    'opacity-90 group-[.is-active]/tile:opacity-100'
+    'pointer-events-none absolute bottom-0 inset-x-0 p-2 sm:p-2.5 flex items-center justify-between gap-1',
+    'text-white transition-opacity duration-[250ms] opacity-95 group-hover/tile:opacity-100'
   );
 
   const renderTile = (item: DriftWallItem, id: string, colIndex: number) => {
@@ -399,12 +338,21 @@ export const DriftWall: React.FC<DriftWallProps> = ({
         key={id}
         type="button"
         tabIndex={0}
-        aria-label={`Workshop photo: ${item.label}. Click to zoom.`}
-        className={cx(tileClass, activeId === id && 'is-active')}
-        data-tile-id={id}
+        aria-label={`Workshop photo: ${item.label}. Click to inspect in full resolution.`}
+        className={tileClass}
         data-col={colIndex}
-        onFocus={() => activate(id, colIndex)}
-        onBlur={release}
+        onPointerEnter={() => {
+          hoveredColRef.current = colIndex;
+        }}
+        onPointerLeave={() => {
+          hoveredColRef.current = -1;
+        }}
+        onFocus={() => {
+          hoveredColRef.current = colIndex;
+        }}
+        onBlur={() => {
+          hoveredColRef.current = -1;
+        }}
         onClick={() => onSelectPhoto?.(item.originalIndex)}
       >
         <span className={innerClass}>
@@ -418,10 +366,10 @@ export const DriftWall: React.FC<DriftWallProps> = ({
           />
           <span className={overlayClass} aria-hidden="true" />
           <span className={badgeClass}>
-            <span className="font-serif-editorial text-[11px] sm:text-xs tracking-tight text-[#F5F4EF] drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)] truncate max-w-[82%]">
+            <span className="font-serif-editorial text-[11px] sm:text-xs tracking-tight text-[#F5F4EF] drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] truncate max-w-[80%]">
               {item.label}
             </span>
-            <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-cyan-500/80 text-white grid place-items-center opacity-0 group-[.is-active]/tile:opacity-100 transition-opacity shadow-md shrink-0">
+            <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-cyan-500/85 text-white grid place-items-center opacity-0 group-hover/tile:opacity-100 transition-opacity shadow-lg shrink-0">
               <ZoomIn className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5" />
             </span>
           </span>
@@ -431,9 +379,9 @@ export const DriftWall: React.FC<DriftWallProps> = ({
   };
 
   return (
-    <div className="relative w-full overflow-hidden select-none bg-[#0d0d0d] rounded-sm border border-[#222222]">
+    <div className="relative w-full overflow-hidden select-none bg-[#0a0a0a] rounded-sm border border-[#222222] shadow-2xl">
       {/* Top Controls Bar */}
-      <div className="flex items-center justify-between flex-wrap gap-2 px-4 sm:px-6 py-3 sm:py-4 border-b border-[#222222]/80 z-20 relative text-xs font-mono-editorial text-[#888888] bg-[#111111]/90 backdrop-blur-md">
+      <div className="flex items-center justify-between flex-wrap gap-2 px-4 sm:px-6 py-3 border-b border-[#222222] z-20 relative text-xs font-mono-editorial text-[#888888] bg-[#121212]/95 backdrop-blur-md">
         <div className="flex items-center gap-2.5">
           <span className="relative flex h-2.5 w-2.5">
             <span
@@ -450,11 +398,11 @@ export const DriftWall: React.FC<DriftWallProps> = ({
             />
           </span>
           <span className="font-bold tracking-widest text-cyan-400 uppercase text-xs">
-            {isPaused ? 'PAUSED' : 'LIVE DRIFT'}
+            {isPaused ? 'PAUSED' : 'LIVE 3D STREAM'}
           </span>
-          <span className="text-[#555555] hidden sm:inline">•</span>
+          <span className="text-[#444444] hidden sm:inline">•</span>
           <span className="text-[#888888] hidden sm:inline uppercase tracking-wider text-[11px]">
-            Alternating vertical stream
+            GPU Accelerated • {columns} Columns Alternating
           </span>
         </div>
 
@@ -462,8 +410,8 @@ export const DriftWall: React.FC<DriftWallProps> = ({
           <button
             type="button"
             onClick={() => setIsPaused(!isPaused)}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-[#1a1a1a] hover:bg-[#242424] border border-[#2e2e2e] text-[#DCD9D0] transition-colors text-xs uppercase tracking-wider font-mono-editorial"
-            aria-label={isPaused ? 'Resume drift' : 'Pause drift'}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-[#1a1a1a] hover:bg-[#252525] border border-[#2e2e2e] text-[#DCD9D0] transition-colors text-xs uppercase tracking-wider font-mono-editorial"
+            aria-label={isPaused ? 'Resume drift stream' : 'Pause drift stream'}
           >
             {isPaused ? <Play className="w-3 h-3 text-cyan-400" /> : <Pause className="w-3 h-3 text-cyan-400" />}
             <span>{isPaused ? 'Play' : 'Pause'}</span>
@@ -475,10 +423,10 @@ export const DriftWall: React.FC<DriftWallProps> = ({
             className={cx(
               'flex items-center gap-1.5 px-3 py-1.5 rounded-sm border transition-colors text-xs uppercase tracking-wider font-mono-editorial',
               is3DMode
-                ? 'bg-cyan-950/60 border-cyan-500/50 text-cyan-300'
+                ? 'bg-cyan-950/60 border-cyan-500/50 text-cyan-300 font-medium'
                 : 'bg-[#1a1a1a] border-[#2e2e2e] text-[#888888] hover:text-[#F5F4EF]'
             )}
-            aria-label="Toggle 3D perspective"
+            aria-label="Toggle 3D perspective orientation"
           >
             <Compass className="w-3 h-3" />
             <span>3D Angle</span>
@@ -486,25 +434,16 @@ export const DriftWall: React.FC<DriftWallProps> = ({
         </div>
       </div>
 
-      {/* 3D Wall Container */}
+      {/* 3D Wall Canvas Container */}
       <section
         ref={containerRef}
         className={cx(
-          'relative w-full h-[440px] sm:h-[520px] md:h-[620px] overflow-hidden cursor-grab active:cursor-grabbing',
+          'relative w-full h-[420px] sm:h-[500px] md:h-[580px] overflow-hidden cursor-grab active:cursor-grabbing',
           className
         )}
-        style={cssVars}
+        style={{ ...cssVars, ...style }}
         onPointerMove={handlePointerMove}
-        onPointerEnter={() => {
-          wallHoveredRef.current = true;
-        }}
         onPointerLeave={handlePointerLeaveWall}
-        onTouchStart={() => {
-          wallHoveredRef.current = true;
-        }}
-        onTouchEnd={() => {
-          wallHoveredRef.current = false;
-        }}
         aria-label="Workshop photos 3D drifting wall"
       >
         <div
@@ -538,13 +477,14 @@ export const DriftWall: React.FC<DriftWallProps> = ({
       </section>
 
       {/* Bottom Hint Bar */}
-      <div className="flex flex-col sm:flex-row items-center justify-between px-4 sm:px-6 py-2.5 text-[11px] text-[#777777] border-t border-[#222222] bg-[#101010] font-mono-editorial gap-1">
+      <div className="flex flex-col sm:flex-row items-center justify-between px-4 sm:px-6 py-2.5 text-[11px] text-[#777777] border-t border-[#222222] bg-[#0e0e0e] font-mono-editorial gap-1.5">
         <span className="flex items-center space-x-1.5">
           <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
-          <span>Hover card to lift in 3D & pause column • Move cursor to tilt perspective</span>
+          <span>Hover card to lift & pause column • Move cursor to tilt 3D perspective</span>
         </span>
-        <span className="text-[#999999]">
-          Click any photo to enlarge in full-resolution ({enrichedItems.length} workshop photos)
+        <span className="text-[#999999] flex items-center space-x-1">
+          <Sparkles className="w-3 h-3 text-amber-400" />
+          <span>Click any photo to zoom in full HD ({enrichedItems.length} workshop photos)</span>
         </span>
       </div>
     </div>

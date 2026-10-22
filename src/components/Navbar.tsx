@@ -1,12 +1,21 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Phone, Menu, X, ArrowUpRight, MessageCircle } from 'lucide-react';
 import { businessInfo } from '@/data/janakaData';
 
 export const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navLinks = [
     { href: '#gallery', label: 'Gallery' },
@@ -15,7 +24,13 @@ export const Navbar: React.FC = () => {
   ];
 
   return (
-    <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-[#121212]/95 border-b border-[#222222] transition-colors duration-200">
+    <header
+      className={`sticky top-0 z-40 w-full transition-all duration-300 ${
+        scrolled
+          ? 'bg-[#121212]/95 backdrop-blur-lg border-b border-[#2b2b2b] shadow-2xl'
+          : 'bg-[#121212]/90 backdrop-blur-md border-b border-[#222222]'
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         {/* Left: Brand Logo & Title */}
         <div className="flex items-center space-x-3.5">
@@ -54,7 +69,7 @@ export const Navbar: React.FC = () => {
             <a
               key={link.href}
               href={link.href}
-              className="text-xs uppercase tracking-[0.2em] text-[#888888] hover:text-[#F5F4EF] transition-colors duration-200 py-1"
+              className="text-xs uppercase tracking-[0.2em] text-[#888888] hover:text-[#F5F4EF] transition-colors duration-200 py-1 font-mono-editorial"
             >
               {link.label}
             </a>
@@ -110,7 +125,7 @@ export const Navbar: React.FC = () => {
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-left text-xs uppercase tracking-[0.2em] py-1.5 text-[#888888] hover:text-[#F5F4EF]"
+                className="text-left text-xs uppercase tracking-[0.2em] py-1.5 text-[#888888] hover:text-[#F5F4EF] font-mono-editorial"
               >
                 {link.label}
               </a>
