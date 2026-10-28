@@ -69,7 +69,7 @@ export const CoolingSystem: React.FC = () => {
                   <path className="flow-line" d="M454 100 C420 88 390 84 352 86" strokeOpacity={0.8} />
                   <path className="flow-line" style={{ animationDelay: '-1.2s' }} d="M454 108 C420 104 392 104 352 108" strokeOpacity={0.5} />
                 </g>
-                <text x={350} y={80} fill="#35c8f4" fontSize={5.5} style={{ fontFamily: 'var(--font-mono)' }} letterSpacing={0.6}>
+                <text x={340} y={78} fill="#35c8f4" fontSize={5.5} style={{ fontFamily: 'var(--font-mono)' }} letterSpacing={0.6}>
                   COLD AIR TO VENTS
                 </text>
 
@@ -78,7 +78,7 @@ export const CoolingSystem: React.FC = () => {
                   <path className="flow-line" d="M614 112 L636 108" />
                   <path className="flow-line" style={{ animationDelay: '-1s' }} d="M616 126 L638 126" />
                 </g>
-                <text x={624} y={100} fill="#aab8c5" fontSize={5.5} style={{ fontFamily: 'var(--font-mono)' }} letterSpacing={0.6} textAnchor="end">
+                <text x={628} y={160} fill="#aab8c5" fontSize={5.5} style={{ fontFamily: 'var(--font-mono)' }} letterSpacing={0.6} textAnchor="end">
                   HEAT OUT
                 </text>
 

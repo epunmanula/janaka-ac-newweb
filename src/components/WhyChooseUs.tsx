@@ -9,7 +9,7 @@ const reasons = [
     body: 'We work on car air-conditioning systems every day, so we know how they behave — and how they typically fail.',
   },
   {
-    title: 'The cause, not just a top-up',
+    title: 'The cause, not a top-up',
     body: 'If your system keeps losing gas or cooling poorly, we trace why, rather than simply refilling it or swapping parts.',
   },
   {

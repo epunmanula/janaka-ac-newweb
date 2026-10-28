@@ -58,9 +58,25 @@ export const SiteFooter: React.FC = () => (
       </div>
 
       <div className="flex flex-col gap-4 pt-8 text-xs sm:flex-row sm:items-center sm:justify-between">
-        <p>
-          © 2026 {businessInfo.name}. All rights reserved.
-        </p>
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
+          <p>
+            © 2026 {businessInfo.name}. All rights reserved.
+          </p>
+          <span className="hidden text-white/20 sm:inline" aria-hidden="true">•</span>
+          <p className="flex items-center gap-1.5 text-silver/80">
+            <span>Designed & Developed by</span>
+            <a
+              href="https://www.emmelabs.tech/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 font-semibold text-white transition-colors duration-200 hover:text-ice underline decoration-white/20 underline-offset-4 hover:decoration-ice"
+            >
+              <span>EMME Labs</span>
+              <span className="text-[10px] text-ice transition-transform hover:-translate-y-0.5 hover:translate-x-0.5" aria-hidden="true">↗</span>
+            </a>
+          </p>
+        </div>
+
         <ul className="flex gap-6">
           <li>
             <a href={businessInfo.facebookUrl} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-white">

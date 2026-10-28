@@ -70,10 +70,14 @@ export const RouteRail: React.FC = () => {
       animate={{ opacity: visible ? 1 : 0, y: visible ? 0 : 24 }}
       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       style={{ pointerEvents: visible ? 'auto' : 'none' }}
-      className="fixed bottom-5 left-1/2 z-40 hidden w-[min(820px,calc(100%-48px))] -translate-x-1/2 md:block"
+      className="fixed bottom-4 left-1/2 z-40 hidden w-[min(640px,calc(100%-48px))] -translate-x-1/2 md:block"
     >
-      <div className="rounded-[3px] border border-white/10 bg-navy-950/95 px-6 pb-2.5 pt-7 shadow-[0_18px_40px_-18px_rgb(7_21_34/0.7)]">
-        <div className="relative h-5">
+      <div className="flex items-center gap-5 rounded-[3px] border border-white/10 bg-navy-950/95 py-2 pl-4 pr-5 shadow-[0_18px_40px_-18px_rgb(7_21_34/0.7)]">
+        <span className="w-36 shrink-0 truncate font-mono text-[10px] uppercase tracking-[0.14em] text-white" aria-hidden="true">
+          <span className="text-ice">{String(Math.max(reached, 0) + 1).padStart(2, '0')}</span>{' '}
+          {stops[Math.max(reached, 0)].label}
+        </span>
+        <div className="relative h-5 flex-1">
           {/* Road */}
           <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-px bg-white/15" />
           <div
@@ -97,17 +101,19 @@ export const RouteRail: React.FC = () => {
                 <a
                   href={`#${stop.id}`}
                   aria-current={reached === i ? 'location' : undefined}
-                  className="group flex -translate-y-[calc(100%-4px)] flex-col items-center gap-1.5 px-1"
+                  className="group relative flex h-6 w-6 translate-y-[calc(50%-0.5px)] items-center justify-center"
                 >
+                  <span className="sr-only">{stop.label}</span>
+                  {/* Hover label */}
                   <span
-                    className={`whitespace-nowrap font-mono text-[10px] uppercase tracking-[0.14em] transition-colors duration-300 ${
-                      reached === i ? 'text-white' : reached > i ? 'text-silver' : 'text-silver/55 group-hover:text-silver'
-                    }`}
+                    aria-hidden="true"
+                    className="pointer-events-none absolute bottom-full mb-3 whitespace-nowrap rounded-[2px] bg-navy-950 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100"
                   >
                     {stop.label}
                   </span>
                   <span
-                    className={`h-2 w-2 rounded-full border transition-colors duration-300 ${
+                    aria-hidden="true"
+                    className={`h-2 w-2 rounded-full border transition-colors duration-300 group-hover:border-ice ${
                       reached >= i ? 'border-ice bg-ice' : 'border-silver/50 bg-navy-950'
                     }`}
                   />
