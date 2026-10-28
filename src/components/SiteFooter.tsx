@@ -7,8 +7,14 @@ export const SiteFooter: React.FC = () => (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div className="grid gap-12 border-b border-white/10 pb-12 md:grid-cols-12">
         <div className="md:col-span-5">
-          <div className="relative h-8 w-[174px]">
-            <Image src="/brand/logo-wide.webp" alt={businessInfo.name} fill sizes="174px" className="object-contain object-left" />
+          <div className="relative h-12 w-52 sm:w-60">
+            <Image
+              src="/janaka-logo-wide.png"
+              alt={businessInfo.name}
+              fill
+              sizes="(max-width: 640px) 210px, 240px"
+              className="object-contain object-left filter drop-shadow-[0_0_14px_rgba(0,180,255,0.3)]"
+            />
           </div>
           <p className="mt-5 max-w-sm text-sm leading-relaxed">
             Automotive air-conditioning diagnosis, servicing and repairs in Gampaha, Sri Lanka. {businessInfo.subTagline}
@@ -53,7 +59,7 @@ export const SiteFooter: React.FC = () => (
 
       <div className="flex flex-col gap-4 pt-8 text-xs sm:flex-row sm:items-center sm:justify-between">
         <p>
-          © {new Date().getFullYear()} {businessInfo.name}. All rights reserved.
+          © 2026 {businessInfo.name}. All rights reserved.
         </p>
         <ul className="flex gap-6">
           <li>

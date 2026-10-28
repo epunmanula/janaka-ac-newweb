@@ -69,7 +69,7 @@ const structuredData = {
   name: businessInfo.name,
   url: siteUrl,
   image: `${siteUrl}/og.jpg`,
-  logo: `${siteUrl}/brand/logo-wide.webp`,
+  logo: `${siteUrl}/janaka-logo-wide.png`,
   telephone: businessInfo.phoneRaw,
   email: businessInfo.email,
   address: {
