@@ -4,6 +4,7 @@ import React, { useRef } from 'react';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, Clock, MapPin, Phone } from 'lucide-react';
 import { Car } from '@/components/brand/Car';
+import { INTRO_DURATION } from '@/components/IntroLoader';
 import { businessHours, businessInfo } from '@/data/janakaData';
 
 /** Leader-line labels pinned to points on the car (percent of the car's 640×200 box). */
@@ -11,7 +12,8 @@ const annotations = [
   { label: 'Cabin air', x: 56, y: 30, lift: 54 },
   { label: 'Evaporator', x: 72, y: 52, lift: 92 },
   { label: 'Compressor', x: 85.6, y: 67, lift: 128 },
-  { label: 'Condenser', x: 94.6, y: 61, lift: 60 },
+  // Right-aligned so the label hangs inward at the frame edge
+  { label: 'Condenser', x: 94.6, y: 61, lift: 60, end: true },
 ];
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -19,6 +21,8 @@ const ease = [0.16, 1, 0.3, 1] as const;
 export const HeroSection: React.FC = () => {
   const ref = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
+  // Begin as the intro curtain lifts
+  const start = reduceMotion ? 0.7 : INTRO_DURATION - 0.55;
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
 
   // The car pulls away to the right as the hero scrolls out of view
@@ -51,7 +55,7 @@ export const HeroSection: React.FC = () => {
             <motion.p
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease }}
+              transition={{ duration: 0.8, delay: start, ease }}
               className="eyebrow flex items-center gap-3 text-ice"
             >
               <span aria-hidden="true" className="h-px w-8 bg-ice" />
@@ -62,7 +66,7 @@ export const HeroSection: React.FC = () => {
               id="hero-title"
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.1, ease }}
+              transition={{ duration: 1, delay: start + 0.1, ease }}
               className="mt-6 font-wide text-[2.6rem] font-bold leading-[1.02] tracking-[-0.02em] text-balance sm:text-6xl lg:text-[clamp(3rem,4.6vw,4.5rem)]"
             >
               Precision Cooling.
@@ -72,7 +76,7 @@ export const HeroSection: React.FC = () => {
             <motion.p
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.2, ease }}
+              transition={{ duration: 1, delay: start + 0.2, ease }}
               className="mt-6 max-w-lg text-base leading-relaxed text-silver sm:text-lg"
             >
               Car air-conditioning diagnosis, servicing and repairs in Gampaha — from a gas recharge to compressor,
@@ -82,7 +86,7 @@ export const HeroSection: React.FC = () => {
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.3, ease }}
+              transition={{ duration: 1, delay: start + 0.3, ease }}
               className="mt-9 flex flex-col gap-3 sm:flex-row"
             >
               <a
@@ -105,20 +109,20 @@ export const HeroSection: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, x: -60 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1.4, delay: 0.25, ease }}
+            transition={{ duration: 1.4, delay: start + 0.15, ease }}
             className="relative lg:col-span-6"
           >
-            <motion.div style={{ x: carX }} className="relative -mr-[12%] w-[112%] pt-16 sm:-mr-[4%] sm:w-[104%] lg:-mr-[14%] lg:w-[118%] lg:pt-24">
+            <motion.div style={{ x: carX }} className="relative -mr-[12%] w-[112%] pt-16 sm:-mr-[4%] sm:w-[104%] lg:-mr-[4%] lg:w-[106%] lg:pt-24">
               <div className="relative">
                 <motion.div style={{ opacity: labelsOpacity }} aria-hidden="true" className="pointer-events-none absolute inset-0 z-10 hidden sm:block">
                   {annotations.map((a) => (
                     <div
                       key={a.label}
-                      className="absolute flex flex-col items-center"
-                      style={{ left: `${a.x}%`, top: `${a.y}%`, transform: `translate(-50%, calc(-100% + 4px))` }}
+                      className={`absolute flex flex-col ${a.end ? 'items-end' : 'items-center'}`}
+                      style={{ left: `${a.x}%`, top: `${a.y}%`, transform: `translate(${a.end ? 'calc(-100% + 4px)' : '-50%'}, calc(-100% + 4px))` }}
                     >
                       <span className="eyebrow whitespace-nowrap text-[10px] text-silver">{a.label}</span>
-                      <span className="mt-1.5 w-px bg-gradient-to-b from-silver/60 to-ice" style={{ height: a.lift - 22 }} />
+                      <span className={`mt-1.5 w-px bg-gradient-to-b from-silver/60 to-ice ${a.end ? 'mr-[3.5px]' : ''}`} style={{ height: a.lift - 22 }} />
                       <span className="h-2 w-2 rounded-full border border-ice bg-navy-950" />
                     </div>
                   ))}

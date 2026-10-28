@@ -98,6 +98,95 @@ section[id] {
   animation: flow 1.4s linear infinite;
 }
 
+/* ── Brand intro (≈1.9s): ring draws, mark settles, curtain lifts ── */
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at 50% 45%, var(--color-navy-800), var(--color-navy-950) 65%);
+  clip-path: inset(0 0 0 0);
+  animation: intro-lift 0.65s cubic-bezier(0.76, 0, 0.24, 1) 1.25s forwards;
+}
+
+.intro-ring {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: intro-draw 1s cubic-bezier(0.65, 0, 0.35, 1) 0.05s forwards;
+}
+
+.intro-mark {
+  opacity: 0;
+  transform: scale(0.82);
+  animation: intro-mark 0.8s var(--ease-out-expo) 0.1s forwards;
+}
+
+.intro-word > span {
+  display: inline-block;
+  transform: translateY(110%);
+  animation: intro-rise 0.7s var(--ease-out-expo) 0.35s forwards;
+}
+
+.intro-tag {
+  opacity: 0;
+  animation: intro-fade 0.5s ease 0.6s forwards;
+}
+
+.intro-bar {
+  transform: scaleX(0);
+  animation: intro-bar 1.15s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+.intro-content {
+  animation: intro-content-out 0.4s ease-in 1.15s forwards;
+}
+
+@keyframes intro-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes intro-mark {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes intro-rise {
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes intro-fade {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes intro-bar {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes intro-content-out {
+  to {
+    opacity: 0;
+    transform: translateY(-18px);
+  }
+}
+
+@keyframes intro-lift {
+  to {
+    clip-path: inset(0 0 100% 0);
+    visibility: hidden;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -106,5 +195,29 @@ section[id] {
   .airflow-line,
   .flow-line {
     animation: none;
+  }
+
+  /* Static logo, then a quick fade instead of the wipe */
+  .intro-ring,
+  .intro-mark,
+  .intro-word > span,
+  .intro-tag,
+  .intro-bar,
+  .intro-content {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    stroke-dashoffset: 0;
+  }
+
+  .intro {
+    animation: intro-fade-out 0.3s ease 0.6s forwards;
+  }
+
+  @keyframes intro-fade-out {
+    to {
+      opacity: 0;
+      visibility: hidden;
+    }
   }
 }
