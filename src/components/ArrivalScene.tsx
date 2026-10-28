@@ -4,6 +4,7 @@ import React, { useRef } from 'react';
 import Image from 'next/image';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { Car } from '@/components/brand/Car';
+import { PhotoBackdrop } from '@/components/PhotoBackdrop';
 
 /** Final scene of the scroll story: the car pulls into the workshop bay. */
 export const ArrivalScene: React.FC = () => {
@@ -17,8 +18,8 @@ export const ArrivalScene: React.FC = () => {
   const captionOpacity = useTransform(scrollYProgress, [0.8, 1], reduceMotion ? [1, 1] : [0, 1]);
 
   return (
-    <div id="arrival" ref={ref} className="relative overflow-hidden bg-navy-950 text-white">
-      <div aria-hidden="true" className="tech-grid absolute inset-0 opacity-60 [mask-image:linear-gradient(to_top,black,transparent)]" />
+    <div id="arrival" ref={ref} className="relative isolate overflow-hidden bg-navy-950 text-white">
+      <PhotoBackdrop src="/backdrops/arrival.webp" opacity={0.32} fade="left" />
       <div className="relative mx-auto h-[260px] max-w-7xl sm:h-[340px] lg:h-[400px]">
         {/* Workshop bay */}
         <div aria-hidden="true" className="absolute bottom-10 right-4 top-10 w-[62%] sm:right-6 sm:w-[54%] lg:right-8">

@@ -6,6 +6,7 @@ import { CAR_BODY_PATH, CAR_GLASS_PATH } from '@/components/brand/Car';
 import { Reveal } from '@/components/motion/Reveal';
 import { SectionHeading } from '@/components/SectionHeading';
 import { coolingComponents } from '@/data/janakaData';
+import { PhotoBackdrop } from '@/components/PhotoBackdrop';
 
 // Cut-away of the front half of the car
 const VB = { x: 290, y: 30, w: 340, h: 160 };
@@ -30,8 +31,8 @@ export const CoolingSystem: React.FC = () => {
   const active = coolingComponents.find((c) => c.id === activeId) ?? coolingComponents[0];
 
   return (
-    <section id="system" aria-labelledby="system-title" className="relative overflow-hidden bg-graphite py-24 text-white md:py-32">
-      <div aria-hidden="true" className="tech-grid absolute inset-0 opacity-70" />
+    <section id="system" aria-labelledby="system-title" className="relative isolate overflow-hidden bg-graphite py-24 text-white md:py-32">
+      <PhotoBackdrop src="/backdrops/system.webp" opacity={0.3} fade="right" base="var(--color-graphite)" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           id="system-title"

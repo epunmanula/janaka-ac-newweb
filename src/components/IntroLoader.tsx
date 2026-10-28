@@ -1,4 +1,5 @@
 import React from 'react';
+import { PhotoBackdrop } from '@/components/PhotoBackdrop';
 
 /** Seconds until the intro curtain has fully lifted — the hero times its entrance to this. */
 export const INTRO_DURATION = 1.9;
@@ -9,7 +10,7 @@ export const INTRO_DURATION = 1.9;
  */
 export const IntroLoader: React.FC = () => (
   <div className="intro" aria-hidden="true">
-    <div aria-hidden="true" className="tech-grid absolute inset-0 opacity-60 [mask-image:radial-gradient(circle_at_center,black,transparent_70%)]" />
+    <PhotoBackdrop src="/backdrops/arrival.webp" opacity={0.28} fade="center" />
     <div className="intro-content relative flex flex-col items-center">
       <div className="relative grid h-40 w-40 place-items-center sm:h-48 sm:w-48">
         <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full -rotate-90">

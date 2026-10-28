@@ -67,14 +67,6 @@ section[id] {
   text-transform: uppercase;
 }
 
-/* ── Technical grid backdrop for dark sections ────────────────── */
-@utility tech-grid {
-  background-image:
-    linear-gradient(to right, rgb(170 184 197 / 0.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(170 184 197 / 0.06) 1px, transparent 1px);
-  background-size: 64px 64px;
-}
-
 /* Airflow streaks drawn with dashed strokes; dashes travel toward the end of each path */
 @keyframes airflow {
   to {

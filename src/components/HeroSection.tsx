@@ -6,6 +6,7 @@ import { ArrowRight, Clock, MapPin, Phone } from 'lucide-react';
 import { Car } from '@/components/brand/Car';
 import { INTRO_DURATION } from '@/components/IntroLoader';
 import { businessHours, businessInfo } from '@/data/janakaData';
+import { PhotoBackdrop } from '@/components/PhotoBackdrop';
 
 /** Leader-line labels pinned to points on the car (percent of the car's 640×200 box). */
 const annotations = [
@@ -39,7 +40,7 @@ export const HeroSection: React.FC = () => {
       className="relative isolate overflow-hidden bg-navy-950 text-white"
     >
       {/* Studio lighting */}
-      <div aria-hidden="true" className="tech-grid absolute inset-0 -z-10 [mask-image:linear-gradient(to_bottom,black,transparent_85%)]" />
+      <PhotoBackdrop src="/backdrops/hero.webp" opacity={0.42} fade="left" />
       <div
         aria-hidden="true"
         className="absolute -right-40 -top-40 -z-10 h-[42rem] w-[42rem] rounded-full bg-[radial-gradient(circle,rgb(53_200_244/0.16),transparent_62%)]"
