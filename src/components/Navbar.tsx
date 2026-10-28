@@ -36,15 +36,15 @@ export const Navbar: React.FC = () => {
         <div className="flex items-center space-x-3.5">
           <a
             href="#"
-            className="flex items-center space-x-3 text-left group focus:outline-none"
+            className="flex items-center space-x-3.5 text-left group focus:outline-none"
           >
-            <div className="relative w-9 h-9 sm:w-10 sm:h-10 flex-shrink-0">
+            <div className="relative h-11 w-16 sm:h-12 sm:w-20 flex-shrink-0 flex items-center justify-center">
               <Image
-                src="/janakaacneewlog-removebg-preview.png"
+                src="/janaka-logo-emblem.png"
                 alt="Janaka Auto AC Logo"
                 fill
-                sizes="40px"
-                className="object-contain filter drop-shadow-[0_2px_8px_rgba(0,102,204,0.4)] group-hover:scale-105 transition-transform"
+                sizes="(max-width: 640px) 64px, 80px"
+                className="object-contain filter drop-shadow-[0_0_12px_rgba(0,180,255,0.35)] drop-shadow-[0_1px_2px_rgba(255,255,255,0.2)] group-hover:scale-105 group-hover:drop-shadow-[0_0_18px_rgba(0,210,255,0.6)] transition-all duration-300"
                 priority
               />
             </div>
@@ -52,7 +52,7 @@ export const Navbar: React.FC = () => {
               <span className="font-serif-editorial text-xl sm:text-2xl tracking-wide text-[#F5F4EF] group-hover:text-white transition-colors leading-none">
                 {businessInfo.name}
               </span>
-              <span className="font-mono-editorial text-[9px] uppercase tracking-[0.26em] text-[#888888] mt-1">
+              <span className="font-mono-editorial text-[9px] uppercase tracking-[0.26em] text-[#888888] mt-1 group-hover:text-[#aaaaaa] transition-colors">
                 PRECISION AUTOMOTIVE CLIMATE ENGINEERING
               </span>
             </div>
@@ -119,6 +119,21 @@ export const Navbar: React.FC = () => {
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="md:hidden border-t border-[#222222] bg-[#141414] px-6 py-6 space-y-5">
+          <div className="pb-3 border-b border-[#222222] flex items-center justify-between">
+            <div className="relative h-9 w-32">
+              <Image
+                src="/janaka-logo-wide.png"
+                alt="Janaka Auto AC"
+                fill
+                sizes="140px"
+                className="object-contain object-left filter drop-shadow-[0_0_8px_rgba(0,180,255,0.3)]"
+              />
+            </div>
+            <span className="font-mono-editorial text-[9px] uppercase tracking-wider text-emerald-400 bg-[#16251b] px-2 py-0.5 rounded border border-[#23452f]">
+              Open Today
+            </span>
+          </div>
+
           <nav className="flex flex-col space-y-3">
             {navLinks.map((link) => (
               <a

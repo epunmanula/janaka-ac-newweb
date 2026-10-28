@@ -1,397 +1,299 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import {
-  Phone,
-  MessageSquare,
-  MapPin,
-  Clock,
-  Calendar,
-  Check,
-  Mail,
-  ArrowUpRight,
-  ShieldCheck,
-  ExternalLink,
-  AlertCircle,
-} from 'lucide-react';
-import { businessInfo, businessHours, bookingSlotsData, trustMetrics } from '@/data/janakaData';
+import React, { useState } from 'react';
+import { ArrowUpRight, Clock, Mail, MapPin, MessageCircle, Phone } from 'lucide-react';
+import { Reveal } from '@/components/motion/Reveal';
+import { businessHours, businessInfo } from '@/data/janakaData';
 
-interface BookingContactProps {
-  initialService?: string;
-}
+const symptomPresets = ['Blowing warm air', 'Gas recharge', 'Noise when A/C is on', 'Weak cooling in traffic', 'Bad smell from vents'];
 
-export const BookingContact: React.FC<BookingContactProps> = ({
-  initialService = '',
-}) => {
-  const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    vehicle: '',
-    service: initialService || '',
-    timeSlot: bookingSlotsData[0].time,
-    date: '',
-    notes: '',
-  });
+type FormState = { name: string; phone: string; vehicle: string; date: string; message: string };
+type Status = { kind: 'idle' } | { kind: 'error'; message: string } | { kind: 'sent'; url: string };
 
-  const [submitted, setSubmitted] = useState(false);
-  const [isMondaySelected, setIsMondaySelected] = useState(false);
-  const [minDate, setMinDate] = useState<string>('');
+const emptyForm: FormState = { name: '', phone: '', vehicle: '', date: '', message: '' };
 
-  useEffect(() => {
-    // Computed client-side to prevent Next.js prerender hydration error
-    setMinDate(new Date().toISOString().split('T')[0]);
-  }, []);
+const todayIso = () => {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+};
 
-  useEffect(() => {
-    if (initialService) {
-      setFormData((prev) => ({ ...prev, service: initialService }));
-    }
-  }, [initialService]);
+const isMonday = (iso: string) => iso !== '' && new Date(`${iso}T00:00:00`).getDay() === 1;
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
-  ) => {
+const inputClass =
+  'w-full rounded-[3px] border border-navy-950/15 bg-white px-4 py-3 text-[15px] text-navy-950 placeholder:text-steel/60 transition-colors focus:border-ice-deep focus:outline-none focus-visible:outline-none focus:ring-2 focus:ring-ice/30';
+const labelClass = 'mb-2 block text-[13px] font-semibold text-navy-950';
+
+export const BookingContact: React.FC = () => {
+  const [form, setForm] = useState<FormState>(emptyForm);
+  const [status, setStatus] = useState<Status>({ kind: 'idle' });
+
+  const update = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-
-    if (name === 'date' && value) {
-      const selectedDate = new Date(value + 'T00:00:00');
-      // 1 = Monday
-      setIsMondaySelected(selectedDate.getDay() === 1);
-    }
+    setForm((prev) => ({ ...prev, [name]: value }));
+    if (status.kind === 'error') setStatus({ kind: 'idle' });
   };
 
-  const handleServicePreset = (serviceName: string) => {
-    setFormData((prev) => ({ ...prev, service: serviceName }));
-  };
+  const addSymptom = (symptom: string) =>
+    setForm((prev) => ({
+      ...prev,
+      message: prev.message.includes(symptom) ? prev.message : [prev.message.trim(), symptom].filter(Boolean).join(', '),
+    }));
 
-  const handleWhatsAppSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const msg = encodeURIComponent(
-      `Hello Janaka Auto AC,
+    const digits = form.phone.replace(/\D/g, '');
+    if (!form.name.trim() || !form.vehicle.trim() || !form.message.trim()) {
+      setStatus({ kind: 'error', message: 'Please fill in your name, vehicle and what the problem is.' });
+      return;
+    }
+    if (digits.length < 9 || digits.length > 12) {
+      setStatus({ kind: 'error', message: 'Please enter a valid phone number, e.g. 071 234 5678.' });
+      return;
+    }
 
-I would like to reserve a workshop bay session:
-- Name: ${formData.name || 'Valued Client'}
-- Phone: ${formData.phone || 'Direct'}
-- Vehicle: ${formData.vehicle || 'Not specified'}
-- Service / Issue: ${formData.service || 'Comprehensive A/C Diagnostics'}
-- Preferred Slot: ${formData.timeSlot}
-- Preferred Date: ${formData.date || 'Earliest Available'}
-- Notes: ${formData.notes || 'None'}
+    const text = [
+      `Hello ${businessInfo.name}, I'd like to book a service.`,
+      '',
+      `Name: ${form.name.trim()}`,
+      `Phone: ${form.phone.trim()}`,
+      `Vehicle: ${form.vehicle.trim()}`,
+      `Preferred date: ${form.date || 'Earliest available'}`,
+      `Issue: ${form.message.trim()}`,
+    ].join('\n');
+    const url = `https://wa.me/${businessInfo.whatsappNumber}?text=${encodeURIComponent(text)}`;
 
-Please confirm availability for 366 Miriswatta Road, Gampaha.`
-    );
-    window.open(`https://wa.me/94714551409?text=${msg}`, '_blank');
-    setSubmitted(true);
+    const win = window.open(url, '_blank');
+    if (win) win.opener = null;
+    else window.location.href = url; // Pop-up blocked: continue in this tab
+    setStatus({ kind: 'sent', url });
   };
 
   return (
-    <section id="contact" className="w-full py-20 md:py-28 border-b border-[#222222] bg-[#121212]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-[#222222] pb-8 mb-12 gap-6">
-          <div>
-            <span className="font-mono-editorial text-xs uppercase tracking-[0.25em] text-[#888888] block mb-2">
-              RESERVE WORKSHOP BAY // {trustMetrics.dailyBayCapacity}
-            </span>
-            <h2 className="font-serif-editorial text-4xl sm:text-5xl lg:text-6xl text-[#F5F4EF] leading-tight">
-              Book Your Diagnostic Session
-            </h2>
-          </div>
-          <p className="font-serif-editorial text-lg sm:text-xl text-[#888888] max-w-md font-light">
-            Reserve an inspection bay with Master Technician Janaka. Booked arrivals receive priority intake with zero queue waiting.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          {/* Booking Form */}
-          <div className="lg:col-span-7 bg-[#151515] border border-[#222222] p-8 sm:p-10 rounded-sm shadow-xl">
-            <div className="flex items-center justify-between border-b border-[#262626] pb-4 mb-6">
-              <span className="font-mono-editorial text-xs uppercase tracking-wider text-[#888888]">
-                Bay Reservation Form
-              </span>
-              <span className="text-[10px] font-mono-editorial text-emerald-400 bg-[#16251b] px-2.5 py-1 rounded border border-[#23452f]">
-                Same-Day Intake Available
-              </span>
-            </div>
-
-            <form onSubmit={handleWhatsAppSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                  <label className="font-mono-editorial text-[11px] uppercase tracking-wider text-[#888888] block mb-2">
-                    Driver / Owner Name *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    placeholder="e.g. Nuwan Jayasuriya"
-                    className="w-full bg-[#181818] border border-[#2e2e2e] focus:border-cyan-500 text-[#F5F4EF] px-4 py-3 rounded-sm font-sans-editorial text-sm focus:outline-none transition-colors"
-                  />
-                </div>
-
-                <div>
-                  <label className="font-mono-editorial text-[11px] uppercase tracking-wider text-[#888888] block mb-2">
-                    Contact Phone Number *
-                  </label>
-                  <input
-                    type="tel"
-                    required
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    placeholder="e.g. 071 455 1409"
-                    className="w-full bg-[#181818] border border-[#2e2e2e] focus:border-cyan-500 text-[#F5F4EF] px-4 py-3 rounded-sm font-mono-editorial text-sm focus:outline-none transition-colors"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                  <label className="font-mono-editorial text-[11px] uppercase tracking-wider text-[#888888] block mb-2">
-                    Vehicle Make & Model *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    name="vehicle"
-                    value={formData.vehicle}
-                    onChange={handleInputChange}
-                    placeholder="e.g. Toyota Premio / Vezel / BMW"
-                    className="w-full bg-[#181818] border border-[#2e2e2e] focus:border-cyan-500 text-[#F5F4EF] px-4 py-3 rounded-sm font-sans-editorial text-sm focus:outline-none transition-colors"
-                  />
-                </div>
-
-                <div>
-                  <label className="font-mono-editorial text-[11px] uppercase tracking-wider text-[#888888] block mb-2">
-                    Preferred Appointment Date
-                  </label>
-                  <input
-                    type="date"
-                    name="date"
-                    min={minDate || undefined}
-                    value={formData.date}
-                    onChange={handleInputChange}
-                    className="w-full bg-[#181818] border border-[#2e2e2e] focus:border-cyan-500 text-[#F5F4EF] px-4 py-3 rounded-sm font-mono-editorial text-sm focus:outline-none transition-colors"
-                  />
-                </div>
-              </div>
-
-              {/* Monday Alert */}
-              {isMondaySelected && (
-                <div className="p-3 bg-amber-950/40 border border-amber-600/50 rounded-sm text-xs font-mono-editorial text-amber-300 flex items-start space-x-2">
-                  <AlertCircle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                  <span>
-                    Note: Our workshop is closed on Mondays for vacuum pump calibration and maintenance. Please select Tuesday – Sunday for active workshop bay intake.
-                  </span>
-                </div>
-              )}
-
-              {/* Time Slots Selector */}
-              <div>
-                <label className="font-mono-editorial text-[11px] uppercase tracking-wider text-[#888888] block mb-2">
-                  Select Workshop Bay Time Slot
-                </label>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {bookingSlotsData.map((slot) => {
-                    const isSelected = formData.timeSlot === slot.time;
-                    return (
-                      <button
-                        type="button"
-                        key={slot.time}
-                        onClick={() => setFormData((prev) => ({ ...prev, timeSlot: slot.time }))}
-                        className={`text-left p-3 rounded-sm border transition-all text-xs font-mono-editorial ${
-                          isSelected
-                            ? 'border-cyan-400 bg-cyan-950/30 text-[#F5F4EF] shadow-md'
-                            : 'border-[#282828] bg-[#181818] text-[#888888] hover:border-[#444444]'
-                        }`}
-                      >
-                        <span className="font-bold block text-[#F5F4EF]">{slot.time}</span>
-                        <span className="text-[10px] text-[#777777] block mt-0.5">{slot.title}</span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Service issue with quick-pills */}
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <label className="font-mono-editorial text-[11px] uppercase tracking-wider text-[#888888]">
-                    Reported Symptom or Required Service
-                  </label>
-                  <span className="text-[10px] font-mono-editorial text-[#666666]">Quick pick:</span>
-                </div>
-
-                <div className="flex flex-wrap gap-1.5 mb-2.5">
-                  {[
-                    'Gas Refill & Leak Check',
-                    'Compressor Rattling / Rebuild',
-                    'Cooling Drops in Traffic',
-                    'Foul Mildew Odor & Sanitization',
-                  ].map((preset) => (
-                    <button
-                      key={preset}
-                      type="button"
-                      onClick={() => handleServicePreset(preset)}
-                      className="text-[10px] font-mono-editorial px-2.5 py-1 rounded-sm bg-[#1e1e1e] border border-[#333333] text-[#bbbbbb] hover:text-cyan-300 hover:border-cyan-500/50 transition-colors cursor-pointer"
-                    >
-                      + {preset}
-                    </button>
-                  ))}
-                </div>
-
-                <textarea
-                  rows={3}
-                  name="service"
-                  value={formData.service}
-                  onChange={handleInputChange}
-                  placeholder="Describe your issue (e.g. Blowing warm air at idle, grinding clutch noise, gas refill and nitrogen leak check)"
-                  className="w-full bg-[#181818] border border-[#2e2e2e] focus:border-cyan-500 text-[#F5F4EF] px-4 py-3 rounded-sm font-sans-editorial text-sm focus:outline-none transition-colors"
-                />
-              </div>
-
-              <div className="pt-2 flex flex-col sm:flex-row gap-4 items-center">
-                <button
-                  type="submit"
-                  className="w-full sm:w-auto flex-1 inline-flex items-center justify-center space-x-2 font-mono-editorial text-xs uppercase tracking-[0.2em] bg-[#F5F4EF] text-[#121212] px-8 py-4 rounded-sm font-semibold hover:bg-white transition-all shadow-xl hover:shadow-cyan-500/10 cursor-pointer"
-                >
-                  <MessageSquare className="w-4 h-4 text-emerald-600" />
-                  <span>Reserve via WhatsApp</span>
-                </button>
-
-                <a
-                  href={`tel:${businessInfo.phoneRaw}`}
-                  className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 font-mono-editorial text-xs uppercase tracking-[0.2em] text-[#F5F4EF] border border-[#333333] hover:border-[#888888] px-6 py-4 rounded-sm transition-colors"
-                >
-                  <Phone className="w-4 h-4 text-[#888888]" />
-                  <span>Call Hotline</span>
-                </a>
-              </div>
-
-              {submitted && (
-                <div className="p-4 bg-[#142319] border border-[#23452f] rounded-sm text-xs font-mono-editorial text-emerald-400 flex items-center space-x-2">
-                  <Check className="w-4 h-4" />
-                  <span>Opening WhatsApp with your booking details. Master Technician Janaka will confirm promptly.</span>
-                </div>
-              )}
-            </form>
-          </div>
-
-          {/* Workshop Contact Details & Interactive Map Card */}
-          <div className="lg:col-span-5 bg-[#151515] border border-[#222222] p-8 sm:p-10 rounded-sm space-y-6 shadow-xl">
-            <div>
-              <span className="font-mono-editorial text-xs text-[#888888] uppercase tracking-[0.2em] block mb-2">
-                WORKSHOP HEADQUARTERS
-              </span>
-              <h3 className="font-serif-editorial text-3xl text-[#F5F4EF] mb-1">
-                {businessInfo.name}
-              </h3>
-              <span className="font-mono-editorial text-xs text-[#c5a059] uppercase tracking-wider block mb-3 font-semibold">
-                Precision Automotive Climate Engineering
-              </span>
-              <p className="font-serif-editorial text-base text-[#DCD9D0] leading-relaxed font-light">
-                Specialized automotive air conditioning diagnostic facility located on the primary Minuwangoda–Miriswatta corridor in Gampaha.
+    <section id="contact" aria-labelledby="contact-title" className="bg-frost text-navy-950">
+      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 md:py-28 lg:px-8">
+        <div className="grid gap-14 lg:grid-cols-12 lg:gap-16">
+          {/* Direct contact */}
+          <div className="lg:col-span-5">
+            <Reveal>
+              <p className="eyebrow flex items-center gap-3 text-ice-deep">
+                <span>06</span>
+                <span aria-hidden="true" className="h-px w-8 bg-ice-deep" />
+                <span>Book & contact</span>
               </p>
-            </div>
+              <h2 id="contact-title" className="mt-5 font-wide text-[2.2rem] font-bold leading-[1.04] tracking-[-0.02em] sm:text-5xl">
+                Book a service.
+              </h2>
+              <p className="mt-5 max-w-md text-base leading-relaxed text-steel">
+                Call or WhatsApp the workshop to arrange a time, or send your details with the form and we&apos;ll get
+                back to you on WhatsApp.
+              </p>
+            </Reveal>
 
-            <div className="space-y-4 pt-4 border-t border-[#222222] text-sm">
-              <div className="flex items-start space-x-3.5">
-                <MapPin className="w-4 h-4 text-[#c5a059] mt-1 flex-shrink-0" />
-                <div>
-                  <span className="font-mono-editorial text-xs text-[#888888] uppercase block">Workshop Address</span>
-                  <span className="font-serif-editorial text-base text-[#F5F4EF]">
-                    {businessInfo.address}
-                  </span>
+            <Reveal delay={0.1} className="mt-9 flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
+              <a
+                href={`tel:${businessInfo.phoneRaw}`}
+                className="inline-flex flex-1 items-center justify-center gap-2.5 rounded-[3px] bg-navy-950 px-6 py-4 text-sm font-semibold text-white transition-colors hover:bg-navy-800 active:translate-y-px"
+              >
+                <Phone className="h-4 w-4 text-ice" aria-hidden="true" />
+                Call {businessInfo.phone}
+              </a>
+              <a
+                href={businessInfo.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex flex-1 items-center justify-center gap-2.5 rounded-[3px] border border-navy-950/20 px-6 py-4 text-sm font-semibold transition-colors hover:border-navy-950 active:translate-y-px"
+              >
+                <MessageCircle className="h-4 w-4 text-ice-deep" aria-hidden="true" />
+                WhatsApp us
+              </a>
+            </Reveal>
+
+            <Reveal delay={0.15}>
+              <dl className="mt-10 divide-y divide-navy-950/10 border-y border-navy-950/10 text-[15px]">
+                <div className="flex gap-4 py-5">
+                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-ice-deep" aria-hidden="true" />
+                  <div>
+                    <dt className="eyebrow text-[10px] text-steel">Address</dt>
+                    <dd className="mt-1.5 font-medium">{businessInfo.address}</dd>
+                    <dd className="mt-1.5">
+                      <a
+                        href={businessInfo.googleMapsDirectionsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-sm font-semibold text-ice-deep hover:underline"
+                      >
+                        Get directions <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+                      </a>
+                    </dd>
+                  </div>
                 </div>
-              </div>
-
-              <div className="flex items-start space-x-3.5">
-                <Phone className="w-4 h-4 text-[#c5a059] mt-1 flex-shrink-0" />
-                <div>
-                  <span className="font-mono-editorial text-xs text-[#888888] uppercase block">Phone & WhatsApp</span>
-                  <a href={`tel:${businessInfo.phoneRaw}`} className="font-serif-editorial text-lg text-[#F5F4EF] hover:text-white transition-colors">
-                    {businessInfo.phone}
-                  </a>
+                <div className="flex gap-4 py-5">
+                  <Clock className="mt-0.5 h-4 w-4 shrink-0 text-ice-deep" aria-hidden="true" />
+                  <div>
+                    <dt className="eyebrow text-[10px] text-steel">Opening hours</dt>
+                    <dd className="mt-1.5 font-medium">
+                      {businessHours.openDays}: {businessHours.hours}
+                    </dd>
+                    <dd className="text-sm text-steel">{businessHours.closed}</dd>
+                  </div>
                 </div>
-              </div>
-
-              <div className="flex items-start space-x-3.5">
-                <Mail className="w-4 h-4 text-[#c5a059] mt-1 flex-shrink-0" />
-                <div>
-                  <span className="font-mono-editorial text-xs text-[#888888] uppercase block">Email Address</span>
-                  <a href={`mailto:${businessInfo.email}`} className="font-serif-editorial text-base text-[#F5F4EF] hover:text-white transition-colors">
-                    {businessInfo.email}
-                  </a>
+                <div className="flex gap-4 py-5">
+                  <Mail className="mt-0.5 h-4 w-4 shrink-0 text-ice-deep" aria-hidden="true" />
+                  <div>
+                    <dt className="eyebrow text-[10px] text-steel">Email</dt>
+                    <dd className="mt-1.5 font-medium">
+                      <a href={`mailto:${businessInfo.email}`} className="break-all hover:text-ice-deep">
+                        {businessInfo.email}
+                      </a>
+                    </dd>
+                  </div>
                 </div>
-              </div>
+              </dl>
+            </Reveal>
 
-              <div className="flex items-start space-x-3.5">
-                <Clock className="w-4 h-4 text-[#c5a059] mt-1 flex-shrink-0" />
-                <div>
-                  <span className="font-mono-editorial text-xs text-[#888888] uppercase block">Operating Schedule</span>
-                  <span className="font-serif-editorial text-base text-[#F5F4EF] block">
-                    Tuesday – Sunday: {businessHours.tuesdayToSunday}
-                  </span>
-                  <span className="font-mono-editorial text-xs text-amber-400 block mt-0.5">
-                    Monday Closed (Workshop Maintenance & Calibration)
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Google Map Embed Iframe */}
-            <div className="pt-4 border-t border-[#222222]">
-              <div className="w-full h-44 rounded-sm overflow-hidden border border-[#2b2b2b] bg-[#121212]">
+            <Reveal delay={0.2} className="mt-8">
+              <div className="relative aspect-[16/10] w-full overflow-hidden bg-mist">
                 <iframe
-                  title="Janaka Auto AC Workshop Location Map"
+                  title="Map showing the Janaka Auto AC workshop in Gampaha"
                   src={businessInfo.googleMapsEmbedUrl}
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0, filter: 'invert(90%) hue-rotate(180deg) contrast(90%)' }}
-                  allowFullScreen={false}
+                  className="absolute inset-0 h-full w-full border-0 grayscale-[0.35]"
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                 />
               </div>
-            </div>
-
-            {/* Social and Navigation Links */}
-            <div className="pt-2 flex flex-wrap gap-3">
-              <a
-                href={businessInfo.googleMapsDirectionsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 inline-flex items-center justify-center space-x-1.5 font-mono-editorial text-xs uppercase tracking-wider border border-[#333333] hover:border-[#888888] hover:bg-[#1a1a1a] text-[#F5F4EF] py-3 px-3 rounded-sm transition-all"
-              >
-                <MapPin className="w-3.5 h-3.5 text-[#888888]" />
-                <span>Get Directions</span>
-              </a>
-
-              <a
-                href={businessInfo.facebookUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center space-x-1.5 font-mono-editorial text-xs uppercase tracking-wider border border-[#333333] hover:border-[#888888] hover:bg-[#1a1a1a] text-[#F5F4EF] py-3 px-4 rounded-sm transition-all"
-              >
-                <svg className="w-3.5 h-3.5 fill-current text-blue-400" viewBox="0 0 24 24">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                </svg>
-                <span>Facebook</span>
-              </a>
-
-              <a
-                href={businessInfo.tiktokUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center space-x-1.5 font-mono-editorial text-xs uppercase tracking-wider border border-[#333333] hover:border-[#888888] hover:bg-[#1a1a1a] text-[#F5F4EF] py-3 px-4 rounded-sm transition-all"
-              >
-                <span>TikTok</span>
-                <ExternalLink className="w-3 h-3 text-[#888888]" />
-              </a>
-            </div>
+            </Reveal>
           </div>
+
+          {/* Enquiry form */}
+          <Reveal delay={0.1} className="lg:col-span-7">
+            <div className="border border-navy-950/10 bg-white p-6 shadow-[0_40px_80px_-50px_rgb(7_21_34/0.35)] sm:p-10">
+              <h3 className="font-wide text-2xl font-semibold">Send a service enquiry</h3>
+              <p className="mt-2 text-sm leading-relaxed text-steel">
+                Your details open in WhatsApp, ready to send to the workshop. Nothing is stored on this website.
+              </p>
+
+              <form onSubmit={handleSubmit} noValidate className="mt-8 space-y-6">
+                <div className="grid gap-6 sm:grid-cols-2">
+                  <div>
+                    <label htmlFor="f-name" className={labelClass}>
+                      Your name <span className="text-ice-deep">*</span>
+                    </label>
+                    <input id="f-name" name="name" autoComplete="name" required value={form.name} onChange={update} className={inputClass} />
+                  </div>
+                  <div>
+                    <label htmlFor="f-phone" className={labelClass}>
+                      Phone number <span className="text-ice-deep">*</span>
+                    </label>
+                    <input
+                      id="f-phone"
+                      name="phone"
+                      type="tel"
+                      inputMode="tel"
+                      autoComplete="tel"
+                      required
+                      placeholder="071 234 5678"
+                      value={form.phone}
+                      onChange={update}
+                      className={inputClass}
+                    />
+                  </div>
+                </div>
+
+                <div className="grid gap-6 sm:grid-cols-2">
+                  <div>
+                    <label htmlFor="f-vehicle" className={labelClass}>
+                      Vehicle make & model <span className="text-ice-deep">*</span>
+                    </label>
+                    <input
+                      id="f-vehicle"
+                      name="vehicle"
+                      required
+                      placeholder="e.g. Toyota Axio"
+                      value={form.vehicle}
+                      onChange={update}
+                      className={inputClass}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="f-date" className={labelClass}>
+                      Preferred date
+                    </label>
+                    <input
+                      id="f-date"
+                      name="date"
+                      type="date"
+                      value={form.date}
+                      onFocus={(e) => (e.currentTarget.min = todayIso())}
+                      onChange={update}
+                      aria-describedby={isMonday(form.date) ? 'f-date-note' : undefined}
+                      className={inputClass}
+                    />
+                    {isMonday(form.date) && (
+                      <p id="f-date-note" className="mt-2 text-xs font-medium text-[#9a5b00]">
+                        We&apos;re closed on Mondays — please pick Tuesday to Sunday.
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="f-message" className={labelClass}>
+                    What&apos;s the problem? <span className="text-ice-deep">*</span>
+                  </label>
+                  <div className="mb-3 flex flex-wrap gap-2" role="group" aria-label="Common symptoms">
+                    {symptomPresets.map((s) => (
+                      <button
+                        key={s}
+                        type="button"
+                        onClick={() => addSymptom(s)}
+                        className="min-h-9 rounded-[3px] border border-navy-950/15 px-3 py-1.5 text-xs font-medium text-navy-800 transition-colors hover:border-ice-deep hover:text-ice-deep"
+                      >
+                        + {s}
+                      </button>
+                    ))}
+                  </div>
+                  <textarea
+                    id="f-message"
+                    name="message"
+                    rows={4}
+                    required
+                    placeholder="Describe what's happening with your A/C"
+                    value={form.message}
+                    onChange={update}
+                    className={inputClass}
+                  />
+                </div>
+
+                <div aria-live="polite">
+                  {status.kind === 'error' && (
+                    <p role="alert" className="border-l-2 border-[#c2410c] bg-[#fff4ed] px-4 py-3 text-sm font-medium text-[#9a3412]">
+                      {status.message}
+                    </p>
+                  )}
+                  {status.kind === 'sent' && (
+                    <div className="border-l-2 border-ice-deep bg-frost px-4 py-3 text-sm text-navy-950">
+                      <p className="font-semibold">WhatsApp has opened with your enquiry.</p>
+                      <p className="mt-1 text-steel">
+                        Press send in WhatsApp to deliver it to the workshop.{' '}
+                        <a href={status.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-ice-deep underline underline-offset-2">
+                          Didn&apos;t open? Try again
+                        </a>
+                        .
+                      </p>
+                    </div>
+                  )}
+                </div>
+
+                <button
+                  type="submit"
+                  className="inline-flex w-full items-center justify-center gap-2.5 rounded-[3px] bg-ice px-8 py-4 text-sm font-semibold text-navy-950 transition-colors hover:bg-navy-950 hover:text-white active:translate-y-px sm:w-auto"
+                >
+                  <MessageCircle className="h-4 w-4" aria-hidden="true" />
+                  Send via WhatsApp
+                </button>
+              </form>
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>

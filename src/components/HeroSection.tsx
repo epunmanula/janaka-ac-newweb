@@ -1,221 +1,167 @@
 'use client';
 
-import React from 'react';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
-import {
-  Calendar,
-  MessageCircle,
-  Phone,
-  Star,
-  Snowflake,
-  Flame,
-  ThermometerSnowflake,
-  ArrowRight,
-  ShieldCheck,
-  Award,
-} from 'lucide-react';
-import { businessInfo, trustMetrics } from '@/data/janakaData';
+import React, { useRef } from 'react';
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import { ArrowRight, Clock, MapPin, Phone } from 'lucide-react';
+import { Car } from '@/components/brand/Car';
+import { businessHours, businessInfo } from '@/data/janakaData';
 
-interface HeroSectionProps {
-  onOpenBooking: () => void;
-}
+/** Leader-line labels pinned to points on the car (percent of the car's 640×200 box). */
+const annotations = [
+  { label: 'Cabin air', x: 56, y: 30, lift: 54 },
+  { label: 'Evaporator', x: 72, y: 52, lift: 92 },
+  { label: 'Compressor', x: 85.6, y: 67, lift: 128 },
+  { label: 'Condenser', x: 94.6, y: 61, lift: 60 },
+];
 
-export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenBooking }) => {
+const ease = [0.16, 1, 0.3, 1] as const;
+
+export const HeroSection: React.FC = () => {
+  const ref = useRef<HTMLElement>(null);
+  const reduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
+
+  // The car pulls away to the right as the hero scrolls out of view
+  const carX = useTransform(scrollYProgress, [0, 1], ['0%', reduceMotion ? '0%' : '62%']);
+  const wheelRotate = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : 1080]);
+  const labelsOpacity = useTransform(scrollYProgress, [0, 0.18], [1, reduceMotion ? 1 : 0]);
+  const copyY = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : -80]);
+
   return (
-    <section className="relative w-full border-b border-[#222222] bg-[#121212] overflow-hidden pt-8 pb-16 md:py-24">
-      {/* Background ambient cool glow */}
-      <div className="absolute top-1/4 -right-28 w-96 h-96 bg-cyan-950/20 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-16 left-1/4 w-96 h-96 bg-blue-950/15 rounded-full blur-3xl pointer-events-none" />
+    <section
+      id="home"
+      ref={ref}
+      aria-labelledby="hero-title"
+      className="relative isolate overflow-hidden bg-navy-950 text-white"
+    >
+      {/* Studio lighting */}
+      <div aria-hidden="true" className="tech-grid absolute inset-0 -z-10 [mask-image:linear-gradient(to_bottom,black,transparent_85%)]" />
+      <div
+        aria-hidden="true"
+        className="absolute -right-40 -top-40 -z-10 h-[42rem] w-[42rem] rounded-full bg-[radial-gradient(circle,rgb(53_200_244/0.16),transparent_62%)]"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-0 -z-10 h-1/2 bg-[linear-gradient(to_bottom,transparent,rgb(16_42_67/0.55))]"
+      />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          {/* Left Column: Editorial Headline & Actions */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-7 space-y-7"
-          >
-            {/* Top Micro Eyebrow with Active Workshop Badge */}
-            <div className="flex flex-wrap items-center gap-3">
-              <span className="font-mono-editorial text-xs uppercase tracking-[0.25em] text-[#888888] flex items-center space-x-2">
-                <span>EST. 2011</span>
-                <span className="text-[#444444]">•</span>
-                <span>GAMPAHA, SRI LANKA</span>
-              </span>
+      <div className="mx-auto grid min-h-[100svh] max-w-7xl grid-rows-[1fr_auto] px-4 pt-[4.5rem] sm:px-6 lg:px-8">
+        <div className="grid items-center gap-10 py-12 lg:grid-cols-12 lg:gap-6 lg:py-16">
+          <motion.div style={{ y: copyY }} className="relative z-10 lg:col-span-6">
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease }}
+              className="eyebrow flex items-center gap-3 text-ice"
+            >
+              <span aria-hidden="true" className="h-px w-8 bg-ice" />
+              Automotive A/C Specialists · Gampaha
+            </motion.p>
 
-              <span className="inline-flex items-center space-x-1.5 font-mono-editorial text-[10px] uppercase tracking-widest bg-[#15231a] text-emerald-400 border border-[#23452f] px-2.5 py-1 rounded-sm">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                <span>Open Today // 8 Bays Active</span>
-              </span>
-            </div>
+            <motion.h1
+              id="hero-title"
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.1, ease }}
+              className="mt-6 font-wide text-[2.6rem] font-bold leading-[1.02] tracking-[-0.02em] text-balance sm:text-6xl lg:text-[clamp(3rem,4.6vw,4.5rem)]"
+            >
+              Precision Cooling.
+              <span className="block text-silver">Exceptional Comfort.</span>
+            </motion.h1>
 
-            {/* Main Editorial Masthead Headline */}
-            <h1 className="font-serif-editorial text-5xl sm:text-6xl md:text-7xl lg:text-[5.25rem] text-[#F5F4EF] leading-[1.04] tracking-tight">
-              Architecting Pure Cool. Elevating Every Journey.
-            </h1>
+            <motion.p
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.2, ease }}
+              className="mt-6 max-w-lg text-base leading-relaxed text-silver sm:text-lg"
+            >
+              Car air-conditioning diagnosis, servicing and repairs in Gampaha — from a gas recharge to compressor,
+              condenser and leak repairs. We find the cause, explain it clearly, and get your cabin cold again.
+            </motion.p>
 
-            {/* Editorial Lead Paragraph */}
-            <p className="font-serif-editorial text-xl sm:text-2xl text-[#DCD9D0] leading-relaxed max-w-2xl font-light">
-              Gampaha&apos;s authoritative automotive climate engineering facility. From micro-leak detection to multi-stage compressor overhauls, we restore factory-standard sub-zero airflow for Japanese, European, and hybrid vehicles.
-            </p>
-
-            {/* Direct Primary Action Buttons */}
-            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-              {/* Primary: Reserve Bay */}
-              <button
-                type="button"
-                onClick={onOpenBooking}
-                className="inline-flex items-center justify-center space-x-3 font-mono-editorial text-xs uppercase tracking-[0.2em] bg-[#F5F4EF] text-[#121212] px-7 py-4 rounded-sm font-semibold hover:bg-white transition-all duration-200 shadow-xl hover:shadow-cyan-500/10 group cursor-pointer"
-              >
-                <Calendar className="w-4 h-4 text-[#121212]" />
-                <span>Book Diagnostic Bay</span>
-                <ArrowRight className="w-3.5 h-3.5 text-[#121212] group-hover:translate-x-1 transition-transform" />
-              </button>
-
-              {/* Direct WhatsApp Callout */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.3, ease }}
+              className="mt-9 flex flex-col gap-3 sm:flex-row"
+            >
               <a
-                href={businessInfo.whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center space-x-2.5 font-mono-editorial text-xs uppercase tracking-wider text-[#F5F4EF] border border-[#23452f] bg-[#14231a] hover:bg-[#1a3023] px-6 py-4 rounded-sm transition-all duration-200 group"
+                href="#contact"
+                className="group inline-flex items-center justify-center gap-3 rounded-[3px] bg-ice px-7 py-4 text-sm font-semibold text-navy-950 transition-colors duration-300 hover:bg-white active:translate-y-px"
               >
-                <MessageCircle className="w-4 h-4 text-emerald-400 group-hover:scale-110 transition-transform" />
-                <span>WhatsApp ({businessInfo.phone})</span>
+                Book a Service
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
               </a>
-
-              {/* Direct Phone Call */}
               <a
-                href={`tel:${businessInfo.phoneRaw}`}
-                className="inline-flex items-center justify-center space-x-2 font-mono-editorial text-xs uppercase tracking-wider text-[#888888] hover:text-[#F5F4EF] border border-[#2e2e2e] hover:border-[#555555] px-5 py-4 rounded-sm transition-colors"
-                title="Call Hotline"
+                href="#services"
+                className="inline-flex items-center justify-center rounded-[3px] border border-white/20 px-7 py-4 text-sm font-semibold text-white transition-colors duration-300 hover:border-white/60 active:translate-y-px"
               >
-                <Phone className="w-4 h-4" />
-                <span className="hidden xl:inline">Call Hotline</span>
+                Explore Our Services
               </a>
-            </div>
-
-            {/* Google Rating Micro-Bar */}
-            <div className="pt-2 flex items-center space-x-4 text-xs font-mono-editorial text-[#888888]">
-              <div className="flex items-center space-x-1 text-amber-400">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-                ))}
-              </div>
-              <span className="font-bold text-[#F5F4EF]">{trustMetrics.rating} ★ Rating</span>
-              <span className="text-[#555555]">•</span>
-              <span className="text-[#888888]">{trustMetrics.reviewsCount} Google Verified Reviews</span>
-            </div>
+            </motion.div>
           </motion.div>
 
-          {/* Right Column: Hero Visual Showcase with Floating Proof Badges */}
+          {/* Car stage */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: -60 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-5 relative"
+            transition={{ duration: 1.4, delay: 0.25, ease }}
+            className="relative lg:col-span-6"
           >
-            {/* Main Visual Image Card with Glowing Frame */}
-            <div className="relative rounded-sm overflow-hidden border border-[#2e2e2e] bg-[#0c0c0c] shadow-2xl group">
-              {/* Cockpit with ice-cold misty AC blast */}
-              <div className="relative h-[380px] sm:h-[440px] lg:h-[500px] w-full overflow-hidden">
-                <Image
-                  src="/hero-car-cockpit.webp"
-                  alt="Luxury vehicle climate control cockpit blowing ice-cold freezing mist"
-                  fill
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-cover object-center group-hover:scale-105 transition-transform duration-700 filter contrast-[1.05] brightness-95"
-                />
-                {/* Vignette gradients */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#121212] via-transparent to-black/30" />
-                <div className="absolute inset-0 bg-gradient-to-r from-[#121212]/50 via-transparent to-transparent" />
+            <motion.div style={{ x: carX }} className="relative -mr-[12%] w-[112%] pt-16 sm:-mr-[4%] sm:w-[104%] lg:-mr-[14%] lg:w-[118%] lg:pt-24">
+              <div className="relative">
+                <motion.div style={{ opacity: labelsOpacity }} aria-hidden="true" className="pointer-events-none absolute inset-0 z-10 hidden sm:block">
+                  {annotations.map((a) => (
+                    <div
+                      key={a.label}
+                      className="absolute flex flex-col items-center"
+                      style={{ left: `${a.x}%`, top: `${a.y}%`, transform: `translate(-50%, calc(-100% + 4px))` }}
+                    >
+                      <span className="eyebrow whitespace-nowrap text-[10px] text-silver">{a.label}</span>
+                      <span className="mt-1.5 w-px bg-gradient-to-b from-silver/60 to-ice" style={{ height: a.lift - 22 }} />
+                      <span className="h-2 w-2 rounded-full border border-ice bg-navy-950" />
+                    </div>
+                  ))}
+                </motion.div>
+                <Car className="relative w-full" wheelRotate={wheelRotate} airflow headlights />
               </div>
-
-              {/* FLOATING BADGE 1: Live Tropical vs Sub-Zero Temperature Comparison */}
-              <div className="absolute top-4 right-4 z-20 bg-[#121212]/95 backdrop-blur-md border border-[#2d2d2d] p-3 rounded-sm shadow-xl max-w-[200px]">
-                <div className="flex items-center justify-between text-[10px] font-mono-editorial text-[#888888] pb-1.5 border-b border-[#222222] mb-2">
-                  <span>OUTSIDE HEAT</span>
-                  <span className="text-amber-400 font-bold flex items-center">
-                    <Flame className="w-3 h-3 mr-0.5 text-amber-500" /> 34°C
-                  </span>
-                </div>
-                <div className="flex items-center justify-between text-[11px] font-mono-editorial">
-                  <span className="text-cyan-300 font-semibold flex items-center">
-                    <Snowflake className="w-3 h-3 mr-1 text-cyan-400 animate-pulse" /> CABIN VENT
-                  </span>
-                  <span className="text-cyan-400 font-bold text-sm">4.5°C</span>
-                </div>
-                <div className="mt-1 text-[9px] font-mono-editorial text-[#777777]">
-                  Ice-Cold Guarantee
-                </div>
+              {/* Floor reflection */}
+              <div aria-hidden="true" className="pointer-events-none -mt-[9%] h-24 scale-y-[-1] opacity-[0.14] [mask-image:linear-gradient(to_top,black,transparent_70%)]">
+                <Car className="w-full" wheelRotate={wheelRotate} title="" />
               </div>
-
-              {/* FLOATING BADGE 2: Real Verified Thermometer Photo Card */}
-              <div className="absolute bottom-4 left-4 z-20 bg-[#141414]/95 backdrop-blur-md border border-[#333333] p-2.5 rounded-sm shadow-2xl flex items-center space-x-3 max-w-[260px]">
-                <div className="relative w-12 h-12 flex-shrink-0 rounded-sm overflow-hidden border border-[#444444]">
-                  <Image
-                    src="/ac-temp-test.webp"
-                    alt="Digital thermometer probe test showing 4.5°C"
-                    fill
-                    sizes="48px"
-                    className="object-cover"
-                  />
-                </div>
-                <div>
-                  <div className="flex items-center space-x-1 text-[10px] font-mono-editorial text-cyan-400 font-semibold uppercase">
-                    <ThermometerSnowflake className="w-3 h-3" />
-                    <span>4.5°C Verified Test</span>
-                  </div>
-                  <p className="font-mono-editorial text-[9px] text-[#aaaaaa] leading-tight mt-0.5">
-                    Real vent probe testing at Miriswatta workshop
-                  </p>
-                </div>
-              </div>
-
-              {/* FLOATING BADGE 3: Workshop Bay Reservation Status */}
-              <div className="absolute bottom-4 right-4 z-20 hidden sm:block bg-[#16251b]/95 backdrop-blur-md border border-[#274f35] px-3 py-2 rounded-sm text-right">
-                <span className="font-mono-editorial text-[9px] uppercase tracking-wider text-emerald-400 block font-semibold">
-                  8 Bays Daily
-                </span>
-                <span className="font-mono-editorial text-[10px] text-[#F5F4EF] block">
-                  Priority Intake
-                </span>
-              </div>
-            </div>
-
-            {/* Below-Image Sri Lankan Popular Vehicle Compatibility Tagline */}
-            <div className="mt-3.5 p-3 rounded-sm bg-[#161616] border border-[#222222] flex items-center justify-between text-xs font-mono-editorial text-[#888888]">
-              <span className="text-[#666666] uppercase text-[10px] tracking-wider">
-                Certified For
-              </span>
-              <span className="text-[#bbbbbb] text-right text-[11px]">
-                Premio • Vezel • Aqua • Axio • Prado • Benz • BMW • KDH
-              </span>
-            </div>
+            </motion.div>
+            <div aria-hidden="true" className="absolute inset-x-[-20%] bottom-24 h-px bg-gradient-to-r from-transparent via-silver/30 to-transparent" />
           </motion.div>
         </div>
 
-        {/* Popular Sri Lankan Vehicles & Guarantee Strip */}
-        <div className="mt-12 pt-8 border-t border-[#222222] grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-          <div className="p-3 bg-[#151515] border border-[#202020] rounded-sm hover:border-[#333333] transition-colors">
-            <span className="font-serif-editorial text-2xl text-[#F5F4EF] block">Denso OEM</span>
-            <span className="font-mono-editorial text-[10px] text-[#777777] uppercase">Factory Authorized Quality</span>
+        {/* Verified business facts */}
+        <dl className="grid border-t border-white/10 sm:grid-cols-3">
+          <div className="flex items-start gap-3 py-5 sm:pr-6">
+            <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-ice" aria-hidden="true" />
+            <div>
+              <dt className="eyebrow text-[10px] text-silver/80">Workshop</dt>
+              <dd className="mt-1 text-sm font-medium">{businessInfo.addressShort}</dd>
+            </div>
           </div>
-          <div className="p-3 bg-[#151515] border border-[#202020] rounded-sm hover:border-cyan-500/40 transition-colors">
-            <span className="font-serif-editorial text-2xl text-cyan-400 block">4.5°C Tested</span>
-            <span className="font-mono-editorial text-[10px] text-[#777777] uppercase">Sub-Zero Digital Probe</span>
+          <div className="flex items-start gap-3 border-white/10 py-5 sm:border-l sm:px-6">
+            <Clock className="mt-0.5 h-4 w-4 shrink-0 text-ice" aria-hidden="true" />
+            <div>
+              <dt className="eyebrow text-[10px] text-silver/80">Open {businessHours.openDaysShort}</dt>
+              <dd className="mt-1 text-sm font-medium">{businessHours.hours}</dd>
+            </div>
           </div>
-          <div className="p-3 bg-[#151515] border border-[#202020] rounded-sm hover:border-emerald-500/40 transition-colors">
-            <span className="font-serif-editorial text-2xl text-emerald-400 block">280 PSI Hold</span>
-            <span className="font-mono-editorial text-[10px] text-[#777777] uppercase">Dry Nitrogen Leak Test</span>
+          <div className="flex items-start gap-3 border-white/10 py-5 sm:border-l sm:pl-6">
+            <Phone className="mt-0.5 h-4 w-4 shrink-0 text-ice" aria-hidden="true" />
+            <div>
+              <dt className="eyebrow text-[10px] text-silver/80">Call or WhatsApp</dt>
+              <dd className="mt-1 text-sm font-medium">
+                <a href={`tel:${businessInfo.phoneRaw}`} className="transition-colors hover:text-ice">
+                  {businessInfo.phone}
+                </a>
+              </dd>
+            </div>
           </div>
-          <div className="p-3 bg-[#151515] border border-[#202020] rounded-sm hover:border-amber-500/40 transition-colors">
-            <span className="font-serif-editorial text-2xl text-[#c5a059] block">15+ Years</span>
-            <span className="font-mono-editorial text-[10px] text-[#777777] uppercase">Miriswatta, Gampaha</span>
-          </div>
-        </div>
+        </dl>
       </div>
     </section>
   );

@@ -5,7 +5,6 @@ export interface GalleryItem {
   image: string;
   thumb?: string;
   caption: string;
-  badge?: string;
 }
 
 export interface ServiceItem {
@@ -14,320 +13,261 @@ export interface ServiceItem {
   title: string;
   summary: string;
   details: string[];
-  techSpec: string;
-  duration: string;
-  benefit: string;
+  image: string;
+  imageAlt: string;
 }
 
-export interface ReviewItem {
+export interface CoolingComponent {
   id: string;
   name: string;
-  vehicle: string;
-  rating: number;
-  date: string;
-  content: string;
-  verified: boolean;
+  location: string;
+  role: string;
+  signs: string[];
+  /** Position in the car illustration's 640×200 coordinate space. */
+  x: number;
+  y: number;
 }
 
-export interface BookingSlotOption {
-  time: string;
-  title: string;
-  description: string;
-}
+export const siteUrl = 'https://janaka-ac-newweb.vercel.app';
 
 // 1. Business & Contact Information
 export const businessInfo = {
-  name: "Janaka Auto AC",
-  tagline: "Architecting Pure Cool. Elevating Every Journey.",
-  subTagline: "Keep cool. Drive comfortable.",
-  phone: "+94 71 455 1409",
-  phoneRaw: "+94714551409",
-  whatsappUrl: "https://wa.me/94714551409",
-  email: "janakaautoac123@gmail.com",
-  address: "366 Minuwangoda–Gampaha–Miriswatta Road, Gampaha, Sri Lanka",
-  addressShort: "366 Miriswatta Road, Gampaha",
-  googleMapsPlaceUrl: "https://www.google.com/maps/place/Janaka+Auto+AC/@7.085055,80.0085464,17z",
-  googleMapsDirectionsUrl: "https://www.google.com/maps/dir/?api=1&destination=7.085055,80.0085464",
-  googleMapsEmbedUrl: "https://www.google.com/maps?q=Janaka+Auto+AC%2C+366+Minuwangoda-Gampaha-Miriswatta+Rd%2C+Gampaha&z=17&output=embed",
-  facebookUrl: "https://www.facebook.com/p/Janaka-AUTO-AC-61552238811366/",
-  tiktokUrl: "https://www.tiktok.com/search?q=Janaka%20Auto%20AC",
+  name: 'Janaka Auto AC',
+  tagline: 'Precision Cooling. Exceptional Comfort.',
+  subTagline: 'Keep cool. Drive comfortable.',
+  phone: '+94 71 455 1409',
+  phoneRaw: '+94714551409',
+  whatsappNumber: '94714551409',
+  whatsappUrl: 'https://wa.me/94714551409',
+  email: 'janakaautoac123@gmail.com',
+  address: '366 Minuwangoda–Gampaha–Miriswatta Road, Gampaha, Sri Lanka',
+  addressShort: '366 Miriswatta Road, Gampaha',
+  streetAddress: '366 Minuwangoda–Gampaha–Miriswatta Road',
+  locality: 'Gampaha',
+  country: 'LK',
+  geo: { lat: 7.085055, lng: 80.0085464 },
+  googleMapsPlaceUrl: 'https://www.google.com/maps/place/Janaka+Auto+AC/@7.085055,80.0085464,17z',
+  googleMapsDirectionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=7.085055,80.0085464',
+  googleMapsEmbedUrl:
+    'https://www.google.com/maps?q=Janaka+Auto+AC%2C+366+Minuwangoda-Gampaha-Miriswatta+Rd%2C+Gampaha&z=17&output=embed',
+  facebookUrl: 'https://www.facebook.com/p/Janaka-AUTO-AC-61552238811366/',
+  tiktokUrl: 'https://www.tiktok.com/search?q=Janaka%20Auto%20AC',
 };
 
 // 2. Business Operating Schedule
 export const businessHours = {
-  monday: "Closed for Workshop Maintenance & Equipment Calibration",
-  tuesdayToSunday: "8:30 AM – 6:00 PM",
-  daysOpen: "Tuesday – Sunday (6 Days / Week)",
-  note: "Workshop maintenance every Monday ensures high-precision vacuum & manifold accuracy.",
+  openDays: 'Tuesday – Sunday',
+  openDaysShort: 'Tue – Sun',
+  hours: '8:30 AM – 6:00 PM',
+  closed: 'Closed on Mondays',
+  opens: '08:30',
+  closes: '18:00',
 };
 
-// 3. Trust Metrics & Engineering Benchmarks
-export const trustMetrics = {
-  rating: 4.9,
-  reviewsCount: "60+",
-  experienceYears: "15+ Years",
-  coolingBenchmark: "4.5°C",
-  benchmarkDescription: "Sub-Zero Digital Vent Exit Temperature Test",
-  dailyBayCapacity: "8 Priority Workshop Bays Daily",
-  badges: [
-    {
-      title: "100% Genuine OEM Parts",
-      desc: "Denso, Sanden & Valeo certified components with factory seals",
-    },
-    {
-      title: "Digital Nitrogen Leak Testing",
-      desc: "280 PSI high-pressure dry nitrogen decay integrity verification",
-    },
-    {
-      title: "Priority Same-Day Service",
-      desc: "Dedicated workshop bay reservation for prompt intake & handover",
-    },
-    {
-      title: "Multi-Brand & Hybrid Certified",
-      desc: "Japanese, European luxury & high-voltage POE oil compressor engineering",
-    },
-  ],
-};
-
-// 4. Core Services (All 6 Primary Procedures)
+// 3. Core Services
 export const servicesData: ServiceItem[] = [
   {
-    id: "gas-refilling",
-    number: "01",
-    title: "A/C Gas Refilling & Precision Charging",
-    summary: "Complete deep-vacuum moisture evacuation followed by exact-gram virgin R134a / R1234yf refrigerant injection and line pressure calibration.",
+    id: 'gas-refilling',
+    number: '01',
+    title: 'A/C Gas Recharge',
+    summary:
+      'Refrigerant recovered, the system evacuated and recharged to the specification for your vehicle, then checked under pressure.',
     details: [
-      "High-vacuum deep pumpdown (down to 500 microns) to purge moisture & air",
-      "Digital gram-accurate virgin R134a / R1234yf pure refrigerant charging",
-      "Synthetic PAG / dielectric POE compressor oil level replenishment",
-      "Dual-manifold dynamic high/low bar pressure validation",
+      'Correct refrigerant type and quantity for the vehicle',
+      'System vacuum to remove air and moisture before charging',
+      'High- and low-side pressure check with manifold gauges',
     ],
-    techSpec: "R134a / R1234yf Virgin Refrigerant",
-    duration: "45–60 mins",
-    benefit: "Protects compressor from premature wear, prevents pressure spikes, and restores rapid sub-zero cooling.",
+    image: '/ac-diagnostics.webp',
+    imageAlt: 'Manifold gauges connected to a black hatchback in the Janaka Auto AC workshop',
   },
   {
-    id: "compressor-diagnostics",
-    number: "02",
-    title: "Compressor Diagnostics & Overhaul",
-    summary: "In-depth teardown and rebuild of magnetic clutch assemblies, bearings, and control valves rather than costly total compressor replacements.",
+    id: 'compressor',
+    number: '02',
+    title: 'Compressor Repair',
+    summary:
+      'Inspection of the compressor, clutch and pulley bearing — repairing the faulty part where that makes sense instead of replacing the whole unit.',
     details: [
-      "Electromagnetic clutch coil & pulley bearing extraction and precision press",
-      "Electronic Control Valve (ECV) pulse calibration for variable displacement",
-      "Internal swash plate, piston, and reed valve wear inspection",
-      "Shaft seal renewal and calibrated shim air-gap realignment",
+      'Noise, clutch engagement and bearing checks',
+      'Clutch, bearing and seal repairs',
+      'Replacement when a repair is not the right option',
     ],
-    techSpec: "OEM Denso, Sanden, Valeo Rebuilds",
-    duration: "2.5–4.5 hours",
-    benefit: "Eliminates abnormal grinding rattles, harsh engine drag, and safeguards vehicle fuel efficiency.",
+    image: '/ac-repair-job.webp',
+    imageAlt: 'Technician working beneath the front of a van in the workshop at night',
   },
   {
-    id: "leak-testing",
-    number: "03",
-    title: "High-Pressure Leak Testing",
-    summary: "Pinpointing microscopic leaks using electronic halogen sniffers and 280 PSI high-pressure dry nitrogen decay tests across all lines, coils, and fittings.",
+    id: 'leak-testing',
+    number: '03',
+    title: 'Leak Detection',
+    summary:
+      'Tracing why a system keeps losing gas — across hoses, joints, seals and components — so the leak is fixed rather than refilled again.',
     details: [
-      "280 PSI dry nitrogen pressure-decay hold test",
-      "High-sensitivity electronic halogen detection for micro-joints",
-      "Ultraviolet (UV) fluorescent dye leak detection with optical spectrometry",
-      "O-ring elastomeric seals, crimp joints, and service valve core inspection",
+      'Pressure testing of the refrigerant circuit',
+      'Inspection of hoses, O-rings, joints and service valves',
+      'Repair of the leaking part before recharging',
     ],
-    techSpec: "280 PSI Dry Nitrogen & UV Spectrometry",
-    duration: "1–2 hours",
-    benefit: "Permanently identifies elusive micro-fissures and stops frustrating, repetitive refrigerant loss.",
+    image: '/workshop-vehicles.webp',
+    imageAlt: 'Vehicles parked in the covered service bays at Janaka Auto AC',
   },
   {
-    id: "condenser-evaporator",
-    number: "04",
-    title: "Condenser & Evaporator Architecture",
-    summary: "Complete servicing, ultrasonic cleaning, micro-fin descaling, or OEM replacement of condensers, evaporator cooling coils, and expansion valves.",
+    id: 'condenser-evaporator',
+    number: '04',
+    title: 'Condenser & Evaporator Service',
+    summary:
+      'Cleaning, repair or replacement of the condenser, evaporator, expansion valve and receiver-drier when they limit cooling.',
     details: [
-      "High-efficiency parallel-flow aluminum condenser flow analysis",
-      "Evaporator cooling coil microchannel descaling and pressure hold",
-      "Thermal Expansion Valve (TXV) superheat calibration and replacement",
-      "Integrated receiver-drier desiccant filter replacement",
+      'Condenser and receiver-drier replacement',
+      'Evaporator and expansion valve servicing',
+      'Cooling check after reassembly',
     ],
-    techSpec: "Parallel-Flow Microchannel OEM Coils",
-    duration: "3–5 hours",
-    benefit: "Guarantees rapid cabin pulldown and consistent freezing performance even in dense midday tropical traffic.",
+    image: '/condenser-replacement.webp',
+    imageAlt: 'New condenser with receiver-drier ready for installation in the workshop',
   },
   {
-    id: "full-diagnostics",
-    number: "05",
-    title: "Full A/C Diagnostics & Computer Scanning",
-    summary: "Multi-sensor computerized scanning of climate control systems, blend door stepper motors, ambient temperature sensors, and ECU data streams.",
+    id: 'full-diagnostics',
+    number: '05',
+    title: 'A/C Diagnosis',
+    summary:
+      'A structured check of pressures, electrical controls, sensors and vent temperature to find the actual cause of weak or intermittent cooling.',
     details: [
-      "OBD-II climate control ECU fault code scanning & live sensor monitoring",
-      "Dual-zone & multi-zone blend door actuator motor synchronization",
-      "Cabin vent temperature delta inspection with precision infrared probes",
-      "Evaporator fin thermistor and pressure transducer circuit calibration",
+      'Vent temperature and airflow checks',
+      'Electrical, sensor and control checks',
+      'A clear explanation of what was found before work begins',
     ],
-    techSpec: "Digital Manifold & Thermal OBD Diagnostics",
-    duration: "30–45 mins",
-    benefit: "Pinpoints hidden electrical sensor faults, erratic cooling, and dual-zone temperature discrepancies.",
+    image: '/ac-diagnostics.webp',
+    imageAlt: 'A/C service equipment connected to a vehicle under diagnosis',
   },
   {
-    id: "airflow-sanitization",
-    number: "06",
-    title: "Airflow Dynamics & Vent Sanitization",
-    summary: "Cabin microfilter renewal, high-output blower motor servicing, and ultrasonic antimicrobial duct fogging for pure, odor-free cabin air.",
+    id: 'airflow-sanitization',
+    number: '06',
+    title: 'Airflow & Cabin Air',
+    summary:
+      'Blower motor, cabin filter and vent servicing for weak airflow and musty smells from the vents.',
     details: [
-      "Cabin microfilter replacement (High-grade HEPA & activated carbon)",
-      "Blower motor cage cleaning, bearing lubrication, and resistor restoration",
-      "Ultrasonic aerosol antimicrobial duct decontamination",
-      "Evaporator casing fungal spore and mildew elimination",
+      'Cabin filter replacement',
+      'Blower motor and resistor checks',
+      'Vent and duct cleaning for odours',
     ],
-    techSpec: "Ultrasonic Mist Decontamination & HEPA",
-    duration: "30–45 mins",
-    benefit: "Eliminates damp mildew odors and airborne bacteria, restoring crisp, healthy, high-velocity cabin air.",
+    image: '/completed-job.webp',
+    imageAlt: 'Blue saloon car after service, parked outside',
   },
 ];
 
-// 5. Customer Testimonials (Google Verified)
-export const reviewItems: ReviewItem[] = [
+// 4. Simplified refrigerant circuit for the interactive explainer
+export const coolingComponents: CoolingComponent[] = [
   {
-    id: "r1",
-    name: "Nuwan Jayasuriya",
-    vehicle: "Toyota Premio 260",
-    rating: 5,
-    date: "2 weeks ago",
-    content: "My car A/C had been blowing warm air for months after being poorly repaired twice elsewhere. Janaka Auto AC found the micro leak in the evaporator within 30 minutes. Cools down to ice cold now. Extremely honest pricing.",
-    verified: true,
+    id: 'compressor',
+    name: 'Compressor',
+    location: 'Engine bay, belt-driven or electric',
+    role: 'Pumps refrigerant around the system and raises its pressure. It is the heart of the circuit — when it stops, cooling stops.',
+    signs: ['Noise when the A/C is switched on', 'A/C clutch not engaging', 'No cold air at all'],
+    x: 548,
+    y: 140,
   },
   {
-    id: "r2",
-    name: "Dr. Samantha Perera",
-    vehicle: "Honda Vezel Hybrid",
-    rating: 5,
-    date: "1 month ago",
-    content: "Very knowledgeable with electric compressors on hybrid cars. They explained the oil grade required for high voltage systems and took exceptional care of my vehicle. Highly recommended in Gampaha!",
-    verified: true,
+    id: 'condenser',
+    name: 'Condenser',
+    location: 'Front of the vehicle, ahead of the radiator',
+    role: 'Releases heat from the hot, high-pressure refrigerant into outside air, turning it from gas back into liquid.',
+    signs: ['Cooling weakens in traffic or at idle', 'Bent fins or debris blocking airflow', 'Cooling recovers when moving'],
+    x: 606,
+    y: 122,
   },
   {
-    id: "r3",
-    name: "Kasun Wickramasinghe",
-    vehicle: "Nissan X-Trail",
-    rating: 5,
-    date: "2 months ago",
-    content: "Compressor had completely seized with loud rattling noise. Instead of charging me for an exorbitant new unit, they rebuilt it with genuine seals and clutch. It has been running silently for a year.",
-    verified: true,
+    id: 'receiver-drier',
+    name: 'Receiver-drier',
+    location: 'Near the condenser, on the high-pressure line',
+    role: 'Filters the refrigerant and absorbs moisture that would otherwise damage the system. Usually renewed whenever the system is opened.',
+    signs: ['Often replaced during major repairs', 'Moisture-related cooling problems'],
+    x: 586,
+    y: 136,
   },
   {
-    id: "r4",
-    name: "Dilshan Senanayake",
-    vehicle: "Mercedes-Benz C-Class",
-    rating: 5,
-    date: "3 weeks ago",
-    content: "Diagnostic accuracy here is exceptional. Solved an electronic control valve issue on my climate control that other garages quoted for complete replacement. Master Janaka is truly a specialist.",
-    verified: true,
+    id: 'expansion-valve',
+    name: 'Expansion valve',
+    location: 'At the firewall, before the evaporator',
+    role: 'Meters liquid refrigerant into the evaporator and drops its pressure, so it can absorb heat and become very cold.',
+    signs: ['Cooling that comes and goes', 'Frost on A/C pipes', 'Vents cold, then warm'],
+    x: 504,
+    y: 100,
+  },
+  {
+    id: 'evaporator',
+    name: 'Evaporator',
+    location: 'Behind the dashboard',
+    role: 'Cold refrigerant absorbs heat from cabin air blown across its fins — this is where the air you feel is actually cooled.',
+    signs: ['Musty smell from the vents', 'Weak cooling with good airflow', 'Water dripping into the footwell'],
+    x: 462,
+    y: 104,
+  },
+  {
+    id: 'blower',
+    name: 'Blower & cabin filter',
+    location: 'Behind the glovebox area',
+    role: 'The fan pushes air through the cabin filter and evaporator and out of the vents.',
+    signs: ['Weak airflow on every setting', 'Fan works only on some speeds', 'Dust or odours from the vents'],
+    x: 424,
+    y: 118,
   },
 ];
 
-// 6. Image Assets (Stored in /public and /public/thumbs for instant 60fps streaming)
+// 5. Workshop photography (genuine photos from the garage)
 export const galleryItems: GalleryItem[] = [
   {
-    id: "g1",
-    title: "Our Workshop Exterior in Gampaha",
-    category: "Miriswatta Facility",
-    image: "/workshop-exterior.webp",
-    thumb: "/thumbs/workshop-exterior.webp",
-    caption: "Dedicated automotive climate control facility located at 366 Minuwangoda–Gampaha–Miriswatta Road. Equipped with spacious intake bays for sedans, SUVs, and commercial vehicles.",
-    badge: "Facility Intake",
+    id: 'g1',
+    title: 'Our Workshop in Gampaha',
+    category: 'Workshop',
+    image: '/workshop-exterior.webp',
+    thumb: '/thumbs/workshop-exterior.webp',
+    caption: 'The Janaka Auto AC workshop on the Minuwangoda–Gampaha–Miriswatta Road, with covered service bays.',
   },
   {
-    id: "g2",
-    title: "A/C Gas Refilling & Precision Charging",
-    category: "Refrigerant Station",
-    image: "/ac-gas-filling.webp",
-    thumb: "/thumbs/ac-gas-filling.webp",
-    caption: "Precision recovery, deep vacuum extraction to 500 microns, and gram-exact virgin R134a charging without air or moisture contamination.",
-    badge: "Virgin Gas Only",
+    id: 'g2',
+    title: 'System Pressure Diagnostics',
+    category: 'Diagnosis',
+    image: '/ac-diagnostics.webp',
+    thumb: '/thumbs/ac-diagnostics.webp',
+    caption: 'Manifold gauges and service equipment connected to check high- and low-side system pressures.',
   },
   {
-    id: "g3",
-    title: "System Pressure Diagnostics",
-    category: "Pressure Diagnostics",
-    image: "/ac-diagnostics.webp",
-    thumb: "/thumbs/ac-diagnostics.webp",
-    caption: "Simultaneous high-side and low-side manifold gauge diagnostics to evaluate compressor compression ratio, expansion valve behavior, and operating pressures.",
-    badge: "Gauge Diagnostics",
+    id: 'g3',
+    title: 'Condenser Replacement',
+    category: 'Components',
+    image: '/condenser-replacement.webp',
+    thumb: '/thumbs/condenser-replacement.webp',
+    caption: 'A new condenser with receiver-drier, ready to fit.',
   },
   {
-    id: "g4",
-    title: "Compressor Repair & Overhaul",
-    category: "Mechanical Precision",
-    image: "/compressor-repair.webp",
-    thumb: "/thumbs/compressor-repair.webp",
-    caption: "Full teardown and rebuild of automotive compressors. Replacement of bearings, magnetic clutch coils, and shaft seals calibrated to OEM tolerances.",
-    badge: "Clutch & Bearings",
+    id: 'g4',
+    title: 'Vehicles in the Service Bays',
+    category: 'Workshop',
+    image: '/workshop-vehicles.webp',
+    thumb: '/thumbs/workshop-vehicles.webp',
+    caption: 'Cars in for A/C work under the covered workshop bays.',
   },
   {
-    id: "g5",
-    title: "Sub-Zero 4.5°C Cooling Test",
-    category: "Performance Validation",
-    image: "/ac-temp-test.webp",
-    thumb: "/thumbs/ac-temp-test.webp",
-    caption: "Digital thermal probe test verifying 4.5°C vent exit temperature under tropical ambient conditions following full system calibration and deep vacuum charging.",
-    badge: "4.5°C Benchmark",
+    id: 'g5',
+    title: 'Hands-on Repairs',
+    category: 'Repairs',
+    image: '/ac-repair-job.webp',
+    thumb: '/thumbs/ac-repair-job.webp',
+    caption: 'Working beneath the front of a van to reach A/C lines and components.',
   },
   {
-    id: "g6",
-    title: "Condenser & Cooler Replacement",
-    category: "Component Servicing",
-    image: "/condenser-replacement.webp",
-    thumb: "/thumbs/condenser-replacement.webp",
-    caption: "Installation of brand-new high-efficiency aluminum parallel-flow condensers and integrated receiver-driers to solve chronic high-pressure issues.",
-    badge: "New OEM Parts",
-  },
-  {
-    id: "g7",
-    title: "Vehicles in Active Service",
-    category: "Service Bays",
-    image: "/workshop-vehicles.webp",
-    thumb: "/thumbs/workshop-vehicles.webp",
-    caption: "Simultaneous climate diagnostics and servicing on Japanese family sedans, hybrid crossovers, and commercial vans in our covered workshop bays.",
-    badge: "Multi-Bay Workshop",
-  },
-  {
-    id: "g8",
-    title: "Hands-on System Repairs",
-    category: "Specialist Craft",
-    image: "/ac-repair-job.webp",
-    thumb: "/thumbs/ac-repair-job.webp",
-    caption: "Precision disassembly of front fascia and cooling supports to access concealed evaporator lines, pressure switches, and cooling fan relays.",
-    badge: "Certified Hands-On",
-  },
-  {
-    id: "g9",
-    title: "Completed Job Quality Check",
-    category: "Quality Assurance",
-    image: "/completed-job.webp",
-    thumb: "/thumbs/completed-job.webp",
-    caption: "Completed luxury vehicle undergoing final electronic climate control scan, vent sanitization, and temperature test before client handover.",
-    badge: "100% Quality QA",
+    id: 'g6',
+    title: 'Ready for Collection',
+    category: 'Completed',
+    image: '/completed-job.webp',
+    thumb: '/thumbs/completed-job.webp',
+    caption: 'A customer vehicle after its A/C work.',
   },
 ];
 
-// 7. Booking Slots Data
-export const bookingSlotsData: BookingSlotOption[] = [
-  {
-    time: "08:30 AM",
-    title: "Morning Diagnostics & Gas Charging",
-    description: "Deep vacuum evacuation, pressure-decay leak test, and virgin R134a charging.",
-  },
-  {
-    time: "11:00 AM",
-    title: "Compressor & Pressure Diagnostics",
-    description: "In-depth manifold analysis, magnetic clutch gap check, and bearing inspection.",
-  },
-  {
-    time: "02:00 PM",
-    title: "Complete Vacuum & Refrigerant Cycle",
-    description: "Full moisture extraction, synthetic lubricant replenishment, and cooling optimization.",
-  },
-  {
-    time: "04:30 PM",
-    title: "Evening Inspection & Temperature QA",
-    description: "Digital vent thermal probe testing, cabin filter review, and system health audit.",
-  },
-];
+export const navSections = [
+  { id: 'home', label: 'Home' },
+  { id: 'services', label: 'Services' },
+  { id: 'system', label: 'How A/C Works' },
+  { id: 'about', label: 'About' },
+  { id: 'why-us', label: 'Why Us' },
+  { id: 'gallery', label: 'Gallery' },
+  { id: 'contact', label: 'Contact' },
+] as const;

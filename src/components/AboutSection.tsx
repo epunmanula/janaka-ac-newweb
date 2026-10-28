@@ -1,125 +1,100 @@
 'use client';
 
-import React from 'react';
+import React, { useRef } from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { CheckCircle, MapPin, Star } from 'lucide-react';
-import { businessInfo, trustMetrics } from '@/data/janakaData';
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import { Reveal } from '@/components/motion/Reveal';
+import { businessHours, businessInfo } from '@/data/janakaData';
 
 export const AboutSection: React.FC = () => {
+  const ref = useRef<HTMLElement>(null);
+  const reduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+  const mainY = useTransform(scrollYProgress, [0, 1], reduceMotion ? [0, 0] : [40, -40]);
+  const insetY = useTransform(scrollYProgress, [0, 1], reduceMotion ? [0, 0] : [90, -70]);
+
   return (
-    <section id="about" className="w-full py-20 md:py-28 border-b border-[#222222] bg-[#141414]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Left Text Narrative */}
-          <div className="lg:col-span-7 space-y-6">
-            <span className="font-mono-editorial text-xs uppercase tracking-[0.25em] text-[#888888] block">
-              HERITAGE OF PRECISION // {trustMetrics.experienceYears} IN GAMPAHA
-            </span>
-
-            <h2 className="font-serif-editorial text-4xl sm:text-5xl lg:text-6xl text-[#F5F4EF] leading-tight">
-              Excellence in Automotive Thermodynamics
-            </h2>
-
-            <p className="font-serif-editorial text-xl sm:text-2xl text-[#DCD9D0] leading-relaxed font-light">
-              At Janaka Auto AC in Gampaha, automotive air conditioning is treated not as arbitrary topping up, but as a calibrated thermodynamic science. From Japanese family sedans and high-voltage hybrids to German prestige cruisers, every climate system demands microscopic leak integrity, exact vacuum evacuation, and uncompromised lubricant purity.
-            </p>
-
-            <p className="font-serif-editorial text-lg text-[#999999] leading-relaxed font-light">
-              Equipped with 280 PSI digital dry nitrogen pressure testing, automated recovery stations, and 100% virgin R134a/R1234yf refrigerants, our workshop validates every repaired vehicle to our signature sub-zero vent standard — achieving an ice-cold 4.5°C cabin output even under blistering mid-day Sri Lankan heat.
-            </p>
-
-            {/* Workshop image highlight banner */}
-            <div className="relative h-48 sm:h-60 w-full rounded-sm overflow-hidden border border-[#2b2b2b] my-4 shadow-lg group">
+    <section id="about" ref={ref} aria-labelledby="about-title" className="overflow-hidden bg-white py-24 text-navy-950 md:py-32">
+      <div className="mx-auto grid max-w-7xl gap-16 px-4 sm:px-6 lg:grid-cols-12 lg:gap-12 lg:px-8">
+        {/* Photographs */}
+        <div className="relative lg:col-span-6">
+          <motion.figure style={{ y: mainY }} className="relative w-[82%] max-w-[460px]">
+            <div className="relative aspect-[3/4] overflow-hidden bg-mist">
               <Image
                 src="/workshop-exterior.webp"
-                alt="Janaka Auto AC Workshop in Miriswatta, Gampaha"
+                alt="The Janaka Auto AC workshop building with its covered service bays, Gampaha"
                 fill
-                sizes="(max-width: 1024px) 100vw, 60vw"
-                className="object-cover object-center filter brightness-95 group-hover:scale-105 transition-transform duration-700"
+                sizes="(max-width: 1024px) 82vw, 460px"
+                className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex items-end p-4">
-                <span className="font-mono-editorial text-xs text-[#F5F4EF] flex items-center space-x-2">
-                  <MapPin className="w-3.5 h-3.5 text-[#c5a059]" />
-                  <span>{businessInfo.address}</span>
-                </span>
-              </div>
             </div>
+            <figcaption className="mt-3 font-mono text-[11px] uppercase tracking-[0.16em] text-steel">
+              The workshop · {businessInfo.addressShort}
+            </figcaption>
+          </motion.figure>
+          <motion.div
+            style={{ y: insetY }}
+            className="absolute bottom-6 right-0 w-[46%] max-w-[260px] border-[6px] border-white shadow-[0_30px_60px_-30px_rgb(7_21_34/0.45)] sm:bottom-12"
+          >
+            <div className="relative aspect-[3/4] overflow-hidden bg-mist">
+              <Image
+                src="/workshop-vehicles.webp"
+                alt="Customer cars in the covered service bays"
+                fill
+                sizes="260px"
+                className="object-cover"
+              />
+            </div>
+          </motion.div>
+        </div>
 
-            {/* Badges list */}
-            <div className="pt-2 flex flex-wrap gap-3 text-xs font-mono-editorial text-[#888888]">
-              {trustMetrics.badges.map((badge, idx) => (
-                <div
-                  key={idx}
-                  className="flex items-center space-x-2 border border-[#262626] bg-[#121212] px-3.5 py-2 rounded-sm hover:border-[#383838] transition-colors"
-                >
-                  <CheckCircle className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
-                  <div>
-                    <span className="text-[#F5F4EF] font-medium block">{badge.title}</span>
-                    <span className="text-[10px] text-[#777777] block">{badge.desc}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Right Metrics Ledger */}
-          <div className="lg:col-span-5 bg-[#121212] border border-[#262626] p-8 sm:p-10 rounded-sm space-y-8 shadow-2xl">
-            <div className="border-b border-[#222222] pb-6">
-              <span className="font-mono-editorial text-xs text-[#888888] uppercase tracking-[0.2em] block mb-2">
-                VERIFIED EXPERIENCE
-              </span>
-              <div className="font-serif-editorial text-5xl sm:text-6xl text-[#F5F4EF]">
-                15+ Years
+        {/* Story */}
+        <div className="flex flex-col justify-center lg:col-span-6 lg:pl-8">
+          <Reveal>
+            <p className="eyebrow flex items-center gap-3 text-ice-deep">
+              <span>03</span>
+              <span aria-hidden="true" className="h-px w-8 bg-ice-deep" />
+              <span>About the garage</span>
+            </p>
+            <h2 id="about-title" className="mt-5 font-wide text-[2rem] font-bold leading-[1.06] tracking-[-0.02em] text-balance sm:text-[2.6rem] lg:text-5xl">
+              A dedicated car A/C workshop in Gampaha.
+            </h2>
+          </Reveal>
+          <Reveal delay={0.1} className="mt-8 space-y-5 text-[17px] leading-relaxed text-steel">
+            <p>
+              {businessInfo.name} is an automotive air-conditioning workshop on the Minuwangoda–Gampaha–Miriswatta
+              Road. Car A/C is our speciality — not a sideline to general repairs.
+            </p>
+            <p>
+              Cars, SUVs and vans come to us for everything from a gas recharge to compressor and condenser work. Our
+              approach is simple: find the cause first, explain it in plain terms, then carry out the repair.
+            </p>
+          </Reveal>
+          <Reveal delay={0.2}>
+            <dl className="mt-10 grid grid-cols-2 border-t border-navy-950/12">
+              <div className="border-r border-navy-950/12 py-5 pr-4">
+                <dt className="eyebrow text-[10px] text-steel">Opening hours</dt>
+                <dd className="mt-2 text-sm font-semibold">
+                  {businessHours.openDays}
+                  <span className="block font-normal text-steel">{businessHours.hours}</span>
+                </dd>
               </div>
-              <p className="font-mono-editorial text-xs text-[#666666] uppercase mt-2">
-                Over 10,000+ Japanese, European & Hybrid Vehicles Serviced
-              </p>
-            </div>
-
-            <div className="border-b border-[#222222] pb-6">
-              <span className="font-mono-editorial text-xs text-[#888888] uppercase tracking-[0.2em] block mb-2">
-                VENT TEMPERATURE BENCHMARK
-              </span>
-              <div className="font-serif-editorial text-5xl sm:text-6xl text-cyan-400">
-                4.5°C
+              <div className="py-5 pl-5">
+                <dt className="eyebrow text-[10px] text-steel">Find us</dt>
+                <dd className="mt-2 text-sm font-semibold">
+                  Miriswatta, Gampaha
+                  <a
+                    href={businessInfo.googleMapsDirectionsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block font-normal text-ice-deep underline decoration-ice-deep/30 underline-offset-4 transition-colors hover:decoration-ice-deep"
+                  >
+                    Get directions
+                  </a>
+                </dd>
               </div>
-              <p className="font-mono-editorial text-xs text-[#666666] uppercase mt-2">
-                Sub-Zero Digital Vent Output Verified Under Ambient Heat
-              </p>
-            </div>
-
-            <div className="border-b border-[#222222] pb-6">
-              <span className="font-mono-editorial text-xs text-[#888888] uppercase tracking-[0.2em] block mb-2">
-                PURITY ASSURANCE
-              </span>
-              <div className="font-serif-editorial text-5xl sm:text-6xl text-[#c5a059]">
-                100% Pure
-              </div>
-              <p className="font-mono-editorial text-xs text-[#666666] uppercase mt-2">
-                Virgin Denso / Sanden Specification Gas & Dielectric POE Oil
-              </p>
-            </div>
-
-            <div>
-              <span className="font-mono-editorial text-xs text-[#888888] uppercase tracking-[0.2em] block mb-2">
-                GOOGLE REVIEWS RATING
-              </span>
-              <div className="flex items-center space-x-3">
-                <span className="font-serif-editorial text-5xl sm:text-6xl text-[#F5F4EF]">
-                  4.9
-                </span>
-                <div className="flex text-amber-400 space-x-1">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-amber-400 text-amber-400" />
-                  ))}
-                </div>
-              </div>
-              <p className="font-mono-editorial text-xs text-[#666666] uppercase mt-2">
-                {trustMetrics.reviewsCount} Google Verified Driver Testimonials in Miriswatta, Gampaha
-              </p>
-            </div>
-          </div>
+            </dl>
+          </Reveal>
         </div>
       </div>
     </section>
