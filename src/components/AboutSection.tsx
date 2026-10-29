@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { Reveal } from '@/components/motion/Reveal';
 import { businessHours, businessInfo } from '@/data/janakaData';
-import { SectionBlend } from '@/components/SectionBlend';
+import { SectionEdge } from '@/components/SectionEdge';
 
 export const AboutSection: React.FC = () => {
   const ref = useRef<HTMLElement>(null);
@@ -15,9 +15,9 @@ export const AboutSection: React.FC = () => {
   const insetY = useTransform(scrollYProgress, [0, 1], reduceMotion ? [0, 0] : [90, -70]);
 
   return (
-    <section id="about" ref={ref} aria-labelledby="about-title" className="relative isolate overflow-hidden bg-cool py-24 text-navy-950 md:py-32">
-      <SectionBlend from="var(--color-graphite)" edge="top" />
-      <SectionBlend from="var(--color-navy-950)" edge="bottom" />
+    <section id="about" ref={ref} aria-labelledby="about-title" className="relative isolate overflow-hidden bg-frost py-24 text-navy-950 md:py-32">
+      <SectionEdge from="var(--color-graphite)" edge="top" />
+      <SectionEdge from="var(--color-navy-950)" edge="bottom" />
       <div className="mx-auto grid max-w-7xl gap-16 px-4 sm:px-6 lg:grid-cols-12 lg:gap-12 lg:px-8">
         {/* Photographs */}
         <div className="relative lg:col-span-6">

@@ -5,7 +5,7 @@ import { ArrowUpRight, MessageCircle, Phone } from 'lucide-react';
 import { InfoIcon } from '@/components/brand/InfoIcons';
 import { Reveal } from '@/components/motion/Reveal';
 import { businessHours, businessInfo } from '@/data/janakaData';
-import { SectionBlend } from '@/components/SectionBlend';
+import { SectionEdge } from '@/components/SectionEdge';
 
 const symptomPresets = ['Blowing warm air', 'Gas recharge', 'Noise when A/C is on', 'Weak cooling in traffic', 'Bad smell from vents'];
 
@@ -71,9 +71,9 @@ export const BookingContact: React.FC = () => {
   };
 
   return (
-    <section id="contact" aria-labelledby="contact-title" className="relative isolate bg-cool text-navy-950">
-      <SectionBlend from="var(--color-navy-950)" edge="top" />
-      <SectionBlend from="var(--color-navy-950)" edge="bottom" />
+    <section id="contact" aria-labelledby="contact-title" className="relative isolate bg-frost text-navy-950">
+      <SectionEdge from="var(--color-navy-950)" edge="top" />
+      <SectionEdge from="var(--color-navy-950)" edge="bottom" />
       <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 md:py-28 lg:px-8">
         <div className="grid gap-14 lg:grid-cols-12 lg:gap-16">
           {/* Direct contact */}

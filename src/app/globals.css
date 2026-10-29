@@ -68,15 +68,6 @@ section[id] {
   text-transform: uppercase;
 }
 
-/* ── Light sections: cool blue-grey paper with a faint ice glow, never stark white ── */
-@utility bg-cool {
-  background-color: var(--color-frost);
-  background-image:
-    radial-gradient(55% 45% at 88% 18%, rgb(53 200 244 / 0.1), transparent 70%),
-    radial-gradient(45% 40% at 8% 85%, rgb(16 42 67 / 0.07), transparent 70%),
-    linear-gradient(to bottom, #e3eaf2, var(--color-frost) 30%, #edf2f7 70%, #e3eaf2);
-}
-
 /* Airflow streaks drawn with dashed strokes; dashes travel toward the end of each path */
 @keyframes airflow {
   to {

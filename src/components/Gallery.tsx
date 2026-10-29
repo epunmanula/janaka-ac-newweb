@@ -8,7 +8,7 @@ import { DriftWall } from '@/components/DriftWall';
 import { Reveal } from '@/components/motion/Reveal';
 import { SectionHeading } from '@/components/SectionHeading';
 import { galleryItems } from '@/data/janakaData';
-import { SectionBlend } from '@/components/SectionBlend';
+import { SectionEdge } from '@/components/SectionEdge';
 
 export const Gallery: React.FC = () => {
   const [selected, setSelected] = useState<number | null>(null);
@@ -49,9 +49,9 @@ export const Gallery: React.FC = () => {
   const photo = selected !== null ? galleryItems[selected] : null;
 
   return (
-    <section id="gallery" aria-labelledby="gallery-title" className="relative isolate bg-cool py-24 text-navy-950 md:py-32">
-      <SectionBlend from="var(--color-navy-950)" edge="top" />
-      <SectionBlend from="var(--color-navy-950)" edge="bottom" />
+    <section id="gallery" aria-labelledby="gallery-title" className="relative isolate bg-frost py-24 text-navy-950 md:py-32">
+      <SectionEdge from="var(--color-navy-950)" edge="top" />
+      <SectionEdge from="var(--color-navy-950)" edge="bottom" />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           id="gallery-title"
