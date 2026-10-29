@@ -15,14 +15,13 @@ export const AboutSection: React.FC = () => {
   const insetY = useTransform(scrollYProgress, [0, 1], reduceMotion ? [0, 0] : [90, -70]);
 
   return (
-    <section id="about" ref={ref} aria-labelledby="about-title" className="relative isolate overflow-hidden bg-frost py-24 text-navy-950 md:py-32">
+    <section id="about" ref={ref} aria-labelledby="about-title" className="relative isolate overflow-hidden bg-white py-24 text-slate-900 border-b border-slate-200/80 md:py-32">
       <SectionEdge from="var(--color-graphite)" edge="top" />
-      <SectionEdge from="var(--color-navy-950)" edge="bottom" />
       <div className="mx-auto grid max-w-7xl gap-16 px-4 sm:px-6 lg:grid-cols-12 lg:gap-12 lg:px-8">
         {/* Photographs */}
         <div className="relative lg:col-span-6">
           <motion.figure style={{ y: mainY }} className="relative w-[82%] max-w-[460px]">
-            <div className="relative aspect-[3/4] overflow-hidden bg-mist">
+            <div className="relative aspect-[3/4] overflow-hidden rounded-xl border border-slate-200/90 bg-slate-100 shadow-lg">
               <Image
                 src="/workshop-exterior.webp"
                 alt="The Janaka Auto AC workshop building with its covered service bays, Gampaha"
@@ -31,15 +30,15 @@ export const AboutSection: React.FC = () => {
                 className="object-cover"
               />
             </div>
-            <figcaption className="mt-3 font-mono text-[11px] uppercase tracking-[0.16em] text-steel">
+            <figcaption className="mt-3 font-mono text-[11px] uppercase tracking-[0.16em] text-slate-500">
               The workshop · {businessInfo.addressShort}
             </figcaption>
           </motion.figure>
           <motion.div
             style={{ y: insetY }}
-            className="absolute bottom-6 right-0 w-[46%] max-w-[260px] border-[6px] border-paper shadow-[0_30px_60px_-30px_rgb(7_21_34/0.45)] sm:bottom-12"
+            className="absolute bottom-6 right-0 w-[46%] max-w-[260px] overflow-hidden rounded-xl border-[6px] border-white shadow-[0_24px_50px_-15px_rgba(2,132,199,0.25)] sm:bottom-12"
           >
-            <div className="relative aspect-[3/4] overflow-hidden bg-mist">
+            <div className="relative aspect-[3/4] overflow-hidden bg-slate-100">
               <Image
                 src="/workshop-vehicles.webp"
                 alt="Customer cars in the covered service bays"
@@ -54,16 +53,16 @@ export const AboutSection: React.FC = () => {
         {/* Story */}
         <div className="flex flex-col justify-center lg:col-span-6 lg:pl-8">
           <Reveal>
-            <p className="eyebrow flex items-center gap-3 text-ice-deep">
+            <p className="eyebrow flex items-center gap-3 text-blue-600 font-semibold">
               <span>03</span>
-              <span aria-hidden="true" className="h-px w-8 bg-ice-deep" />
+              <span aria-hidden="true" className="h-px w-8 bg-blue-600" />
               <span>About the garage</span>
             </p>
-            <h2 id="about-title" className="mt-5 font-wide text-[2rem] font-bold leading-[1.06] tracking-[-0.02em] text-balance sm:text-[2.6rem] lg:text-5xl">
+            <h2 id="about-title" className="mt-5 font-wide text-[2rem] font-bold leading-[1.06] tracking-[-0.02em] text-balance text-slate-950 sm:text-[2.6rem] lg:text-5xl">
               A dedicated car A/C workshop in Gampaha.
             </h2>
           </Reveal>
-          <Reveal delay={0.1} className="mt-8 space-y-5 text-[17px] leading-relaxed text-steel">
+          <Reveal delay={0.1} className="mt-8 space-y-5 text-[17px] leading-relaxed text-slate-600">
             <p>
               {businessInfo.name} is an automotive air-conditioning workshop on the Minuwangoda–Gampaha–Miriswatta
               Road. Car A/C is our speciality — not a sideline to general repairs.
@@ -74,33 +73,33 @@ export const AboutSection: React.FC = () => {
             </p>
           </Reveal>
           <Reveal delay={0.2}>
-            <dl className="mt-10 grid grid-cols-2 border-t border-navy-950/12">
-              <div className="border-r border-navy-950/12 py-5 pr-4">
-                <dt className="eyebrow text-[10px] text-steel">Opening hours</dt>
-                <dd className="mt-2 text-sm font-semibold">
+            <dl className="mt-10 grid grid-cols-2 border-t border-slate-200">
+              <div className="border-r border-slate-200 py-5 pr-4">
+                <dt className="eyebrow text-[10px] text-slate-500 font-semibold">Opening hours</dt>
+                <dd className="mt-2 text-sm font-semibold text-slate-900">
                   {businessHours.openDays}
-                  <span className="block font-normal text-steel">{businessHours.hours}</span>
+                  <span className="block font-normal text-slate-500">{businessHours.hours}</span>
                 </dd>
               </div>
               <div className="py-5 pl-5">
-                <dt className="eyebrow text-[10px] text-steel">Find us</dt>
-                <dd className="mt-2 text-sm font-semibold">
+                <dt className="eyebrow text-[10px] text-slate-500 font-semibold">Find us</dt>
+                <dd className="mt-2 text-sm font-semibold text-slate-900">
                   Miriswatta, Gampaha
                   <a
                     href={businessInfo.googleMapsDirectionsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block font-normal text-ice-deep underline decoration-ice-deep/30 underline-offset-4 transition-colors hover:decoration-ice-deep"
+                    className="block font-medium text-blue-600 underline decoration-blue-600/30 underline-offset-4 transition-colors hover:decoration-blue-600"
                   >
                     Get directions
                   </a>
                 </dd>
               </div>
             </dl>
-            <div className="mt-6 flex items-center gap-3 rounded-[4px] border border-amber/30 bg-amber-500/10 px-4 py-3 text-xs">
-              <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-amber font-bold text-[10px] text-white">★</span>
-              <p className="font-medium text-navy-950">
-                15+ Years Specialized Automotive A/C Experience <span className="font-normal text-steel">· Certified Sub-Zero 4.5°C Standard in Gampaha</span>
+            <div className="mt-6 flex items-center gap-3 rounded-lg border border-amber-300 bg-amber-50/80 px-4 py-3 text-xs shadow-xs">
+              <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-amber-500 font-bold text-[10px] text-white">★</span>
+              <p className="font-semibold text-slate-900">
+                15+ Years Specialized Automotive A/C Experience <span className="font-normal text-slate-600">· Certified Sub-Zero 4.5°C Standard in Gampaha</span>
               </p>
             </div>
           </Reveal>

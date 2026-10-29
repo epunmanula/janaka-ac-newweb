@@ -29,8 +29,7 @@ export const ServicesSection: React.FC = () => {
   }, []);
 
   return (
-    <section id="services" aria-labelledby="services-title" className="relative isolate bg-frost py-24 text-navy-950 md:py-32">
-      <SectionEdge from="var(--color-navy-950)" edge="top" />
+    <section id="services" aria-labelledby="services-title" className="relative isolate bg-white py-24 text-navy-950 md:py-32">
       <SectionEdge from="var(--color-graphite)" edge="bottom" />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
@@ -46,7 +45,7 @@ export const ServicesSection: React.FC = () => {
           <div className="hidden lg:col-span-5 lg:block">
             <div className="sticky top-28">
               <figure>
-                <div className="relative aspect-[4/5] w-full max-w-[440px] overflow-hidden bg-navy-900">
+                <div className="relative aspect-[4/5] w-full max-w-[440px] overflow-hidden rounded-xl border border-slate-200/90 bg-slate-100 shadow-lg">
                   <AnimatePresence initial={false}>
                     <motion.div
                       key={active.image + active.id}
@@ -60,11 +59,11 @@ export const ServicesSection: React.FC = () => {
                     </motion.div>
                   </AnimatePresence>
                   <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-navy-950/70 to-transparent" />
-                  <span className="absolute bottom-4 left-4 font-mono text-[11px] uppercase tracking-[0.18em] text-white">
+                  <span className="absolute bottom-4 left-4 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-white">
                     {active.number} / {String(servicesData.length).padStart(2, '0')}
                   </span>
                 </div>
-                <figcaption className="mt-3 max-w-[440px] text-xs leading-relaxed text-steel">
+                <figcaption className="mt-3 max-w-[440px] text-xs leading-relaxed text-slate-500">
                   From the Janaka Auto AC workshop — {active.imageAlt.charAt(0).toLowerCase() + active.imageAlt.slice(1)}.
                 </figcaption>
               </figure>
@@ -84,26 +83,26 @@ export const ServicesSection: React.FC = () => {
                   }}
                   data-index={i}
                   onMouseEnter={() => setActiveIndex(i)}
-                  className="border-t border-navy-950/12 last:border-b"
+                  className="border-t border-slate-200 last:border-b transition-colors duration-300"
                 >
                   <Reveal y={16} className="grid gap-5 py-9 sm:grid-cols-[4.5rem_1fr] sm:gap-6 md:py-11">
                     <span
-                      className={`font-mono text-sm transition-colors duration-500 ${isActive ? 'text-ice-deep' : 'text-steel/70'}`}
+                      className={`font-mono text-sm transition-colors duration-500 ${isActive ? 'text-blue-600 font-bold' : 'text-slate-400'}`}
                     >
                       {service.number}
                     </span>
                     <div>
-                      <div className="relative mb-6 aspect-[4/3] overflow-hidden bg-navy-900 lg:hidden">
+                      <div className="relative mb-6 aspect-[4/3] overflow-hidden rounded-lg border border-slate-200 bg-slate-100 lg:hidden shadow-sm">
                         <Image src={service.image} alt={service.imageAlt} fill sizes="100vw" className="object-cover" />
                       </div>
-                      <h3 className="font-wide text-2xl font-semibold leading-tight tracking-[-0.01em] sm:text-[1.75rem]">
+                      <h3 className={`font-wide text-2xl font-semibold leading-tight tracking-[-0.01em] transition-colors sm:text-[1.75rem] ${isActive ? 'text-blue-600' : 'text-slate-950'}`}>
                         {service.title}
                       </h3>
-                      <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-steel">{service.summary}</p>
-                      <ul className="mt-5 grid gap-x-6 gap-y-2 text-sm text-navy-800 sm:grid-cols-2">
+                      <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-slate-600">{service.summary}</p>
+                      <ul className="mt-5 grid gap-x-6 gap-y-2 text-sm text-slate-700 sm:grid-cols-2">
                         {service.details.map((d) => (
-                          <li key={d} className="flex gap-3">
-                            <span aria-hidden="true" className="mt-[0.6em] h-px w-3 shrink-0 bg-ice-deep" />
+                          <li key={d} className="flex gap-3 items-center">
+                            <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-blue-600 shrink-0" />
                             {d}
                           </li>
                         ))}
@@ -116,8 +115,8 @@ export const ServicesSection: React.FC = () => {
           </ol>
         </div>
 
-        <Reveal className="mt-14 flex flex-col items-start justify-between gap-5 bg-navy-950 px-6 py-7 text-white sm:flex-row sm:items-center sm:px-10">
-          <p className="max-w-xl text-base leading-relaxed text-silver">
+        <Reveal className="mt-14 flex flex-col items-start justify-between gap-5 rounded-xl border border-blue-200/60 bg-gradient-to-r from-blue-700 via-blue-600 to-indigo-900 px-6 py-7 text-white shadow-xl shadow-blue-900/10 sm:flex-row sm:items-center sm:px-10">
+          <p className="max-w-xl text-base leading-relaxed text-blue-50">
             <span className="font-semibold text-white">Not sure what the problem is?</span> Describe the symptoms on
             WhatsApp and we&apos;ll advise on the next step.
           </p>
@@ -125,7 +124,7 @@ export const ServicesSection: React.FC = () => {
             href={`${businessInfo.whatsappUrl}?text=${encodeURIComponent("Hello Janaka Auto AC, I'd like advice about my car's A/C.")}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex shrink-0 items-center gap-2 rounded-[3px] border border-white/25 px-5 py-3 text-sm font-semibold transition-colors hover:border-ice hover:text-ice"
+            className="group inline-flex shrink-0 items-center gap-2 rounded-[4px] bg-white px-5 py-3 text-sm font-semibold text-blue-900 shadow-md transition-all duration-300 hover:bg-sky-50 hover:shadow-lg active:translate-y-px"
           >
             Ask on WhatsApp
             <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />

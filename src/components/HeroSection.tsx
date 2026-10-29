@@ -38,13 +38,13 @@ export const HeroSection: React.FC = () => {
       id="home"
       ref={ref}
       aria-labelledby="hero-title"
-      className="relative isolate overflow-hidden bg-navy-950 text-white"
+      className="relative isolate overflow-hidden bg-gradient-to-b from-sky-50/70 via-white to-slate-50/50 text-slate-900 border-b border-slate-200/80"
     >
       {/* Studio lighting */}
-      <PhotoBackdrop src="/backdrops/hero.webp" opacity={0.42} fade="left" />
+      <PhotoBackdrop src="/backdrops/hero.webp" opacity={0.12} fade="left" />
       <div
         aria-hidden="true"
-        className="absolute -right-40 -top-40 -z-10 h-[42rem] w-[42rem] rounded-full bg-[radial-gradient(circle,rgb(53_200_244/0.16),transparent_62%)]"
+        className="absolute -right-40 -top-40 -z-10 h-[42rem] w-[42rem] rounded-full bg-[radial-gradient(circle,rgb(2_132_199/0.08),transparent_65%)]"
       />
 
       <div className="mx-auto grid min-h-[100svh] max-w-7xl grid-rows-[1fr_auto] px-4 pt-[4.5rem] sm:px-6 lg:px-8">
@@ -56,12 +56,12 @@ export const HeroSection: React.FC = () => {
               transition={{ duration: 0.8, delay: start, ease }}
               className="flex flex-wrap items-center gap-3"
             >
-              <p className="eyebrow flex items-center gap-3 text-ice">
-                <span aria-hidden="true" className="h-px w-8 bg-ice" />
+              <p className="eyebrow flex items-center gap-3 text-blue-600 font-semibold">
+                <span aria-hidden="true" className="h-px w-8 bg-blue-600" />
                 <span>Automotive A/C Specialists · Gampaha</span>
               </p>
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-amber/30 bg-amber-500/10 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-amber-glow">
-                <span className="h-1.5 w-1.5 rounded-full bg-amber-glow animate-pulse" />
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-300 bg-amber-50 px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-amber-800 font-semibold shadow-xs">
+                <span className="h-1.5 w-1.5 rounded-full bg-amber-500 animate-pulse" />
                 <span>Sub-Zero 4.5°C Standard</span>
               </span>
             </motion.div>
@@ -71,17 +71,17 @@ export const HeroSection: React.FC = () => {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: start + 0.1, ease }}
-              className="mt-6 font-wide text-[2.6rem] font-bold leading-[1.02] tracking-[-0.02em] text-balance sm:text-6xl lg:text-[clamp(3rem,4.6vw,4.5rem)]"
+              className="mt-6 font-wide text-[2.6rem] font-bold leading-[1.02] tracking-[-0.02em] text-balance text-slate-950 sm:text-6xl lg:text-[clamp(3rem,4.6vw,4.5rem)]"
             >
               Precision Cooling.
-              <span className="block text-silver">Exceptional Comfort.</span>
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-blue-600 to-sky-600">Exceptional Comfort.</span>
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: start + 0.2, ease }}
-              className="mt-6 max-w-lg text-base leading-relaxed text-silver sm:text-lg"
+              className="mt-6 max-w-lg text-base leading-relaxed text-slate-600 sm:text-lg"
             >
               Car air-conditioning diagnosis, servicing and repairs in Gampaha — from a gas recharge to compressor,
               condenser and leak repairs. We find the cause, explain it clearly, and get your cabin cold again.
@@ -95,14 +95,14 @@ export const HeroSection: React.FC = () => {
             >
               <a
                 href="#contact"
-                className="group inline-flex items-center justify-center gap-3 rounded-[3px] bg-ice px-7 py-4 text-sm font-semibold text-navy-950 transition-colors duration-300 hover:bg-white active:translate-y-px"
+                className="group inline-flex items-center justify-center gap-3 rounded-[4px] bg-blue-600 px-7 py-4 text-sm font-semibold text-white shadow-lg shadow-blue-600/25 transition-all duration-300 hover:bg-blue-700 hover:shadow-blue-600/35 active:translate-y-px"
               >
                 Book a Service
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
               </a>
               <a
                 href="#services"
-                className="inline-flex items-center justify-center rounded-[3px] border border-white/20 px-7 py-4 text-sm font-semibold text-white transition-colors duration-300 hover:border-white/60 active:translate-y-px"
+                className="inline-flex items-center justify-center rounded-[4px] border border-slate-300 bg-white px-7 py-4 text-sm font-semibold text-slate-800 shadow-sm transition-all duration-300 hover:border-blue-600 hover:text-blue-600 active:translate-y-px"
               >
                 Explore Our Services
               </a>
@@ -125,25 +125,25 @@ export const HeroSection: React.FC = () => {
                       className={`absolute flex flex-col ${a.end ? 'items-end' : 'items-center'}`}
                       style={{ left: `${a.x}%`, top: `${a.y}%`, transform: `translate(${a.end ? 'calc(-100% + 4px)' : '-50%'}, calc(-100% + 4px))` }}
                     >
-                      <span className="eyebrow whitespace-nowrap text-[10px] text-silver">{a.label}</span>
-                      <span className={`mt-1.5 w-px bg-gradient-to-b from-silver/60 to-ice ${a.end ? 'mr-[3.5px]' : ''}`} style={{ height: a.lift - 22 }} />
-                      <span className="h-2 w-2 rounded-full border border-ice bg-navy-950" />
+                      <span className="eyebrow whitespace-nowrap text-[10px] text-slate-600 font-semibold">{a.label}</span>
+                      <span className={`mt-1.5 w-px bg-gradient-to-b from-slate-400 to-blue-600 ${a.end ? 'mr-[3.5px]' : ''}`} style={{ height: a.lift - 22 }} />
+                      <span className="h-2 w-2 rounded-full border-2 border-blue-600 bg-white" />
                     </div>
                   ))}
                 </motion.div>
                 <Car className="relative w-full" wheelRotate={wheelRotate} airflow headlights />
               </div>
               {/* Floor reflection */}
-              <div aria-hidden="true" className="pointer-events-none -mt-[9%] h-24 scale-y-[-1] opacity-[0.14] [mask-image:linear-gradient(to_top,black,transparent_70%)]">
+              <div aria-hidden="true" className="pointer-events-none -mt-[9%] h-24 scale-y-[-1] opacity-[0.08] [mask-image:linear-gradient(to_top,black,transparent_70%)]">
                 <Car className="w-full" wheelRotate={wheelRotate} title="" />
               </div>
             </motion.div>
-            <div aria-hidden="true" className="absolute inset-x-[-20%] bottom-24 h-px bg-gradient-to-r from-transparent via-silver/30 to-transparent" />
+            <div aria-hidden="true" className="absolute inset-x-[-20%] bottom-24 h-px bg-gradient-to-r from-transparent via-slate-300 to-transparent" />
           </motion.div>
         </div>
 
         {/* Verified business facts */}
-        <ul className="grid gap-px border-t border-white/10 sm:grid-cols-3">
+        <ul className="grid gap-px border-t border-slate-200 bg-white/80 sm:grid-cols-3">
           {[
             { icon: 'pin' as const, label: 'Workshop', value: businessInfo.addressShort, hint: 'Get directions', href: businessInfo.googleMapsDirectionsUrl, external: true },
             { icon: 'clock' as const, label: `Open ${businessHours.openDaysShort}`, value: businessHours.hours, hint: businessHours.closed, href: '#contact' },
@@ -153,13 +153,13 @@ export const HeroSection: React.FC = () => {
               <a
                 href={fact.href}
                 {...(fact.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                className="group flex items-center gap-4 py-5 transition-colors duration-300 sm:px-5 sm:first:pl-0"
+                className="group flex items-center gap-4 py-5 transition-colors duration-300 sm:px-5 sm:first:pl-0 hover:bg-sky-50/60"
               >
-                <InfoIcon name={fact.icon} />
+                <InfoIcon name={fact.icon} tone="light" />
                 <span className="min-w-0">
-                  <span className="block font-mono text-[10px] uppercase tracking-[0.2em] text-silver/75">{fact.label}</span>
-                  <span className="mt-1 block truncate text-[15px] font-semibold text-white">{fact.value}</span>
-                  <span className="mt-0.5 block text-xs text-silver/70 transition-colors group-hover:text-ice">{fact.hint}</span>
+                  <span className="block font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">{fact.label}</span>
+                  <span className="mt-1 block truncate text-[15px] font-semibold text-slate-900 group-hover:text-blue-600 transition-colors">{fact.value}</span>
+                  <span className="mt-0.5 block text-xs text-blue-600 transition-colors">{fact.hint}</span>
                 </span>
               </a>
             </li>
