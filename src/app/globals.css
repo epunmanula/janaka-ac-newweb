@@ -8,8 +8,9 @@
   --color-graphite: #202b36;
   --color-ice: #35c8f4;
   --color-ice-deep: #0a6e92;
-  --color-frost: #f5f8fc;
-  --color-mist: #e6edf4;
+  --color-frost: #e8eef5;
+  --color-paper: #f3f6fa;
+  --color-mist: #d8e2ec;
   --color-silver: #aab8c5;
   --color-steel: #56677a;
 
@@ -65,6 +66,15 @@ section[id] {
   font-size: 0.6875rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
+}
+
+/* ── Light sections: cool blue-grey paper with a faint ice glow, never stark white ── */
+@utility bg-cool {
+  background-color: var(--color-frost);
+  background-image:
+    radial-gradient(55% 45% at 88% 18%, rgb(53 200 244 / 0.1), transparent 70%),
+    radial-gradient(45% 40% at 8% 85%, rgb(16 42 67 / 0.07), transparent 70%),
+    linear-gradient(to bottom, #e3eaf2, var(--color-frost) 30%, #edf2f7 70%, #e3eaf2);
 }
 
 /* Airflow streaks drawn with dashed strokes; dashes travel toward the end of each path */

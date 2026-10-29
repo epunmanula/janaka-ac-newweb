@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { Reveal } from '@/components/motion/Reveal';
 import { businessHours, businessInfo } from '@/data/janakaData';
+import { SectionBlend } from '@/components/SectionBlend';
 
 export const AboutSection: React.FC = () => {
   const ref = useRef<HTMLElement>(null);
@@ -14,7 +15,9 @@ export const AboutSection: React.FC = () => {
   const insetY = useTransform(scrollYProgress, [0, 1], reduceMotion ? [0, 0] : [90, -70]);
 
   return (
-    <section id="about" ref={ref} aria-labelledby="about-title" className="overflow-hidden bg-white py-24 text-navy-950 md:py-32">
+    <section id="about" ref={ref} aria-labelledby="about-title" className="relative isolate overflow-hidden bg-cool py-24 text-navy-950 md:py-32">
+      <SectionBlend from="var(--color-graphite)" edge="top" />
+      <SectionBlend from="var(--color-navy-950)" edge="bottom" />
       <div className="mx-auto grid max-w-7xl gap-16 px-4 sm:px-6 lg:grid-cols-12 lg:gap-12 lg:px-8">
         {/* Photographs */}
         <div className="relative lg:col-span-6">
@@ -34,7 +37,7 @@ export const AboutSection: React.FC = () => {
           </motion.figure>
           <motion.div
             style={{ y: insetY }}
-            className="absolute bottom-6 right-0 w-[46%] max-w-[260px] border-[6px] border-white shadow-[0_30px_60px_-30px_rgb(7_21_34/0.45)] sm:bottom-12"
+            className="absolute bottom-6 right-0 w-[46%] max-w-[260px] border-[6px] border-paper shadow-[0_30px_60px_-30px_rgb(7_21_34/0.45)] sm:bottom-12"
           >
             <div className="relative aspect-[3/4] overflow-hidden bg-mist">
               <Image

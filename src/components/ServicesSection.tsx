@@ -7,6 +7,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { Reveal } from '@/components/motion/Reveal';
 import { SectionHeading } from '@/components/SectionHeading';
 import { businessInfo, servicesData } from '@/data/janakaData';
+import { SectionBlend } from '@/components/SectionBlend';
 
 export const ServicesSection: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -28,7 +29,9 @@ export const ServicesSection: React.FC = () => {
   }, []);
 
   return (
-    <section id="services" aria-labelledby="services-title" className="bg-frost py-24 text-navy-950 md:py-32">
+    <section id="services" aria-labelledby="services-title" className="relative isolate bg-cool py-24 text-navy-950 md:py-32">
+      <SectionBlend from="var(--color-navy-950)" edge="top" />
+      <SectionBlend from="var(--color-graphite)" edge="bottom" />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           id="services-title"

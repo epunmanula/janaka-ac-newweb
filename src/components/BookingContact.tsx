@@ -5,6 +5,7 @@ import { ArrowUpRight, MessageCircle, Phone } from 'lucide-react';
 import { InfoIcon } from '@/components/brand/InfoIcons';
 import { Reveal } from '@/components/motion/Reveal';
 import { businessHours, businessInfo } from '@/data/janakaData';
+import { SectionBlend } from '@/components/SectionBlend';
 
 const symptomPresets = ['Blowing warm air', 'Gas recharge', 'Noise when A/C is on', 'Weak cooling in traffic', 'Bad smell from vents'];
 
@@ -21,7 +22,7 @@ const todayIso = () => {
 const isMonday = (iso: string) => iso !== '' && new Date(`${iso}T00:00:00`).getDay() === 1;
 
 const inputClass =
-  'w-full rounded-[3px] border border-navy-950/15 bg-white px-4 py-3 text-[15px] text-navy-950 placeholder:text-steel/60 transition-colors focus:border-ice-deep focus:outline-none focus-visible:outline-none focus:ring-2 focus:ring-ice/30';
+  'w-full rounded-[3px] border border-navy-950/15 bg-white/70 px-4 py-3 text-[15px] text-navy-950 placeholder:text-steel/60 transition-colors focus:border-ice-deep focus:outline-none focus-visible:outline-none focus:ring-2 focus:ring-ice/30';
 const labelClass = 'mb-2 block text-[13px] font-semibold text-navy-950';
 
 export const BookingContact: React.FC = () => {
@@ -70,7 +71,9 @@ export const BookingContact: React.FC = () => {
   };
 
   return (
-    <section id="contact" aria-labelledby="contact-title" className="bg-frost text-navy-950">
+    <section id="contact" aria-labelledby="contact-title" className="relative isolate bg-cool text-navy-950">
+      <SectionBlend from="var(--color-navy-950)" edge="top" />
+      <SectionBlend from="var(--color-navy-950)" edge="bottom" />
       <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 md:py-28 lg:px-8">
         <div className="grid gap-14 lg:grid-cols-12 lg:gap-16">
           {/* Direct contact */}
@@ -167,7 +170,7 @@ export const BookingContact: React.FC = () => {
 
           {/* Enquiry form */}
           <Reveal delay={0.1} className="lg:col-span-7">
-            <div className="border border-navy-950/10 bg-white p-6 shadow-[0_40px_80px_-50px_rgb(7_21_34/0.35)] sm:p-10">
+            <div className="border border-white/70 bg-paper/85 p-6 shadow-[0_40px_80px_-50px_rgb(7_21_34/0.35)] sm:p-10">
               <h3 className="font-wide text-2xl font-semibold">Send a service enquiry</h3>
               <p className="mt-2 text-sm leading-relaxed text-steel">
                 Your details open in WhatsApp, ready to send to the workshop. Nothing is stored on this website.
@@ -272,7 +275,7 @@ export const BookingContact: React.FC = () => {
                     </p>
                   )}
                   {status.kind === 'sent' && (
-                    <div className="border-l-2 border-ice-deep bg-frost px-4 py-3 text-sm text-navy-950">
+                    <div className="border-l-2 border-ice-deep bg-mist/60 px-4 py-3 text-sm text-navy-950">
                       <p className="font-semibold">WhatsApp has opened with your enquiry.</p>
                       <p className="mt-1 text-steel">
                         Press send in WhatsApp to deliver it to the workshop.{' '}
