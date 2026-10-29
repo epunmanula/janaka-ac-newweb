@@ -31,7 +31,7 @@ export const CoolingSystem: React.FC = () => {
   const active = coolingComponents.find((c) => c.id === activeId) ?? coolingComponents[0];
 
   return (
-    <section id="system" aria-labelledby="system-title" className="relative isolate overflow-hidden bg-graphite py-24 text-white md:py-32">
+    <section id="system" aria-labelledby="system-title" className="relative isolate overflow-hidden bg-gradient-to-b from-[#040e1e] via-[#081a36] to-[#051124] py-24 text-white border-b border-sky-500/20 md:py-32">
       <PhotoBackdrop src="/backdrops/system.webp" opacity={0.3} fade="right" base="var(--color-graphite)" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading

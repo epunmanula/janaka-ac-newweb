@@ -8,7 +8,6 @@ import { DriftWall } from '@/components/DriftWall';
 import { Reveal } from '@/components/motion/Reveal';
 import { SectionHeading } from '@/components/SectionHeading';
 import { galleryItems } from '@/data/janakaData';
-import { SectionEdge } from '@/components/SectionEdge';
 
 export const Gallery: React.FC = () => {
   const [selected, setSelected] = useState<number | null>(null);
@@ -49,8 +48,7 @@ export const Gallery: React.FC = () => {
   const photo = selected !== null ? galleryItems[selected] : null;
 
   return (
-    <section id="gallery" aria-labelledby="gallery-title" className="relative isolate bg-slate-50/70 py-24 text-slate-900 md:py-32">
-      <SectionEdge from="var(--color-navy-950)" edge="bottom" />
+    <section id="gallery" aria-labelledby="gallery-title" className="relative isolate bg-gradient-to-b from-[#040e1e] via-[#071936] to-[#030b18] py-24 text-white border-b border-sky-500/20 md:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           id="gallery-title"
@@ -61,7 +59,7 @@ export const Gallery: React.FC = () => {
         />
 
         <Reveal className="mt-12 flex justify-end">
-          <div role="group" aria-label="Gallery view" className="inline-flex rounded-lg border border-slate-200 bg-white p-1 shadow-xs">
+          <div role="group" aria-label="Gallery view" className="inline-flex rounded-lg border border-sky-500/25 bg-[#081d3a] p-1 shadow-md">
             {(['drift', 'grid'] as const).map((mode) => (
               <button
                 key={mode}
@@ -69,7 +67,7 @@ export const Gallery: React.FC = () => {
                 onClick={() => setViewMode(mode)}
                 aria-pressed={viewMode === mode}
                 className={`min-h-10 px-4 rounded-md font-mono text-[11px] uppercase tracking-[0.14em] transition-all ${
-                  viewMode === mode ? 'bg-blue-600 text-white font-semibold shadow-xs' : 'text-slate-600 hover:text-blue-600'
+                  viewMode === mode ? 'bg-gradient-to-r from-blue-600 to-sky-500 text-white font-semibold shadow-md shadow-sky-500/20' : 'text-slate-400 hover:text-white'
                 }`}
               >
                 {mode === 'drift' ? '3D Wall' : 'Grid'}
@@ -98,7 +96,7 @@ export const Gallery: React.FC = () => {
               {galleryItems.map((item, i) => (
                 <Reveal as="li" key={item.id} delay={(i % 3) * 0.06}>
                   <button type="button" onClick={() => open(i)} className="group block w-full text-left">
-                    <span className="relative block aspect-[4/5] overflow-hidden rounded-xl border border-slate-200/90 bg-slate-100 shadow-sm">
+                    <span className="relative block aspect-[4/5] overflow-hidden rounded-xl border border-sky-500/20 bg-[#091f3d]/60 shadow-lg backdrop-blur-sm transition-all duration-300 group-hover:border-sky-400/50">
                       <Image
                         src={item.image}
                         alt={item.caption}
@@ -108,8 +106,8 @@ export const Gallery: React.FC = () => {
                       />
                     </span>
                     <span className="mt-4 flex items-baseline justify-between gap-4">
-                      <span className="font-wide text-lg font-semibold text-slate-900 group-hover:text-blue-600 transition-colors">{item.title}</span>
-                      <span className="eyebrow shrink-0 text-[10px] text-blue-600 font-semibold">{item.category}</span>
+                      <span className="font-wide text-lg font-semibold text-white group-hover:text-sky-300 transition-colors">{item.title}</span>
+                      <span className="eyebrow shrink-0 text-[10px] text-sky-400 font-semibold">{item.category}</span>
                     </span>
                   </button>
                 </Reveal>

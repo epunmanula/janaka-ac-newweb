@@ -2,17 +2,17 @@
 
 /* ── Brand tokens ─────────────────────────────────────────────── */
 @theme {
-  --color-navy-950: #060e1a;
-  --color-navy-900: #0a182c;
-  --color-navy-800: #0f2544;
-  --color-graphite: #142236;
+  --color-navy-950: #030b18;
+  --color-navy-900: #06152d;
+  --color-navy-800: #0c2347;
+  --color-graphite: #081a36;
   --color-ice: #38bdf8;
   --color-ice-deep: #0284c7;
-  --color-frost: #f8fafc;
-  --color-paper: #ffffff;
-  --color-mist: #e2e8f0;
+  --color-frost: #091e3e;
+  --color-paper: #0b254d;
+  --color-mist: #102e5c;
   --color-silver: #94a3b8;
-  --color-steel: #475569;
+  --color-steel: #64748b;
 
   /* Complementary Warm Amber / Champagne Gold for Certifications & Heat Dynamics */
   --color-amber: #d97706;
@@ -36,8 +36,8 @@ html {
 }
 
 body {
-  background-color: var(--color-frost);
-  color: var(--color-navy-950);
+  background-color: var(--color-navy-950);
+  color: #f8fafc;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

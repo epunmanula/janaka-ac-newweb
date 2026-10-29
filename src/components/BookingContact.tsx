@@ -5,7 +5,6 @@ import { ArrowUpRight, MessageCircle, Phone } from 'lucide-react';
 import { InfoIcon } from '@/components/brand/InfoIcons';
 import { Reveal } from '@/components/motion/Reveal';
 import { businessHours, businessInfo } from '@/data/janakaData';
-import { SectionEdge } from '@/components/SectionEdge';
 
 const symptomPresets = ['Blowing warm air', 'Gas recharge', 'Noise when A/C is on', 'Weak cooling in traffic', 'Bad smell from vents'];
 
@@ -22,8 +21,8 @@ const todayIso = () => {
 const isMonday = (iso: string) => iso !== '' && new Date(`${iso}T00:00:00`).getDay() === 1;
 
 const inputClass =
-  'w-full rounded-[4px] border border-slate-200 bg-white px-4 py-3 text-[15px] text-navy-950 placeholder:text-slate-400 shadow-sm transition-all duration-200 focus:border-ice-deep focus:outline-none focus:ring-2 focus:ring-sky-500/20';
-const labelClass = 'mb-2 block text-[13px] font-semibold text-navy-950';
+  'w-full rounded-md border border-sky-500/30 bg-[#051329]/90 px-4 py-3 text-[15px] text-white placeholder:text-slate-500 shadow-inner transition-all duration-200 focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400/30';
+const labelClass = 'mb-2 block text-[13px] font-semibold text-sky-200';
 
 export const BookingContact: React.FC = () => {
   const [form, setForm] = useState<FormState>(emptyForm);
@@ -71,23 +70,21 @@ export const BookingContact: React.FC = () => {
   };
 
   return (
-    <section id="contact" aria-labelledby="contact-title" className="relative isolate bg-slate-50/50 text-slate-900">
-      <SectionEdge from="var(--color-navy-950)" edge="top" />
-      <SectionEdge from="var(--color-navy-950)" edge="bottom" />
-      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 md:py-28 lg:px-8">
+    <section id="contact" aria-labelledby="contact-title" className="relative isolate bg-gradient-to-b from-[#030b18] via-[#071833] to-[#030b18] text-white py-20 md:py-28 border-b border-sky-500/20">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-14 lg:grid-cols-12 lg:gap-16">
           {/* Direct contact */}
           <div className="lg:col-span-5">
             <Reveal>
-              <p className="eyebrow flex items-center gap-3 text-blue-600 font-semibold">
+              <p className="eyebrow flex items-center gap-3 text-sky-400 font-semibold">
                 <span>06</span>
-                <span aria-hidden="true" className="h-px w-8 bg-blue-600" />
+                <span aria-hidden="true" className="h-px w-8 bg-sky-400" />
                 <span>Book & contact</span>
               </p>
-              <h2 id="contact-title" className="mt-5 font-wide text-[2.2rem] font-bold leading-[1.04] tracking-[-0.02em] text-slate-950 sm:text-5xl">
+              <h2 id="contact-title" className="mt-5 font-wide text-[2.2rem] font-bold leading-[1.04] tracking-[-0.02em] text-white sm:text-5xl">
                 Book a service.
               </h2>
-              <p className="mt-5 max-w-md text-base leading-relaxed text-slate-600">
+              <p className="mt-5 max-w-md text-base leading-relaxed text-slate-300">
                 Call or WhatsApp the workshop to arrange a time, or send your details with the form and we&apos;ll get
                 back to you on WhatsApp.
               </p>
@@ -96,7 +93,7 @@ export const BookingContact: React.FC = () => {
             <Reveal delay={0.1} className="mt-9 flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
               <a
                 href={`tel:${businessInfo.phoneRaw}`}
-                className="inline-flex flex-1 items-center justify-center gap-2.5 rounded-lg bg-blue-600 px-6 py-4 text-sm font-semibold text-white shadow-md shadow-blue-600/20 transition-all hover:bg-blue-700 active:translate-y-px"
+                className="inline-flex flex-1 items-center justify-center gap-2.5 rounded-md bg-gradient-to-r from-blue-600 via-sky-600 to-sky-500 px-6 py-4 text-sm font-semibold text-white shadow-lg shadow-sky-500/25 transition-all hover:brightness-110 active:translate-y-px"
               >
                 <Phone className="h-4 w-4 text-white" aria-hidden="true" />
                 Call {businessInfo.phone}
@@ -105,26 +102,26 @@ export const BookingContact: React.FC = () => {
                 href={businessInfo.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex flex-1 items-center justify-center gap-2.5 rounded-lg border border-slate-300 bg-white px-6 py-4 text-sm font-semibold text-slate-800 shadow-xs transition-all hover:border-blue-600 hover:text-blue-600 active:translate-y-px"
+                className="inline-flex flex-1 items-center justify-center gap-2.5 rounded-md border border-sky-500/30 bg-sky-950/40 px-6 py-4 text-sm font-semibold text-sky-200 shadow-sm transition-all hover:border-emerald-400 hover:text-emerald-300 active:translate-y-px"
               >
-                <MessageCircle className="h-4 w-4 text-emerald-600" aria-hidden="true" />
+                <MessageCircle className="h-4 w-4 text-emerald-400" aria-hidden="true" />
                 WhatsApp us
               </a>
             </Reveal>
 
             <Reveal delay={0.15}>
-              <dl className="mt-10 divide-y divide-slate-200 border-y border-slate-200 text-[15px]">
+              <dl className="mt-10 divide-y divide-sky-500/15 border-y border-sky-500/15 text-[15px]">
                 <div className="group flex gap-4 py-5">
-                  <InfoIcon name="pin" tone="light" />
+                  <InfoIcon name="pin" tone="dark" />
                   <div>
-                    <dt className="eyebrow text-[10px] text-slate-500 font-semibold">Address</dt>
-                    <dd className="mt-1.5 font-medium text-slate-900">{businessInfo.address}</dd>
+                    <dt className="eyebrow text-[10px] text-sky-300/70 font-semibold">Address</dt>
+                    <dd className="mt-1.5 font-medium text-white">{businessInfo.address}</dd>
                     <dd className="mt-1.5">
                       <a
                         href={businessInfo.googleMapsDirectionsUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:underline"
+                        className="inline-flex items-center gap-1 text-sm font-semibold text-sky-400 hover:text-sky-300 hover:underline"
                       >
                         Get directions <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
                       </a>
@@ -132,21 +129,21 @@ export const BookingContact: React.FC = () => {
                   </div>
                 </div>
                 <div className="group flex gap-4 py-5">
-                  <InfoIcon name="clock" tone="light" />
+                  <InfoIcon name="clock" tone="dark" />
                   <div>
-                    <dt className="eyebrow text-[10px] text-slate-500 font-semibold">Opening hours</dt>
-                    <dd className="mt-1.5 font-medium text-slate-900">
+                    <dt className="eyebrow text-[10px] text-sky-300/70 font-semibold">Opening hours</dt>
+                    <dd className="mt-1.5 font-medium text-white">
                       {businessHours.openDays}: {businessHours.hours}
                     </dd>
-                    <dd className="text-sm text-slate-500">{businessHours.closed}</dd>
+                    <dd className="text-sm text-slate-400">{businessHours.closed}</dd>
                   </div>
                 </div>
                 <div className="group flex gap-4 py-5">
-                  <InfoIcon name="mail" tone="light" />
+                  <InfoIcon name="mail" tone="dark" />
                   <div>
-                    <dt className="eyebrow text-[10px] text-slate-500 font-semibold">Email</dt>
+                    <dt className="eyebrow text-[10px] text-sky-300/70 font-semibold">Email</dt>
                     <dd className="mt-1.5 font-medium">
-                      <a href={`mailto:${businessInfo.email}`} className="break-all text-slate-900 hover:text-blue-600">
+                      <a href={`mailto:${businessInfo.email}`} className="break-all text-white hover:text-sky-300">
                         {businessInfo.email}
                       </a>
                     </dd>
@@ -156,11 +153,11 @@ export const BookingContact: React.FC = () => {
             </Reveal>
 
             <Reveal delay={0.2} className="mt-8">
-              <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-slate-200 shadow-md">
+              <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-sky-500/25 shadow-xl">
                 <iframe
                   title="Map showing the Janaka Auto AC workshop in Gampaha"
                   src={businessInfo.googleMapsEmbedUrl}
-                  className="absolute inset-0 h-full w-full border-0 grayscale-[0.35]"
+                  className="absolute inset-0 h-full w-full border-0 grayscale-[0.25]"
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                 />
@@ -170,9 +167,9 @@ export const BookingContact: React.FC = () => {
 
           {/* Enquiry form */}
           <Reveal delay={0.1} className="lg:col-span-7">
-            <div className="rounded-xl border border-slate-200/90 bg-white p-6 shadow-xl shadow-slate-200/50 sm:p-10">
-              <h3 className="font-wide text-2xl font-semibold text-slate-950">Send a service enquiry</h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-500">
+            <div className="rounded-2xl border border-sky-500/25 bg-[#081d3a]/80 p-6 shadow-2xl shadow-black/40 backdrop-blur-md sm:p-10">
+              <h3 className="font-wide text-2xl font-semibold text-white">Send a service enquiry</h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate-300">
                 Your details open in WhatsApp, ready to send to the workshop. Nothing is stored on this website.
               </p>
 
@@ -242,7 +239,7 @@ export const BookingContact: React.FC = () => {
 
                 <div>
                   <label htmlFor="f-message" className={labelClass}>
-                    What&apos;s the problem? <span className="text-ice-deep">*</span>
+                    What&apos;s the problem? <span className="text-sky-400">*</span>
                   </label>
                   <div className="mb-3 flex flex-wrap gap-2" role="group" aria-label="Common symptoms">
                     {symptomPresets.map((s) => (
@@ -250,7 +247,7 @@ export const BookingContact: React.FC = () => {
                         key={s}
                         type="button"
                         onClick={() => addSymptom(s)}
-                        className="min-h-9 rounded-[3px] border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-medium text-navy-800 transition-all hover:border-ice-deep hover:bg-sky-50 hover:text-ice-deep active:scale-95"
+                        className="min-h-9 rounded-md border border-sky-500/30 bg-sky-950/50 px-3 py-1.5 text-xs font-medium text-sky-200 transition-all hover:border-sky-400 hover:bg-sky-900/60 hover:text-white active:scale-95"
                       >
                         + {s}
                       </button>
@@ -270,16 +267,16 @@ export const BookingContact: React.FC = () => {
 
                 <div aria-live="polite">
                   {status.kind === 'error' && (
-                    <p role="alert" className="border-l-2 border-[#c2410c] bg-[#fff4ed] px-4 py-3 text-sm font-medium text-[#9a3412]">
+                    <p role="alert" className="border-l-2 border-amber-500 bg-amber-950/40 px-4 py-3 text-sm font-medium text-amber-200 rounded-r-md">
                       {status.message}
                     </p>
                   )}
                   {status.kind === 'sent' && (
-                    <div className="border-l-2 border-ice-deep bg-mist/60 px-4 py-3 text-sm text-navy-950">
-                      <p className="font-semibold">WhatsApp has opened with your enquiry.</p>
-                      <p className="mt-1 text-steel">
+                    <div className="border-l-2 border-sky-400 bg-sky-950/60 px-4 py-3 text-sm text-slate-200 rounded-r-md">
+                      <p className="font-semibold text-white">WhatsApp has opened with your enquiry.</p>
+                      <p className="mt-1 text-slate-300">
                         Press send in WhatsApp to deliver it to the workshop.{' '}
-                        <a href={status.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-ice-deep underline underline-offset-2">
+                        <a href={status.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-sky-400 underline underline-offset-2 hover:text-sky-300">
                           Didn&apos;t open? Try again
                         </a>
                         .
@@ -290,7 +287,7 @@ export const BookingContact: React.FC = () => {
 
                 <button
                   type="submit"
-                  className="inline-flex w-full items-center justify-center gap-2.5 rounded-lg bg-blue-600 px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-blue-600/25 transition-all hover:bg-blue-700 hover:shadow-xl active:translate-y-px sm:w-auto"
+                  className="inline-flex w-full items-center justify-center gap-2.5 rounded-md bg-gradient-to-r from-blue-600 via-sky-600 to-sky-500 px-8 py-4 text-sm font-semibold text-white shadow-xl shadow-sky-500/30 transition-all hover:brightness-110 active:translate-y-px sm:w-auto"
                 >
                   <MessageCircle className="h-4 w-4" aria-hidden="true" />
                   Send via WhatsApp
