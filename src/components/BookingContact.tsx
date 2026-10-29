@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ArrowUpRight, Clock, Mail, MapPin, MessageCircle, Phone } from 'lucide-react';
+import { ArrowUpRight, MessageCircle, Phone } from 'lucide-react';
+import { InfoIcon } from '@/components/brand/InfoIcons';
 import { Reveal } from '@/components/motion/Reveal';
 import { businessHours, businessInfo } from '@/data/janakaData';
 
@@ -110,8 +111,8 @@ export const BookingContact: React.FC = () => {
 
             <Reveal delay={0.15}>
               <dl className="mt-10 divide-y divide-navy-950/10 border-y border-navy-950/10 text-[15px]">
-                <div className="flex gap-4 py-5">
-                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-ice-deep" aria-hidden="true" />
+                <div className="group flex gap-4 py-5">
+                  <InfoIcon name="pin" tone="light" />
                   <div>
                     <dt className="eyebrow text-[10px] text-steel">Address</dt>
                     <dd className="mt-1.5 font-medium">{businessInfo.address}</dd>
@@ -127,8 +128,8 @@ export const BookingContact: React.FC = () => {
                     </dd>
                   </div>
                 </div>
-                <div className="flex gap-4 py-5">
-                  <Clock className="mt-0.5 h-4 w-4 shrink-0 text-ice-deep" aria-hidden="true" />
+                <div className="group flex gap-4 py-5">
+                  <InfoIcon name="clock" tone="light" />
                   <div>
                     <dt className="eyebrow text-[10px] text-steel">Opening hours</dt>
                     <dd className="mt-1.5 font-medium">
@@ -137,8 +138,8 @@ export const BookingContact: React.FC = () => {
                     <dd className="text-sm text-steel">{businessHours.closed}</dd>
                   </div>
                 </div>
-                <div className="flex gap-4 py-5">
-                  <Mail className="mt-0.5 h-4 w-4 shrink-0 text-ice-deep" aria-hidden="true" />
+                <div className="group flex gap-4 py-5">
+                  <InfoIcon name="mail" tone="light" />
                   <div>
                     <dt className="eyebrow text-[10px] text-steel">Email</dt>
                     <dd className="mt-1.5 font-medium">

@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { businessHours, businessInfo, navSections } from '@/data/janakaData';
 
 export const SiteFooter: React.FC = () => (
-  <footer className="bg-navy-950 pb-28 pt-16 text-silver md:pb-32">
+  <footer className="bg-navy-950 pb-28 pt-16 text-silver md:pb-12">
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div className="grid gap-12 border-b border-white/10 pb-12 md:grid-cols-12">
         <div className="md:col-span-5">

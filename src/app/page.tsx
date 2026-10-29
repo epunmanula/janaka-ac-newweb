@@ -8,7 +8,6 @@ import { IntroLoader } from '@/components/IntroLoader';
 import { MobileActionBar } from '@/components/MobileActionBar';
 import { MotionProvider } from '@/components/motion/Reveal';
 import { Navbar } from '@/components/Navbar';
-import { RouteRail } from '@/components/RouteRail';
 import { ServicesSection } from '@/components/ServicesSection';
 import { SiteFooter } from '@/components/SiteFooter';
 import { WhyChooseUs } from '@/components/WhyChooseUs';
@@ -35,7 +34,6 @@ export default function Home() {
         <BookingContact />
       </main>
       <SiteFooter />
-      <RouteRail />
       <MobileActionBar />
     </MotionProvider>
   );

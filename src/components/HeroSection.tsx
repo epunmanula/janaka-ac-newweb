@@ -2,8 +2,9 @@
 
 import React, { useRef } from 'react';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight, Clock, MapPin, Phone } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Car } from '@/components/brand/Car';
+import { InfoIcon } from '@/components/brand/InfoIcons';
 import { INTRO_DURATION } from '@/components/IntroLoader';
 import { businessHours, businessInfo } from '@/data/janakaData';
 import { PhotoBackdrop } from '@/components/PhotoBackdrop';
@@ -140,33 +141,29 @@ export const HeroSection: React.FC = () => {
         </div>
 
         {/* Verified business facts */}
-        <dl className="grid border-t border-white/10 sm:grid-cols-3">
-          <div className="flex items-start gap-3 py-5 sm:pr-6">
-            <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-ice" aria-hidden="true" />
-            <div>
-              <dt className="eyebrow text-[10px] text-silver/80">Workshop</dt>
-              <dd className="mt-1 text-sm font-medium">{businessInfo.addressShort}</dd>
-            </div>
-          </div>
-          <div className="flex items-start gap-3 border-white/10 py-5 sm:border-l sm:px-6">
-            <Clock className="mt-0.5 h-4 w-4 shrink-0 text-ice" aria-hidden="true" />
-            <div>
-              <dt className="eyebrow text-[10px] text-silver/80">Open {businessHours.openDaysShort}</dt>
-              <dd className="mt-1 text-sm font-medium">{businessHours.hours}</dd>
-            </div>
-          </div>
-          <div className="flex items-start gap-3 border-white/10 py-5 sm:border-l sm:pl-6">
-            <Phone className="mt-0.5 h-4 w-4 shrink-0 text-ice" aria-hidden="true" />
-            <div>
-              <dt className="eyebrow text-[10px] text-silver/80">Call or WhatsApp</dt>
-              <dd className="mt-1 text-sm font-medium">
-                <a href={`tel:${businessInfo.phoneRaw}`} className="transition-colors hover:text-ice">
-                  {businessInfo.phone}
-                </a>
-              </dd>
-            </div>
-          </div>
-        </dl>
+        <ul className="grid gap-px border-t border-white/10 sm:grid-cols-3">
+          {[
+            { icon: 'pin' as const, label: 'Workshop', value: businessInfo.addressShort, hint: 'Get directions', href: businessInfo.googleMapsDirectionsUrl, external: true },
+            { icon: 'clock' as const, label: `Open ${businessHours.openDaysShort}`, value: businessHours.hours, hint: businessHours.closed, href: '#contact' },
+            { icon: 'phone' as const, label: 'Call or WhatsApp', value: businessInfo.phone, hint: 'Tap to call', href: `tel:${businessInfo.phoneRaw}` },
+          ].map((fact) => (
+            <li key={fact.label}>
+              <a
+                href={fact.href}
+                {...(fact.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                className="group flex items-center gap-4 py-5 transition-colors duration-300 sm:px-5 sm:first:pl-0"
+              >
+                <InfoIcon name={fact.icon} />
+                <span className="min-w-0">
+                  <span className="block font-mono text-[10px] uppercase tracking-[0.2em] text-silver/75">{fact.label}</span>
+                  <span className="mt-1 block truncate text-[15px] font-semibold text-white">{fact.value}</span>
+                  <span className="mt-0.5 block text-xs text-silver/70 transition-colors group-hover:text-ice">{fact.hint}</span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+
       </div>
     </section>
   );
