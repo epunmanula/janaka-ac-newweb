@@ -31,9 +31,9 @@ export const ArrivalScene: React.FC = () => {
             <div className="mx-auto h-2 w-8 bg-silver/80" />
             <div className="mx-auto h-full w-full bg-[radial-gradient(ellipse_at_top,rgb(223_246_255/0.28),transparent_70%)] [clip-path:polygon(42%_0,58%_0,100%_100%,0_100%)]" />
           </motion.div>
-          <div className="absolute left-5 top-5 hidden w-[36%] max-w-[160px] sm:block">
-            <div className="relative aspect-[3/1]">
-              <Image src="/janaka-logo-wide.png" alt="Janaka Auto AC Workshop Sign" fill sizes="180px" className="object-contain filter drop-shadow-[0_0_8px_rgba(0,180,255,0.4)]" />
+          <div className="absolute left-5 top-5 hidden w-[42%] max-w-[190px] sm:block">
+            <div className="relative aspect-[5.5/1]">
+              <Image src="/brand/logo-navbar.webp" alt="Janaka Auto AC Workshop Sign" fill sizes="190px" className="object-contain filter drop-shadow-[0_0_12px_rgba(56,189,248,0.5)]" />
             </div>
           </div>
         </div>

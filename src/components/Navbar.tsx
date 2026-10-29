@@ -53,8 +53,19 @@ export const Navbar: React.FC = () => {
       }`}
     >
       <div className="mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
-        <a href="#home" className="relative block h-6 w-[130px] shrink-0 sm:h-7 sm:w-[152px]" aria-label={`${businessInfo.name} – back to top`}>
-          <Image src="/janaka-logo-wide.png" alt={businessInfo.name} fill sizes="152px" className="object-contain object-left" preload />
+        <a
+          href="#home"
+          className="group relative flex items-center shrink-0 h-9 w-[190px] sm:h-10 sm:w-[220px] lg:h-11 lg:w-[245px] transition-transform duration-300 hover:scale-[1.02]"
+          aria-label={`${businessInfo.name} – back to top`}
+        >
+          <Image
+            src="/brand/logo-navbar.webp"
+            alt={businessInfo.name}
+            fill
+            sizes="(max-width: 640px) 190px, (max-width: 1024px) 220px, 245px"
+            className="object-contain object-left filter drop-shadow-[0_2px_14px_rgba(56,189,248,0.45)] group-hover:drop-shadow-[0_2px_20px_rgba(56,189,248,0.7)] transition-all duration-300"
+            priority
+          />
         </a>
 
         <nav aria-label="Primary" className="hidden lg:block">

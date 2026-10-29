@@ -7,13 +7,13 @@ export const SiteFooter: React.FC = () => (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div className="grid gap-12 border-b border-white/10 pb-12 md:grid-cols-12">
         <div className="md:col-span-5">
-          <div className="relative h-12 w-52 sm:w-60">
+          <div className="relative h-11 w-56 sm:h-12 sm:w-64">
             <Image
-              src="/janaka-logo-wide.png"
+              src="/brand/logo-navbar.webp"
               alt={businessInfo.name}
               fill
-              sizes="(max-width: 640px) 210px, 240px"
-              className="object-contain object-left filter drop-shadow-[0_0_14px_rgba(0,180,255,0.3)]"
+              sizes="(max-width: 640px) 224px, 256px"
+              className="object-contain object-left filter drop-shadow-[0_2px_14px_rgba(56,189,248,0.4)]"
             />
           </div>
           <p className="mt-5 max-w-sm text-sm leading-relaxed">
