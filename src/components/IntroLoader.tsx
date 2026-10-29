@@ -15,7 +15,7 @@ export const IntroLoader: React.FC = () => (
       <div className="relative grid h-40 w-40 place-items-center sm:h-48 sm:w-48">
         <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full -rotate-90">
           <circle cx="50" cy="50" r="47" fill="none" stroke="rgb(170 184 197 / 0.12)" strokeWidth="0.6" />
-          <circle className="intro-ring" cx="50" cy="50" r="47" fill="none" stroke="#35c8f4" strokeWidth="0.9" strokeLinecap="round" pathLength={100} />
+          <circle className="intro-ring" cx="50" cy="50" r="47" fill="none" stroke="#38bdf8" strokeWidth="0.9" strokeLinecap="round" pathLength={100} />
         </svg>
         {/* eslint-disable-next-line @next/next/no-img-element -- must paint before hydration */}
         <img src="/brand/globe.webp" alt="" width={320} height={211} className="intro-mark w-[62%]" />

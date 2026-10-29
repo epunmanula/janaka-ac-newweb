@@ -65,33 +65,33 @@ export const CoolingSystem: React.FC = () => {
                 </text>
 
                 {/* Airflow through the cabin */}
-                <g fill="none" stroke="#35c8f4" strokeWidth={0.8} strokeLinecap="round">
+                <g fill="none" stroke="#38bdf8" strokeWidth={0.8} strokeLinecap="round">
                   <path className="flow-line" d="M424 118 C436 112 448 108 456 106" strokeOpacity={0.6} />
                   <path className="flow-line" d="M454 100 C420 88 390 84 352 86" strokeOpacity={0.8} />
                   <path className="flow-line" style={{ animationDelay: '-1.2s' }} d="M454 108 C420 104 392 104 352 108" strokeOpacity={0.5} />
                 </g>
-                <text x={340} y={78} fill="#35c8f4" fontSize={5.5} style={{ fontFamily: 'var(--font-mono)' }} letterSpacing={0.6}>
+                <text x={340} y={78} fill="#38bdf8" fontSize={5.5} style={{ fontFamily: 'var(--font-mono)' }} letterSpacing={0.6}>
                   COLD AIR TO VENTS
                 </text>
 
                 {/* Heat rejected at the front */}
-                <g fill="none" stroke="#aab8c5" strokeWidth={0.8} strokeLinecap="round" strokeOpacity={0.6}>
+                <g fill="none" stroke="#f59e0b" strokeWidth={0.8} strokeLinecap="round" strokeOpacity={0.8}>
                   <path className="flow-line" d="M614 112 L636 108" />
                   <path className="flow-line" style={{ animationDelay: '-1s' }} d="M616 126 L638 126" />
                 </g>
-                <text x={628} y={160} fill="#aab8c5" fontSize={5.5} style={{ fontFamily: 'var(--font-mono)' }} letterSpacing={0.6} textAnchor="end">
+                <text x={628} y={160} fill="#f59e0b" fontSize={5.5} style={{ fontFamily: 'var(--font-mono)' }} letterSpacing={0.6} textAnchor="end">
                   HEAT OUT
                 </text>
 
                 {/* Refrigerant lines */}
                 {[...highSide.map((l) => ({ ...l, side: 'high' })), ...lowSide.map((l) => ({ ...l, side: 'low' }))].map((line) => (
                   <g key={line.d}>
-                    <path d={line.d} fill="none" stroke={line.side === 'high' ? '#aab8c5' : '#35c8f4'} strokeOpacity={0.35} strokeWidth={2.2} />
+                    <path d={line.d} fill="none" stroke={line.side === 'high' ? '#f59e0b' : '#38bdf8'} strokeOpacity={0.35} strokeWidth={2.2} />
                     <path
                       className="flow-line"
                       d={line.d}
                       fill="none"
-                      stroke={line.side === 'high' ? '#e8eef3' : '#35c8f4'}
+                      stroke={line.side === 'high' ? '#fde68a' : '#38bdf8'}
                       strokeWidth={1.1}
                       strokeLinecap="round"
                     />
@@ -101,10 +101,10 @@ export const CoolingSystem: React.FC = () => {
                 {/* Component symbols */}
                 {coolingComponents.map((c) => {
                   const on = c.id === active.id;
-                  const stroke = on ? '#35c8f4' : '#aab8c5';
+                  const stroke = on ? '#38bdf8' : '#94a3b8';
                   return (
                     <g key={c.id} opacity={on ? 1 : 0.75}>
-                      {on && <circle cx={c.x} cy={c.y} r={13} fill="#35c8f4" fillOpacity={0.12} />}
+                      {on && <circle cx={c.x} cy={c.y} r={13} fill="#38bdf8" fillOpacity={0.16} />}
                       {c.id === 'condenser' && (
                         <g stroke={stroke} strokeWidth={0.8} fill="#202b36">
                           <rect x={601} y={104} width={10} height={36} />
@@ -170,10 +170,10 @@ export const CoolingSystem: React.FC = () => {
 
             <div className="mt-6 flex flex-wrap gap-x-8 gap-y-2 font-mono text-[11px] uppercase tracking-[0.14em] text-silver">
               <span className="flex items-center gap-2">
-                <span aria-hidden="true" className="h-0.5 w-6 bg-[#e8eef3]" /> High pressure · warm
+                <span aria-hidden="true" className="h-0.5 w-6 bg-amber-500" /> <span className="text-amber-400">High pressure · Heat extraction</span>
               </span>
               <span className="flex items-center gap-2">
-                <span aria-hidden="true" className="h-0.5 w-6 bg-ice" /> Low pressure · cold
+                <span aria-hidden="true" className="h-0.5 w-6 bg-ice" /> <span className="text-sky-300">Low pressure · Sub-Zero cold</span>
               </span>
             </div>
           </Reveal>

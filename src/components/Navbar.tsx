@@ -47,7 +47,7 @@ export const Navbar: React.FC = () => {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color] duration-500 ${
-        solid ? 'border-b border-white/8 bg-navy-950/92 backdrop-blur-md' : 'border-b border-transparent bg-transparent'
+        solid ? 'border-b border-white/10 bg-navy-950/95 backdrop-blur-xl shadow-2xl shadow-navy-950/50' : 'border-b border-transparent bg-transparent'
       }`}
     >
       <div className="mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">

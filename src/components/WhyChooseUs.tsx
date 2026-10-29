@@ -57,9 +57,9 @@ export const WhyChooseUs: React.FC = () => (
 
       <ol className="grid gap-x-12 sm:grid-cols-2 lg:col-span-7 lg:self-end">
         {reasons.map((r, i) => (
-          <Reveal as="li" key={r.title} delay={i * 0.08} className="border-t border-white/12 pb-10 pt-6 sm:pb-14">
-            <span className="font-mono text-sm text-ice">0{i + 1}</span>
-            <h3 className="mt-4 font-wide text-xl font-semibold leading-snug">{r.title}</h3>
+          <Reveal as="li" key={r.title} delay={i * 0.08} className="group border-t border-white/12 pb-10 pt-6 transition-all duration-300 hover:border-ice/60 sm:pb-14">
+            <span className="font-mono text-sm text-ice transition-colors duration-300 group-hover:text-white">0{i + 1}</span>
+            <h3 className="mt-4 font-wide text-xl font-semibold leading-snug transition-colors duration-300 group-hover:text-sky-100">{r.title}</h3>
             <p className="mt-3 text-[15px] leading-relaxed text-silver">{r.body}</p>
           </Reveal>
         ))}

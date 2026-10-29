@@ -46,10 +46,10 @@ interface InfoIconProps {
 export const InfoIcon: React.FC<InfoIconProps> = ({ name, tone = 'dark', className = '' }) => (
   <span
     aria-hidden="true"
-    className={`relative grid h-11 w-11 shrink-0 place-items-center rounded-[4px] border transition-colors duration-300 ${
+    className={`relative grid h-11 w-11 shrink-0 place-items-center rounded-[4px] border transition-all duration-300 ${
       tone === 'dark'
-        ? 'border-ice/30 bg-[linear-gradient(145deg,rgb(53_200_244/0.16),rgb(53_200_244/0.02))] text-ice group-hover:border-ice group-hover:bg-ice group-hover:text-navy-950'
-        : 'border-ice-deep/20 bg-[linear-gradient(145deg,rgb(10_110_146/0.12),rgb(10_110_146/0.02))] text-ice-deep group-hover:border-ice-deep group-hover:bg-ice-deep group-hover:text-white'
+        ? 'border-sky-500/25 bg-sky-500/10 text-ice group-hover:border-ice group-hover:bg-ice group-hover:text-navy-950 group-hover:shadow-[0_0_16px_rgba(56,189,248,0.35)]'
+        : 'border-sky-700/20 bg-sky-50 text-ice-deep group-hover:border-ice-deep group-hover:bg-ice-deep group-hover:text-white group-hover:shadow-[0_4px_12px_rgba(2,132,199,0.2)]'
     } ${className}`}
   >
     <svg viewBox="0 0 24 24" className="h-[22px] w-[22px]" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">

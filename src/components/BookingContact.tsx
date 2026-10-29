@@ -22,7 +22,7 @@ const todayIso = () => {
 const isMonday = (iso: string) => iso !== '' && new Date(`${iso}T00:00:00`).getDay() === 1;
 
 const inputClass =
-  'w-full rounded-[3px] border border-navy-950/15 bg-white/70 px-4 py-3 text-[15px] text-navy-950 placeholder:text-steel/60 transition-colors focus:border-ice-deep focus:outline-none focus-visible:outline-none focus:ring-2 focus:ring-ice/30';
+  'w-full rounded-[4px] border border-slate-200 bg-white px-4 py-3 text-[15px] text-navy-950 placeholder:text-slate-400 shadow-sm transition-all duration-200 focus:border-ice-deep focus:outline-none focus:ring-2 focus:ring-sky-500/20';
 const labelClass = 'mb-2 block text-[13px] font-semibold text-navy-950';
 
 export const BookingContact: React.FC = () => {
@@ -250,7 +250,7 @@ export const BookingContact: React.FC = () => {
                         key={s}
                         type="button"
                         onClick={() => addSymptom(s)}
-                        className="min-h-9 rounded-[3px] border border-navy-950/15 px-3 py-1.5 text-xs font-medium text-navy-800 transition-colors hover:border-ice-deep hover:text-ice-deep"
+                        className="min-h-9 rounded-[3px] border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-medium text-navy-800 transition-all hover:border-ice-deep hover:bg-sky-50 hover:text-ice-deep active:scale-95"
                       >
                         + {s}
                       </button>

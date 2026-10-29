@@ -50,15 +50,21 @@ export const HeroSection: React.FC = () => {
       <div className="mx-auto grid min-h-[100svh] max-w-7xl grid-rows-[1fr_auto] px-4 pt-[4.5rem] sm:px-6 lg:px-8">
         <div className="grid items-center gap-10 py-12 lg:grid-cols-12 lg:gap-6 lg:py-16">
           <motion.div style={{ y: copyY }} className="relative z-10 lg:col-span-6">
-            <motion.p
+            <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: start, ease }}
-              className="eyebrow flex items-center gap-3 text-ice"
+              className="flex flex-wrap items-center gap-3"
             >
-              <span aria-hidden="true" className="h-px w-8 bg-ice" />
-              Automotive A/C Specialists · Gampaha
-            </motion.p>
+              <p className="eyebrow flex items-center gap-3 text-ice">
+                <span aria-hidden="true" className="h-px w-8 bg-ice" />
+                <span>Automotive A/C Specialists · Gampaha</span>
+              </p>
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-amber/30 bg-amber-500/10 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-amber-glow">
+                <span className="h-1.5 w-1.5 rounded-full bg-amber-glow animate-pulse" />
+                <span>Sub-Zero 4.5°C Standard</span>
+              </span>
+            </motion.div>
 
             <motion.h1
               id="hero-title"

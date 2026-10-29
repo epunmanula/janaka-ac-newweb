@@ -97,6 +97,12 @@ export const AboutSection: React.FC = () => {
                 </dd>
               </div>
             </dl>
+            <div className="mt-6 flex items-center gap-3 rounded-[4px] border border-amber/30 bg-amber-500/10 px-4 py-3 text-xs">
+              <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-amber font-bold text-[10px] text-white">★</span>
+              <p className="font-medium text-navy-950">
+                15+ Years Specialized Automotive A/C Experience <span className="font-normal text-steel">· Certified Sub-Zero 4.5°C Standard in Gampaha</span>
+              </p>
+            </div>
           </Reveal>
         </div>
       </div>

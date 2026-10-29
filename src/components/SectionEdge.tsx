@@ -24,13 +24,13 @@ export const SectionEdge: React.FC<SectionEdgeProps> = ({ from, edge }) => {
         <>
           {/* Deep on the left, shallow on the right */}
           <polygon points="0,0 100,0 100,3 0,10" fill={from} />
-          <line x1="58" y1="7.14" x2="100" y2="4.2" stroke="#35c8f4" strokeWidth={2} vectorEffect="non-scaling-stroke" />
+          <line x1="58" y1="7.14" x2="100" y2="4.2" stroke="var(--color-ice)" strokeWidth={1.5} vectorEffect="non-scaling-stroke" />
         </>
       ) : (
         <>
           {/* Mirrored rise toward the right, so the page reads as one continuous line */}
           <polygon points="0,10 100,10 100,0 0,7" fill={from} />
-          <line x1="0" y1="5.8" x2="42" y2="2.86" stroke="#35c8f4" strokeWidth={2} vectorEffect="non-scaling-stroke" />
+          <line x1="0" y1="5.8" x2="42" y2="2.86" stroke="var(--color-ice)" strokeWidth={1.5} vectorEffect="non-scaling-stroke" />
         </>
       )}
     </svg>
