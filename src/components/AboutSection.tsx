@@ -1,106 +1,170 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React from 'react';
 import Image from 'next/image';
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
-import { Reveal } from '@/components/motion/Reveal';
+import { SectionHeading } from '@/components/SectionHeading';
 import { businessHours, businessInfo } from '@/data/janakaData';
+import { Wrench, ShieldCheck, MapPin, Clock, ArrowUpRight } from 'lucide-react';
 
 export const AboutSection: React.FC = () => {
-  const ref = useRef<HTMLElement>(null);
-  const reduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
-  const mainY = useTransform(scrollYProgress, [0, 1], reduceMotion ? [0, 0] : [40, -40]);
-  const insetY = useTransform(scrollYProgress, [0, 1], reduceMotion ? [0, 0] : [90, -70]);
-
   return (
-    <section id="about" ref={ref} aria-labelledby="about-title" className="relative isolate overflow-hidden bg-gradient-to-b from-[#021926] via-[#032533] to-[#021c29] py-24 text-white border-b border-[#126782]/30 md:py-32">
-      <div className="mx-auto grid max-w-7xl gap-16 px-4 sm:px-6 lg:grid-cols-12 lg:gap-12 lg:px-8">
-        {/* Photographs */}
-        <div className="relative lg:col-span-6">
-          <motion.figure style={{ y: mainY }} className="relative w-[82%] max-w-[460px]">
-            <div className="relative aspect-[3/4] overflow-hidden rounded-xl border border-[#126782]/40 bg-[#023047] shadow-2xl shadow-black/50">
-              <Image
-                src="/workshop-exterior.webp"
-                alt="The Janaka Auto AC workshop building with its covered service bays, Gampaha"
-                fill
-                sizes="(max-width: 1024px) 82vw, 460px"
-                className="object-cover"
-              />
-            </div>
-            <figcaption className="mt-3 font-mono text-[11px] uppercase tracking-[0.16em] text-[#8faec0]">
-              The workshop · {businessInfo.addressShort}
-            </figcaption>
-          </motion.figure>
-          <motion.div
-            style={{ y: insetY }}
-            className="absolute bottom-6 right-0 w-[46%] max-w-[260px] overflow-hidden rounded-xl border-[4px] border-[#219ebc]/50 shadow-[0_20px_50px_rgba(2,24,36,0.6)] bg-[#023047] sm:bottom-12"
-          >
-            <div className="relative aspect-[3/4] overflow-hidden bg-slate-900">
-              <Image
-                src="/workshop-vehicles.webp"
-                alt="Customer cars in the covered service bays"
-                fill
-                sizes="260px"
-                className="object-cover"
-              />
-            </div>
-          </motion.div>
-        </div>
+    <section
+      id="about"
+      aria-labelledby="about-title"
+      className="relative overflow-hidden bg-[#F6F4EF] py-24 sm:py-28 md:py-32 border-b border-[#E5E3DE]"
+    >
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <SectionHeading
+          id="about-title"
+          index="03"
+          eyebrow="Specialist Automotive Workshop"
+          title="15+ Years Dedicated to Car Climate Control"
+          intro="Janaka Auto AC operates with one clear specialization: automotive air conditioning. We do not run a general repair shop with A/C as a sideline — vehicle cooling is our daily craftsmanship."
+          tone="light"
+        />
 
-        {/* Story */}
-        <div className="flex flex-col justify-center lg:col-span-6 lg:pl-8">
-          <Reveal>
-            <p className="eyebrow flex items-center gap-3 text-[#219ebc] font-semibold">
-              <span>03</span>
-              <span aria-hidden="true" className="h-px w-8 bg-[#219ebc]" />
-              <span>About the garage</span>
-            </p>
-            <h2 id="about-title" className="mt-5 font-wide text-[2rem] font-bold leading-[1.06] tracking-[-0.02em] text-balance text-white sm:text-[2.6rem] lg:text-5xl">
-              A dedicated car A/C workshop in Gampaha.
-            </h2>
-          </Reveal>
-          <Reveal delay={0.1} className="mt-8 space-y-5 text-[17px] leading-relaxed text-[#a2b8c2]">
-            <p>
-              {businessInfo.name} is an automotive air-conditioning workshop on the Minuwangoda–Gampaha–Miriswatta
-              Road. Car A/C is our speciality — not a sideline to general repairs.
-            </p>
-            <p>
-              Cars, SUVs and vans come to us for everything from a gas recharge to compressor and condenser work. Our
-              approach is simple: find the cause first, explain it in plain terms, then carry out the repair.
-            </p>
-          </Reveal>
-          <Reveal delay={0.2}>
-            <dl className="mt-10 grid grid-cols-2 border-t border-[#126782]/25">
-              <div className="border-r border-[#126782]/25 py-5 pr-4">
-                <dt className="eyebrow text-[10px] text-[#8faec0] font-semibold">Opening hours</dt>
-                <dd className="mt-2 text-sm font-semibold text-white">
-                  {businessHours.openDays}
-                  <span className="block font-normal text-[#8faec0]">{businessHours.hours}</span>
-                </dd>
+        <div className="mt-14 grid gap-12 lg:grid-cols-12 lg:items-center">
+          {/* Editorial Photography Composition */}
+          <div className="relative lg:col-span-6">
+            <div className="grid grid-cols-12 gap-4">
+              {/* Main Exterior Facility Photo */}
+              <div className="col-span-12 overflow-hidden rounded-2xl border border-[#E5E3DE] bg-[#FFFFFF] shadow-sm">
+                <div className="relative aspect-[16/10] w-full">
+                  <Image
+                    src="/workshop-exterior.webp"
+                    alt="Janaka Auto AC workshop facility on Miriswatta Road, Gampaha"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 550px"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="p-4 bg-[#FFFFFF]">
+                  <p className="font-mono text-xs uppercase tracking-wider text-[#71818A]">
+                    Primary Facility · {businessInfo.addressShort}
+                  </p>
+                  <p className="text-sm font-semibold text-[#24282B]">
+                    Covered Service Bays for Passenger Sedans, SUVs & Commercial Vans
+                  </p>
+                </div>
               </div>
-              <div className="py-5 pl-5">
-                <dt className="eyebrow text-[10px] text-[#8faec0] font-semibold">Find us</dt>
-                <dd className="mt-2 text-sm font-semibold text-white">
-                  Miriswatta, Gampaha
-                  <a
-                    href={businessInfo.googleMapsDirectionsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block font-medium text-[#219ebc] underline decoration-[#219ebc]/30 underline-offset-4 transition-colors hover:decoration-[#8ecae6] hover:text-[#8ecae6]"
-                  >
-                    Get directions
-                  </a>
-                </dd>
+
+              {/* Supporting Workshop Photos */}
+              <div className="col-span-6 overflow-hidden rounded-xl border border-[#E5E3DE] bg-[#FFFFFF] shadow-sm">
+                <div className="relative aspect-[4/3] w-full">
+                  <Image
+                    src="/workshop-vehicles.webp"
+                    alt="Vehicles being serviced in covered bays"
+                    fill
+                    sizes="(max-width: 1024px) 50vw, 260px"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="p-3">
+                  <span className="font-mono text-[10px] uppercase text-[#71818A]">Active Service</span>
+                  <p className="text-xs font-medium text-[#24282B]">Diagnostic bays in action</p>
+                </div>
               </div>
-            </dl>
-            <div className="mt-6 flex items-center gap-3 rounded-lg border border-[#fb8500]/50 bg-[#fb8500]/12 px-4 py-3 text-xs shadow-xs">
-              <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#fb8500] font-bold text-[10px] text-white">★</span>
-              <p className="font-semibold text-white">
-                15+ Years Specialized Automotive A/C Experience <span className="font-normal text-[#a2b8c2]">· Miriswatta Road, Gampaha</span>
+
+              <div className="col-span-6 overflow-hidden rounded-xl border border-[#E5E3DE] bg-[#FFFFFF] shadow-sm">
+                <div className="relative aspect-[4/3] w-full">
+                  <Image
+                    src="/ac-repair-job.webp"
+                    alt="Technician performing precision climate repair"
+                    fill
+                    sizes="(max-width: 1024px) 50vw, 260px"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="p-3">
+                  <span className="font-mono text-[10px] uppercase text-[#71818A]">Hands-on Craft</span>
+                  <p className="text-xs font-medium text-[#24282B]">Precision component repair</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Experience Badge */}
+            <div className="absolute -bottom-4 -right-2 sm:bottom-4 sm:right-4 rounded-xl border border-[#E5E3DE] bg-[#123D4A] p-4 text-white shadow-xl">
+              <span className="font-mono text-2xl font-bold text-[#FFFFFF]">15+</span>
+              <p className="font-mono text-[11px] uppercase tracking-wider text-[#99D5E8]">
+                Years of Specialist Practice
+              </p>
+              <p className="text-[10px] text-white/80">Est. Gampaha, Sri Lanka</p>
+            </div>
+          </div>
+
+          {/* Workshop Story & Core Practice */}
+          <div className="lg:col-span-6 lg:pl-6">
+            <h3 className="font-serif text-2xl font-bold text-[#24282B] sm:text-3xl">
+              Specialized diagnosis. Transparent pricing. Real workshop craft.
+            </h3>
+
+            <div className="mt-6 space-y-4 text-sm leading-relaxed text-[#4B5563] sm:text-base">
+              <p>
+                Located along the Minuwangoda–Gampaha–Miriswatta Road, Janaka Auto AC has provided dependable automotive air conditioning solutions to vehicle owners across the Western Province for more than fifteen years.
+              </p>
+              <p>
+                Our philosophy is simple: we never suggest replacing expensive parts like compressors or condensers when a precise repair, fresh seal, or magnetic clutch service solves the root issue. We identify the true failure cause, explain it to you honestly, and execute the work with durable parts.
               </p>
             </div>
-          </Reveal>
+
+            {/* Three Workshop Credibility Pillars */}
+            <div className="mt-8 space-y-4">
+              <div className="flex items-start gap-4 rounded-xl border border-[#E5E3DE] bg-[#FFFFFF] p-4 shadow-xs">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#F6F4EF] text-[#123D4A]">
+                  <Wrench className="h-5 w-5" />
+                </div>
+                <div>
+                  <h4 className="text-sm font-bold text-[#24282B]">100% Automotive Climate Focus</h4>
+                  <p className="mt-1 text-xs text-[#71818A] leading-relaxed">
+                    We do not dilute our time with general oil changes or body work. Our technicians specialize entirely in high and low pressure refrigerant cycles, compressors, electrical climate controls, and cabin air quality.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4 rounded-xl border border-[#E5E3DE] bg-[#FFFFFF] p-4 shadow-xs">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#F6F4EF] text-[#123D4A]">
+                  <ShieldCheck className="h-5 w-5" />
+                </div>
+                <div>
+                  <h4 className="text-sm font-bold text-[#24282B]">Explain First, Repair Second</h4>
+                  <p className="mt-1 text-xs text-[#71818A] leading-relaxed">
+                    Every vehicle undergoes pressure gauge and electronic diagnostic verification. You receive an upfront explanation and quotation before we proceed.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Location & Hours Card */}
+            <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="rounded-xl border border-[#E5E3DE] bg-[#FFFFFF] p-4">
+                <div className="flex items-center gap-2 text-[#71818A]">
+                  <Clock className="h-4 w-4 text-[#2586A3]" />
+                  <span className="font-mono text-[11px] uppercase tracking-wider">Operating Schedule</span>
+                </div>
+                <p className="mt-2 text-sm font-bold text-[#24282B]">{businessHours.openDays}</p>
+                <p className="text-xs text-[#71818A]">{businessHours.hours}</p>
+                <p className="text-xs font-semibold text-[#EA580C] mt-1">{businessHours.closed}</p>
+              </div>
+
+              <div className="rounded-xl border border-[#E5E3DE] bg-[#FFFFFF] p-4">
+                <div className="flex items-center gap-2 text-[#71818A]">
+                  <MapPin className="h-4 w-4 text-[#2586A3]" />
+                  <span className="font-mono text-[11px] uppercase tracking-wider">Workshop Location</span>
+                </div>
+                <p className="mt-2 text-sm font-bold text-[#24282B]">366 Miriswatta Road</p>
+                <p className="text-xs text-[#71818A]">Gampaha, Western Province</p>
+                <a
+                  href={businessInfo.googleMapsDirectionsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 inline-flex items-center gap-1 text-xs font-bold text-[#2586A3] hover:underline"
+                >
+                  <span>Open in Google Maps</span>
+                  <ArrowUpRight className="h-3 w-3" />
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

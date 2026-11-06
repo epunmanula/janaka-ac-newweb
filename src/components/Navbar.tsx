@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import Image from 'next/image';
 import { Menu, Phone, X } from 'lucide-react';
+import { Logo } from '@/components/brand/Logo';
 import { businessInfo, navSections } from '@/data/janakaData';
 
 const desktopLinks = navSections.filter((s) => s.id !== 'home');
@@ -13,12 +13,12 @@ export const Navbar: React.FC = () => {
   const [active, setActive] = useState<string>('home');
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Highlight the section occupying the middle band of the viewport
+  // Intersection observer to track active section
   useEffect(() => {
     const sections = navSections
       .map((s) => document.getElementById(s.id))
@@ -29,7 +29,7 @@ export const Navbar: React.FC = () => {
           if (entry.isIntersecting) setActive(entry.target.id);
         }
       },
-      { rootMargin: '-45% 0px -50% 0px' }
+      { rootMargin: '-40% 0px -50% 0px' }
     );
     sections.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
@@ -42,34 +42,26 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('keydown', onKey);
   }, [menuOpen]);
 
-  const solid = scrolled || menuOpen;
-
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,box-shadow] duration-300 ${
-        solid
-          ? 'border-b border-[#126782]/30 bg-[#021824]/98 md:backdrop-blur-md shadow-xl shadow-black/40'
-          : 'border-b border-[#126782]/15 bg-[#021824]/90 md:backdrop-blur-sm'
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+        scrolled || menuOpen
+          ? 'bg-[#FFFFFF]/96 backdrop-blur-md border-b border-[#E5E3DE] shadow-sm'
+          : 'bg-[#F6F4EF]/90 backdrop-blur-sm border-b border-[#E5E3DE]/70'
       }`}
     >
-      <div className="mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
         <a
           href="#home"
-          className="group relative flex items-center shrink-0 h-9 w-[190px] sm:h-10 sm:w-[220px] lg:h-11 lg:w-[245px] transition-transform duration-300 hover:scale-[1.02]"
-          aria-label={`${businessInfo.name} – back to top`}
+          className="focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2586A3] rounded transition-opacity hover:opacity-90"
+          aria-label={`${businessInfo.name} – Return to top`}
         >
-          <Image
-            src="/brand/logo-navbar.webp"
-            alt={businessInfo.name}
-            fill
-            sizes="(max-width: 640px) 190px, (max-width: 1024px) 220px, 245px"
-            className="object-contain object-left filter drop-shadow-[0_2px_14px_rgba(33,158,188,0.5)] group-hover:drop-shadow-[0_2px_22px_rgba(142,202,230,0.8)] transition-all duration-300"
-            priority
-          />
+          <Logo variant="dark" />
         </a>
 
-        <nav aria-label="Primary" className="hidden lg:block">
-          <ul className="flex items-center gap-7">
+        {/* Desktop Navigation */}
+        <nav aria-label="Main Navigation" className="hidden lg:block">
+          <ul className="flex items-center gap-8">
             {desktopLinks.map((link) => {
               const isActive = active === link.id;
               return (
@@ -77,17 +69,17 @@ export const Navbar: React.FC = () => {
                   <a
                     href={`#${link.id}`}
                     aria-current={isActive ? 'location' : undefined}
-                    className={`group relative py-2 text-[13px] font-medium tracking-wide transition-colors duration-300 ${
-                      isActive ? 'text-[#8ecae6] font-semibold' : 'text-[#a2b8c2] hover:text-white'
+                    className={`relative py-1 text-[13.5px] font-medium tracking-[0.01em] transition-colors duration-200 ${
+                      isActive ? 'text-[#123D4A] font-semibold' : 'text-[#71818A] hover:text-[#24282B]'
                     }`}
                   >
                     {link.label}
-                    <span
-                      aria-hidden="true"
-                      className={`absolute inset-x-0 -bottom-0.5 h-[2px] origin-left bg-[#219ebc] shadow-[0_0_8px_rgba(33,158,188,0.7)] transition-transform duration-500 ease-out-expo ${
-                        isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
-                      }`}
-                    />
+                    {isActive && (
+                      <span
+                        aria-hidden="true"
+                        className="absolute inset-x-0 -bottom-1.5 h-[2px] bg-[#2586A3] rounded-full"
+                      />
+                    )}
                   </a>
                 </li>
               );
@@ -95,65 +87,74 @@ export const Navbar: React.FC = () => {
           </ul>
         </nav>
 
-        <div className="flex items-center gap-2">
+        {/* Action Controls */}
+        <div className="flex items-center gap-3">
           <a
             href={`tel:${businessInfo.phoneRaw}`}
-            className="hidden items-center gap-2 px-3 py-2 text-[13px] font-medium text-[#e0f2fe] transition-colors hover:text-[#8ecae6] xl:inline-flex"
+            className="hidden items-center gap-2 px-3 py-2 text-[13.5px] font-semibold text-[#24282B] hover:text-[#2586A3] transition-colors xl:inline-flex"
           >
-            <Phone className="h-4 w-4 text-[#219ebc]" aria-hidden="true" />
-            {businessInfo.phone}
+            <Phone className="h-4 w-4 text-[#2586A3]" aria-hidden="true" />
+            <span>{businessInfo.phone}</span>
           </a>
+
           <a
             href="#contact"
-            className="hidden rounded-md bg-gradient-to-r from-[#126782] via-[#219ebc] to-[#126782] bg-[length:200%_auto] px-5 py-2.5 text-[13px] font-semibold text-white shadow-md shadow-[#023047]/60 transition-all duration-300 hover:bg-right hover:shadow-[#219ebc]/30 sm:inline-flex"
+            className="hidden sm:inline-flex items-center justify-center rounded-md bg-[#123D4A] px-5 py-2.5 text-[13px] font-semibold text-white tracking-[0.02em] shadow-sm transition-all duration-200 hover:bg-[#2586A3] active:translate-y-px"
           >
             Book a Service
           </a>
+
           <button
             type="button"
             onClick={() => setMenuOpen((open) => !open)}
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-            className="inline-flex h-11 w-11 items-center justify-center text-slate-200 hover:text-[#8ecae6] lg:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-md text-[#24282B] hover:bg-[#E5E3DE]/50 transition-colors lg:hidden"
           >
-            {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {menuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
       </div>
 
-      <div id="mobile-menu" hidden={!menuOpen} className="border-t border-[#126782]/30 bg-[#021824] px-4 pb-6 pt-2 shadow-2xl sm:px-6 lg:hidden">
-        <nav aria-label="Mobile">
-          <ul className="divide-y divide-[#126782]/20">
+      {/* Mobile Drawer Navigation */}
+      <div
+        id="mobile-menu"
+        hidden={!menuOpen}
+        className="border-t border-[#E5E3DE] bg-[#FFFFFF] px-4 pb-8 pt-4 shadow-xl sm:px-6 lg:hidden"
+      >
+        <nav aria-label="Mobile Navigation">
+          <ul className="divide-y divide-[#E5E3DE]">
             {navSections.map((link, i) => (
               <li key={link.id}>
                 <a
                   href={`#${link.id}`}
                   onClick={() => setMenuOpen(false)}
                   aria-current={active === link.id ? 'location' : undefined}
-                  className={`flex items-baseline gap-4 py-3.5 font-wide text-lg font-semibold ${
-                    active === link.id ? 'text-[#8ecae6]' : 'text-slate-200 hover:text-white'
+                  className={`flex items-baseline justify-between py-4 text-base font-semibold ${
+                    active === link.id ? 'text-[#2586A3]' : 'text-[#24282B] hover:text-[#123D4A]'
                   }`}
                 >
-                  <span className="font-mono text-[11px] font-normal text-[#8faec0]">0{i + 1}</span>
-                  {link.label}
+                  <span>{link.label}</span>
+                  <span className="font-mono text-[11px] font-normal text-[#71818A]">0{i + 1}</span>
                 </a>
               </li>
             ))}
           </ul>
         </nav>
-        <div className="mt-5 grid grid-cols-2 gap-3">
+
+        <div className="mt-6 grid grid-cols-2 gap-3">
           <a
             href={`tel:${businessInfo.phoneRaw}`}
-            className="inline-flex items-center justify-center gap-2 rounded-md border border-[#126782]/40 bg-[#023047]/60 py-3.5 text-sm font-semibold text-slate-200 hover:border-[#219ebc] hover:text-white transition-colors"
+            className="inline-flex items-center justify-center gap-2 rounded-md border border-[#E5E3DE] bg-[#F6F4EF] py-3.5 text-sm font-semibold text-[#24282B] hover:border-[#71818A] transition-colors"
           >
-            <Phone className="h-4 w-4 text-[#219ebc]" aria-hidden="true" />
-            Call Now
+            <Phone className="h-4 w-4 text-[#2586A3]" aria-hidden="true" />
+            <span>Call Workshop</span>
           </a>
           <a
             href="#contact"
             onClick={() => setMenuOpen(false)}
-            className="inline-flex items-center justify-center rounded-md bg-gradient-to-r from-[#126782] via-[#219ebc] to-[#126782] py-3.5 text-sm font-semibold text-white shadow-md shadow-[#023047]/60 hover:brightness-110 transition-all"
+            className="inline-flex items-center justify-center rounded-md bg-[#123D4A] py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-[#2586A3] transition-colors"
           >
             Book a Service
           </a>

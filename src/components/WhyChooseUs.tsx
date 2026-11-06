@@ -1,69 +1,127 @@
+'use client';
+
 import React from 'react';
 import Image from 'next/image';
-import { Reveal } from '@/components/motion/Reveal';
+import { SectionHeading } from '@/components/SectionHeading';
 import { businessHours } from '@/data/janakaData';
+import { CheckCircle2, ArrowRight } from 'lucide-react';
 
-const reasons = [
+const strengths = [
   {
-    title: 'A/C is our speciality',
-    body: 'We work on car air-conditioning systems every day, so we know how they behave — and how they typically fail.',
+    number: '01',
+    title: 'Dedicated Automotive A/C Specialization',
+    description:
+      'We do not treat car air conditioning as a sideline to engine oil changes or tire work. Our workshop, diagnostic tools, and technician hours are 100% dedicated to vehicle climate control systems.',
   },
   {
-    title: 'The cause, not a top-up',
-    body: 'If your system keeps losing gas or cooling poorly, we trace why, rather than simply refilling it or swapping parts.',
+    number: '02',
+    title: 'Diagnosing the Actual Root Cause',
+    description:
+      'If your system cools poorly or loses refrigerant repeatedly, topping up gas is a temporary cover-up. We run electronic leak tests and pressure monitoring to locate and fix the real failure.',
   },
   {
-    title: 'Clear, direct answers',
-    body: 'Speak to the workshop directly by phone or WhatsApp. We explain what we found and what we recommend before going ahead.',
+    number: '03',
+    title: 'Repairing Over Unnecessary Replacement',
+    description:
+      'Whenever possible, we overhaul compressors, replace worn bearings, rebuild magnetic clutches, and renew O-rings. We only recommend complete new parts when a repair is not technically sound.',
   },
   {
-    title: 'Open six days a week',
-    body: `${businessHours.openDays}, ${businessHours.hours}. Easy to find on the Minuwangoda–Gampaha–Miriswatta Road.`,
+    number: '04',
+    title: 'Clear Explanations Before Work Begins',
+    description:
+      'No surprise charges. After diagnosis, we explain what failed, what needs servicing, what parts are required, and give you an honest upfront price before turning a single bolt.',
+  },
+  {
+    number: '05',
+    title: 'Direct Communication with Technicians',
+    description:
+      'When you call or message +94 71 455 1409, you speak directly with the workshop technicians who diagnose and service your vehicle, ensuring accurate technical guidance.',
+  },
+  {
+    number: '06',
+    title: 'Six-Day Weekly Availability',
+    description:
+      `Open ${businessHours.openDays} from ${businessHours.hours} (closed Mondays). Convenient weekend service availability so you do not have to disrupt your weekday work schedule.`,
   },
 ];
 
-export const WhyChooseUs: React.FC = () => (
-  <section id="why-us" aria-labelledby="why-title" className="relative overflow-hidden bg-gradient-to-b from-[#021c29] via-[#032533] to-[#021926] py-24 text-white border-b border-[#126782]/30 md:py-32">
-    <div aria-hidden="true" className="absolute -left-48 bottom-0 h-[36rem] w-[36rem] rounded-full bg-[radial-gradient(circle,rgb(33_158_188/0.14),transparent_65%)] pointer-events-none" />
-    <div className="relative mx-auto grid max-w-7xl gap-14 px-4 sm:px-6 lg:grid-cols-12 lg:gap-16 lg:px-8">
-      <div className="lg:col-span-5">
-        <Reveal>
-          <p className="eyebrow flex items-center gap-3 text-[#219ebc] font-semibold">
-            <span>04</span>
-            <span aria-hidden="true" className="h-px w-8 bg-[#219ebc]" />
-            <span>Why Janaka Auto AC</span>
-          </p>
-          <h2 id="why-title" className="mt-5 font-wide text-[2rem] font-bold leading-[1.06] tracking-[-0.02em] text-balance text-white sm:text-[2.6rem] lg:text-5xl">
-            Why bring your car to us.
-          </h2>
-        </Reveal>
-        <Reveal delay={0.1} className="mt-10 hidden lg:block">
-          <figure>
-            <div className="relative aspect-[4/5] w-full max-w-[360px] overflow-hidden rounded-xl border border-[#126782]/35 bg-[#023047] shadow-xl">
-              <Image
-                src="/condenser-replacement.webp"
-                alt="A new condenser and receiver-drier in the workshop, ready to be fitted"
-                fill
-                sizes="360px"
-                className="object-cover object-[50%_40%]"
-              />
-            </div>
-            <figcaption className="mt-3 font-mono text-[11px] uppercase tracking-[0.16em] text-[#8ecae6]/70">
-              New condenser, ready to fit
-            </figcaption>
-          </figure>
-        </Reveal>
-      </div>
+export const WhyChooseUs: React.FC = () => {
+  return (
+    <section
+      id="why-us"
+      aria-labelledby="why-title"
+      className="relative overflow-hidden bg-[#FFFFFF] py-24 sm:py-28 md:py-32 border-b border-[#E5E3DE]"
+    >
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <SectionHeading
+          id="why-title"
+          index="04"
+          eyebrow="Workshop Principles"
+          title="Why Vehicle Owners Choose Janaka Auto AC"
+          intro="Automotive air conditioning requires specialized diagnostic instruments, refrigerant handling discipline, and honest craft. Here is how we run our workshop on Miriswatta Road."
+          tone="light"
+        />
 
-      <ol className="grid gap-6 sm:grid-cols-2 lg:col-span-7 lg:self-end">
-        {reasons.map((r, i) => (
-          <Reveal as="li" key={r.title} delay={i * 0.08} className="group rounded-xl border border-[#126782]/30 bg-[#023047]/85 md:backdrop-blur-sm p-7 shadow-lg shadow-black/20 transition-all duration-300 hover:border-[#219ebc]/60 hover:bg-[#023047]/95 hover:shadow-[#219ebc]/10">
-            <span className="font-mono text-sm font-bold text-[#219ebc]">0{i + 1}</span>
-            <h3 className="mt-3 font-wide text-xl font-semibold leading-snug text-white group-hover:text-[#8ecae6] transition-colors">{r.title}</h3>
-            <p className="mt-2.5 text-[15px] leading-relaxed text-slate-300">{r.body}</p>
-          </Reveal>
-        ))}
-      </ol>
-    </div>
-  </section>
-);
+        <div className="mt-14 grid gap-12 lg:grid-cols-12 lg:items-start">
+          {/* Left Column: Visual Asset & Guarantee card */}
+          <div className="lg:col-span-5">
+            <div className="overflow-hidden rounded-2xl border border-[#E5E3DE] bg-[#F6F4EF] shadow-sm">
+              <div className="relative aspect-[4/3] w-full">
+                <Image
+                  src="/condenser-replacement.webp"
+                  alt="New condenser and receiver-drier ready for installation"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 480px"
+                  className="object-cover"
+                />
+              </div>
+              <div className="p-6">
+                <div className="flex items-center gap-2 text-[#123D4A]">
+                  <CheckCircle2 className="h-5 w-5 text-[#2586A3]" />
+                  <span className="font-mono text-xs font-bold uppercase tracking-wider">
+                    Our Workshop Standard
+                  </span>
+                </div>
+                <h3 className="mt-2 text-lg font-bold text-[#24282B]">
+                  No Guesswork. Pressure & Vacuum Verified.
+                </h3>
+                <p className="mt-2 text-xs leading-relaxed text-[#71818A]">
+                  Every reassembled system is nitrogen leak-checked, vacuum-held to ensure complete moisture removal, and weighed with exact OEM refrigerant and PAG oil specifications.
+                </p>
+
+                <div className="mt-6 border-t border-[#E5E3DE] pt-4">
+                  <a
+                    href="#contact"
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#123D4A] px-4 py-3 text-xs font-semibold text-white transition hover:bg-[#2586A3]"
+                  >
+                    <span>Schedule an A/C Diagnosis</span>
+                    <ArrowRight className="h-4 w-4" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: 6 Strengths Grid */}
+          <div className="grid gap-4 sm:grid-cols-2 lg:col-span-7">
+            {strengths.map((s) => (
+              <div
+                key={s.number}
+                className="group rounded-xl border border-[#E5E3DE] bg-[#F6F4EF] p-5 sm:p-6 transition-all hover:border-[#CBD5E1] hover:bg-[#FFFFFF] hover:shadow-xs"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-xs font-bold text-[#2586A3]">{s.number}</span>
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#E5E3DE] group-hover:bg-[#2586A3] transition-colors" />
+                </div>
+                <h3 className="mt-3 text-base font-bold text-[#24282B] group-hover:text-[#123D4A] transition-colors">
+                  {s.title}
+                </h3>
+                <p className="mt-2 text-xs leading-relaxed text-[#4B5563]">{s.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};

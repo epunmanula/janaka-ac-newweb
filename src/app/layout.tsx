@@ -26,7 +26,7 @@ const jetbrains = JetBrains_Mono({
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#071522',
+  themeColor: '#F6F4EF',
 };
 
 const description =
@@ -92,7 +92,7 @@ const structuredData = {
       closes: businessHours.closes,
     },
   ],
-  sameAs: [businessInfo.facebookUrl],
+  sameAs: [businessInfo.facebookUrl, businessInfo.tiktokUrl],
 };
 
 export default function RootLayout({
