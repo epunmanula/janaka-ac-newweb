@@ -12,11 +12,11 @@ import { AnimatedStripes } from '@/components/brand/AnimatedStripes';
 
 /** Leader-line labels pinned to points on the car (percent of the car's 640×200 box). */
 const annotations = [
-  { label: 'Cabin air', x: 56, y: 30, lift: 54 },
-  { label: 'Evaporator', x: 72, y: 52, lift: 92 },
-  { label: 'Compressor', x: 85.6, y: 67, lift: 128 },
+  { label: 'Cabin air', x: 50, y: 22, lift: 50 },
+  { label: 'Evaporator', x: 65.6, y: 42, lift: 85 },
+  { label: 'Compressor', x: 77.5, y: 63, lift: 125 },
   // Right-aligned so the label hangs inward at the frame edge
-  { label: 'Condenser', x: 94.6, y: 61, lift: 60, end: true },
+  { label: 'Condenser', x: 85, y: 52, lift: 60, end: true },
 ];  
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -139,28 +139,31 @@ export const HeroSection: React.FC = () => {
         </div>
 
         {/* Verified business facts */}
-        <ul className="grid gap-px border-t border-[#126782]/30 bg-[#032533]/92 md:backdrop-blur-md sm:grid-cols-3">
-          {[
-            { icon: 'pin' as const, label: 'Workshop', value: businessInfo.addressShort, hint: 'Get directions', href: businessInfo.googleMapsDirectionsUrl, external: true },
-            { icon: 'clock' as const, label: `Open ${businessHours.openDaysShort}`, value: businessHours.hours, hint: businessHours.closed, href: '#contact' },
-            { icon: 'phone' as const, label: 'Call or WhatsApp', value: businessInfo.phone, hint: 'Tap to call', href: `tel:${businessInfo.phoneRaw}` },
-          ].map((fact) => (
-            <li key={fact.label}>
+        <div className="border-t border-[#126782]/35 bg-[#021824]/95 md:backdrop-blur-md">
+          <div className="grid grid-cols-1 divide-y divide-[#126782]/25 sm:grid-cols-3 sm:divide-y-0 sm:divide-x">
+            {[
+              { icon: 'pin' as const, label: 'Workshop', value: businessInfo.addressShort, hint: 'Get directions', href: businessInfo.googleMapsDirectionsUrl, external: true },
+              { icon: 'clock' as const, label: `Open ${businessHours.openDaysShort}`, value: businessHours.hours, hint: businessHours.closed, href: '#contact' },
+              { icon: 'phone' as const, label: 'Call or WhatsApp', value: businessInfo.phone, hint: 'Tap to call', href: `tel:${businessInfo.phoneRaw}` },
+            ].map((fact) => (
               <a
+                key={fact.label}
                 href={fact.href}
                 {...(fact.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                className="group flex items-center gap-4 py-5 transition-colors duration-300 sm:px-5 sm:first:pl-0 hover:bg-[#064261]/40"
+                className="group flex items-start gap-4 p-5 transition-all duration-300 hover:bg-[#064261]/35 sm:p-6"
               >
-                <InfoIcon name={fact.icon} tone="dark" />
-                <span className="min-w-0">
-                  <span className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#8ecae6]/70">{fact.label}</span>
-                  <span className="mt-1 block truncate text-[15px] font-semibold text-white group-hover:text-[#8ecae6] transition-colors">{fact.value}</span>
-                  <span className="mt-0.5 block text-xs text-[#219ebc] transition-colors">{fact.hint}</span>
-                </span>
+                <div className="shrink-0 mt-0.5">
+                  <InfoIcon name={fact.icon} tone="dark" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <span className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#8ecae6]/70 leading-none">{fact.label}</span>
+                  <span className="mt-1.5 block text-sm font-semibold text-white sm:text-[15px] group-hover:text-[#8ecae6] transition-colors leading-snug">{fact.value}</span>
+                  <span className="mt-1 block text-xs text-[#219ebc] transition-colors leading-tight">{fact.hint}</span>
+                </div>
               </a>
-            </li>
-          ))}
-        </ul>
+            ))}
+          </div>
+        </div>
 
       </div>
     </section>

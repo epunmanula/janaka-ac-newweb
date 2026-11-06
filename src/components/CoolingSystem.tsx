@@ -9,7 +9,7 @@ import { coolingComponents } from '@/data/janakaData';
 import { PhotoBackdrop } from '@/components/PhotoBackdrop';
 
 // Cut-away of the front half of the car
-const VB = { x: 290, y: 30, w: 340, h: 160 };
+const VB = { x: 260, y: 30, w: 340, h: 160 };
 const pct = (x: number, y: number) => ({
   left: `${((x - VB.x) / VB.w) * 100}%`,
   top: `${((y - VB.y) / VB.h) * 100}%`,
@@ -17,13 +17,13 @@ const pct = (x: number, y: number) => ({
 
 // Refrigerant circuit, following the direction of flow
 const highSide = [
-  { from: 'compressor', d: 'M548 140 C572 138 598 134 606 122' },
-  { from: 'condenser', d: 'M606 122 C608 130 598 136 586 136' },
-  { from: 'receiver-drier', d: 'M586 136 C556 138 528 118 504 100' },
+  { from: 'compressor', d: 'M496 126 C514 126 534 122 542 112' },
+  { from: 'condenser', d: 'M542 112 C542 118 536 122 528 122' },
+  { from: 'receiver-drier', d: 'M528 122 C496 122 464 104 436 92' },
 ];
 const lowSide = [
-  { from: 'expansion-valve', d: 'M504 100 L462 104' },
-  { from: 'evaporator', d: 'M462 104 C480 128 516 146 548 140' },
+  { from: 'expansion-valve', d: 'M436 92 L410 96' },
+  { from: 'evaporator', d: 'M410 96 C428 114 466 128 496 126' },
 ];
 
 export const CoolingSystem: React.FC = () => {
@@ -56,30 +56,30 @@ export const CoolingSystem: React.FC = () => {
                 <g fill="none" stroke="#aab8c5" strokeOpacity={0.35} strokeWidth={0.8}>
                   <path d={CAR_BODY_PATH} />
                   <path d={CAR_GLASS_PATH} />
-                  <circle cx={490} cy={149} r={31} />
-                  <circle cx={490} cy={149} r={22} strokeOpacity={0.2} />
+                  <circle cx={468} cy={138} r={27} />
+                  <circle cx={468} cy={138} r={18} strokeOpacity={0.2} />
                 </g>
-                <path d="M500 92 L500 146" stroke="#aab8c5" strokeOpacity={0.25} strokeWidth={0.6} strokeDasharray="2 3" />
-                <text x={497} y={186} fill="#aab8c5" fillOpacity={0.6} fontSize={5} textAnchor="end" style={{ fontFamily: 'var(--font-mono)' }} letterSpacing={0.6}>
+                <path d="M432 80 L432 140" stroke="#aab8c5" strokeOpacity={0.25} strokeWidth={0.6} strokeDasharray="2 3" />
+                <text x={429} y={178} fill="#aab8c5" fillOpacity={0.6} fontSize={5} textAnchor="end" style={{ fontFamily: 'var(--font-mono)' }} letterSpacing={0.6}>
                   CABIN ← FIREWALL → ENGINE BAY
                 </text>
 
                 {/* Airflow through the cabin */}
                 <g fill="none" stroke="#219ebc" strokeWidth={0.8} strokeLinecap="round">
-                  <path className="flow-line" d="M424 118 C436 112 448 108 456 106" strokeOpacity={0.6} />
-                  <path className="flow-line" d="M454 100 C420 88 390 84 352 86" strokeOpacity={0.8} />
-                  <path className="flow-line" style={{ animationDelay: '-1.2s' }} d="M454 108 C420 104 392 104 352 108" strokeOpacity={0.5} />
+                  <path className="flow-line" d="M375 108 C388 104 398 100 406 98" strokeOpacity={0.6} />
+                  <path className="flow-line" d="M406 92 C378 84 350 82 320 84" strokeOpacity={0.8} />
+                  <path className="flow-line" style={{ animationDelay: '-1.2s' }} d="M406 100 C378 96 350 96 320 100" strokeOpacity={0.5} />
                 </g>
-                <text x={340} y={78} fill="#8ecae6" fontSize={5.5} style={{ fontFamily: 'var(--font-mono)' }} letterSpacing={0.6}>
+                <text x={312} y={76} fill="#8ecae6" fontSize={5.5} style={{ fontFamily: 'var(--font-mono)' }} letterSpacing={0.6}>
                   COLD AIR TO VENTS
                 </text>
 
                 {/* Heat rejected at the front */}
                 <g fill="none" stroke="#fb8500" strokeWidth={0.8} strokeLinecap="round" strokeOpacity={0.85}>
-                  <path className="flow-line" d="M614 112 L636 108" />
-                  <path className="flow-line" style={{ animationDelay: '-1s' }} d="M616 126 L638 126" />
+                  <path className="flow-line" d="M548 106 L570 102" />
+                  <path className="flow-line" style={{ animationDelay: '-1s' }} d="M550 116 L572 116" />
                 </g>
-                <text x={628} y={160} fill="#f59e0b" fontSize={5.5} style={{ fontFamily: 'var(--font-mono)' }} letterSpacing={0.6} textAnchor="end">
+                <text x={565} y={144} fill="#f59e0b" fontSize={5.5} style={{ fontFamily: 'var(--font-mono)' }} letterSpacing={0.6} textAnchor="end">
                   HEAT OUT
                 </text>
 
@@ -107,9 +107,9 @@ export const CoolingSystem: React.FC = () => {
                       {on && <circle cx={c.x} cy={c.y} r={13} fill="#38bdf8" fillOpacity={0.16} />}
                       {c.id === 'condenser' && (
                         <g stroke={stroke} strokeWidth={0.8} fill="#202b36">
-                          <rect x={601} y={104} width={10} height={36} />
-                          {[110, 116, 122, 128, 134].map((y) => (
-                            <line key={y} x1={601} x2={611} y1={y} y2={y} strokeOpacity={0.6} />
+                          <rect x={540} y={96} width={8} height={32} />
+                          {[102, 108, 114, 120, 126].map((y) => (
+                            <line key={y} x1={540} x2={548} y1={y} y2={y} strokeOpacity={0.6} />
                           ))}
                         </g>
                       )}
@@ -119,15 +119,15 @@ export const CoolingSystem: React.FC = () => {
                           <circle cx={c.x} cy={c.y} r={3.5} />
                         </g>
                       )}
-                      {c.id === 'receiver-drier' && <rect x={582} y={128} width={8} height={16} rx={4} stroke={stroke} strokeWidth={0.9} fill="#202b36" />}
+                      {c.id === 'receiver-drier' && <rect x={524} y={114} width={8} height={16} rx={4} stroke={stroke} strokeWidth={0.9} fill="#202b36" />}
                       {c.id === 'expansion-valve' && (
                         <path d={`M${c.x} ${c.y - 6} L${c.x + 6} ${c.y} L${c.x} ${c.y + 6} L${c.x - 6} ${c.y} Z`} stroke={stroke} strokeWidth={0.9} fill="#202b36" />
                       )}
                       {c.id === 'evaporator' && (
                         <g stroke={stroke} strokeWidth={0.8} fill="#202b36">
-                          <rect x={455} y={94} width={14} height={20} />
-                          {[455 + 3.5, 455 + 7, 455 + 10.5].map((x) => (
-                            <line key={x} x1={x} x2={x} y1={94} y2={114} strokeOpacity={0.6} />
+                          <rect x={403} y={86} width={14} height={20} />
+                          {[403 + 3.5, 403 + 7, 403 + 10.5].map((x) => (
+                            <line key={x} x1={x} x2={x} y1={86} y2={106} strokeOpacity={0.6} />
                           ))}
                         </g>
                       )}

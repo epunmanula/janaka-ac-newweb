@@ -2,20 +2,31 @@
 
 import React, { useRef } from 'react';
 import Image from 'next/image';
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import { easeOut, motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { Car } from '@/components/brand/Car';
 import { PhotoBackdrop } from '@/components/PhotoBackdrop';
 
-/** Final scene of the scroll story: the car pulls into the workshop bay. */
+/** Final scene of the scroll story: the car pulls into the workshop bay with smooth speed ramping. */
 export const ArrivalScene: React.FC = () => {
   const ref = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end 0.85'] });
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
 
-  const carX = useTransform(scrollYProgress, [0, 0.85], reduceMotion ? ['0%', '0%'] : ['-100%', '0%']);
-  const wheelRotate = useTransform(scrollYProgress, [0, 0.85], [0, reduceMotion ? 0 : 1100]);
-  const lampOpacity = useTransform(scrollYProgress, [0.4, 0.9], reduceMotion ? [1, 1] : [0.25, 1]);
-  const captionOpacity = useTransform(scrollYProgress, [0.8, 1], reduceMotion ? [1, 1] : [0, 1]);
+  // Smooth speed-ramping deceleration as the car rolls into the workshop spotlight
+  const carX = useTransform(
+    scrollYProgress,
+    [0.1, 0.85],
+    reduceMotion ? ['0%', '0%'] : ['-55%', '0%'],
+    { ease: easeOut }
+  );
+  const wheelRotate = useTransform(
+    scrollYProgress,
+    [0.1, 0.85],
+    [0, reduceMotion ? 0 : 420],
+    { ease: easeOut }
+  );
+  const lampOpacity = useTransform(scrollYProgress, [0.35, 0.8], reduceMotion ? [1, 1] : [0.2, 1]);
+  const captionOpacity = useTransform(scrollYProgress, [0.65, 0.88], reduceMotion ? [1, 1] : [0, 1]);
 
   return (
     <div id="arrival" ref={ref} className="relative isolate overflow-hidden bg-navy-950 text-white">

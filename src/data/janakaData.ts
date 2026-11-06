@@ -160,8 +160,8 @@ export const coolingComponents: CoolingComponent[] = [
     location: 'Engine bay, belt-driven or electric',
     role: 'Pumps refrigerant around the system and raises its pressure. It is the heart of the circuit — when it stops, cooling stops.',
     signs: ['Noise when the A/C is switched on', 'A/C clutch not engaging', 'No cold air at all'],
-    x: 548,
-    y: 140,
+    x: 496,
+    y: 126,
   },
   {
     id: 'condenser',
@@ -169,8 +169,8 @@ export const coolingComponents: CoolingComponent[] = [
     location: 'Front of the vehicle, ahead of the radiator',
     role: 'Releases heat from the hot, high-pressure refrigerant into outside air, turning it from gas back into liquid.',
     signs: ['Cooling weakens in traffic or at idle', 'Bent fins or debris blocking airflow', 'Cooling recovers when moving'],
-    x: 606,
-    y: 122,
+    x: 544,
+    y: 112,
   },
   {
     id: 'receiver-drier',
@@ -178,8 +178,8 @@ export const coolingComponents: CoolingComponent[] = [
     location: 'Near the condenser, on the high-pressure line',
     role: 'Filters the refrigerant and absorbs moisture that would otherwise damage the system. Usually renewed whenever the system is opened.',
     signs: ['Often replaced during major repairs', 'Moisture-related cooling problems'],
-    x: 586,
-    y: 136,
+    x: 528,
+    y: 122,
   },
   {
     id: 'expansion-valve',
@@ -187,8 +187,8 @@ export const coolingComponents: CoolingComponent[] = [
     location: 'At the firewall, before the evaporator',
     role: 'Meters liquid refrigerant into the evaporator and drops its pressure, so it can absorb heat and become very cold.',
     signs: ['Cooling that comes and goes', 'Frost on A/C pipes', 'Vents cold, then warm'],
-    x: 504,
-    y: 100,
+    x: 436,
+    y: 92,
   },
   {
     id: 'evaporator',
@@ -196,8 +196,8 @@ export const coolingComponents: CoolingComponent[] = [
     location: 'Behind the dashboard',
     role: 'Cold refrigerant absorbs heat from cabin air blown across its fins — this is where the air you feel is actually cooled.',
     signs: ['Musty smell from the vents', 'Weak cooling with good airflow', 'Water dripping into the footwell'],
-    x: 462,
-    y: 104,
+    x: 410,
+    y: 96,
   },
   {
     id: 'blower',
@@ -205,8 +205,8 @@ export const coolingComponents: CoolingComponent[] = [
     location: 'Behind the glovebox area',
     role: 'The fan pushes air through the cabin filter and evaporator and out of the vents.',
     signs: ['Weak airflow on every setting', 'Fan works only on some speeds', 'Dust or odours from the vents'],
-    x: 424,
-    y: 118,
+    x: 375,
+    y: 108,
   },
 ];
 
