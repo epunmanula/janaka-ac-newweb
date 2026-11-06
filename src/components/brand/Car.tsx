@@ -4,8 +4,8 @@ import React, { useId } from 'react';
 import { motion, type MotionValue } from 'framer-motion';
 
 /**
- * Original side-profile sports sedan, drawn facing right in a 640×200 box.
- * Geometry is shared with the cooling-system diagram so both read as the same car.
+ * Original precision sports fastback sedan, drawn facing right in a 640×200 box.
+ * Geometry is shared with the cooling-system diagram and arrival animation.
  */
 export const CAR_VIEWBOX = '0 0 640 200';
 
@@ -26,26 +26,46 @@ interface WheelProps {
   cx: number;
   cy: number;
   rimId: string;
+  rotorId: string;
   rotate?: MotionValue<number>;
 }
 
-const Wheel: React.FC<WheelProps> = ({ cx, cy, rimId, rotate }) => (
+const Wheel: React.FC<WheelProps> = ({ cx, cy, rimId, rotorId, rotate }) => (
   <g>
-    <circle cx={cx} cy={cy} r={31} fill="#060d14" />
-    <circle cx={cx} cy={cy} r={29} fill="none" stroke="#1d2a36" strokeWidth={2} />
+    {/* Performance Tire */}
+    <circle cx={cx} cy={cy} r={32} fill="#040a12" />
+    <circle cx={cx} cy={cy} r={30} fill="none" stroke="#172330" strokeWidth={2.4} />
+
+    {/* Cross-Drilled Brake Rotor */}
+    <circle cx={cx} cy={cy} r={24} fill={`url(#${rotorId})`} stroke="#475569" strokeWidth={0.8} />
+
+    {/* Thermodynamic Amber Performance Caliper */}
+    <path
+      d={`M${cx - 16} ${cy - 18} C${cx - 10} ${cy - 24} ${cx - 2} ${cy - 26} ${cx + 6} ${cy - 24} L${cx + 4} ${cy - 14} C${cx - 2} ${cy - 16} ${cx - 8} ${cy - 14} ${cx - 12} ${cy - 10} Z`}
+      fill="#fb8500"
+      stroke="#ffb703"
+      strokeWidth={0.8}
+    />
+
+    {/* Rotating Turbine Alloy Rim */}
     <motion.g style={rotate ? { rotate } : undefined}>
       <circle cx={cx} cy={cy} r={22} fill={`url(#${rimId})`} />
+      {/* 5 Double Turbine Spokes */}
       {[0, 72, 144, 216, 288].map((angle) => (
-        <path
-          key={angle}
-          d={`M${cx - 2.6} ${cy - 5} L${cx - 4.5} ${cy - 20.5} L${cx + 4.5} ${cy - 20.5} L${cx + 2.6} ${cy - 5} Z`}
-          fill="#0a121a"
-          transform={`rotate(${angle + 36} ${cx} ${cy})`}
-        />
+        <g key={angle} transform={`rotate(${angle + 36} ${cx} ${cy})`}>
+          <path
+            d={`M${cx - 2.8} ${cy - 5} L${cx - 4.8} ${cy - 20.5} L${cx + 4.8} ${cy - 20.5} L${cx + 2.8} ${cy - 5} Z`}
+            fill="#06121c"
+            stroke="#8ecae6"
+            strokeWidth={0.6}
+          />
+        </g>
       ))}
-      <circle cx={cx} cy={cy} r={22} fill="none" stroke="#c9d4de" strokeOpacity={0.55} strokeWidth={1.2} />
-      <circle cx={cx} cy={cy} r={5} fill="#c9d4de" />
-      <circle cx={cx} cy={cy} r={2} fill="#0a121a" />
+      {/* Polished Machined Outer Lip */}
+      <circle cx={cx} cy={cy} r={22} fill="none" stroke="#e2e8f0" strokeOpacity={0.8} strokeWidth={1.3} />
+      {/* Center Hub */}
+      <circle cx={cx} cy={cy} r={5.5} fill="#e2e8f0" />
+      <circle cx={cx} cy={cy} r={2.2} fill="#021824" />
     </motion.g>
   </g>
 );
@@ -66,108 +86,164 @@ export const Car: React.FC<CarProps> = ({
   wheelRotate,
   airflow = false,
   headlights = false,
-  title = 'Illustrated side profile of a sports sedan',
+  title = 'Precision illustrated side profile of a luxury performance sports sedan',
 }) => {
   const uid = useId().replace(/:/g, '');
   const ids = {
     body: `body-${uid}`,
     rim: `rim-${uid}`,
+    rotor: `rotor-${uid}`,
     edge: `edge-${uid}`,
     glass: `glass-${uid}`,
     beam: `beam-${uid}`,
     shadow: `shadow-${uid}`,
+    underglow: `underglow-${uid}`,
   };
 
   return (
     <svg viewBox={CAR_VIEWBOX} className={className} role="img" aria-label={title} overflow="visible">
       <defs>
-        <linearGradient id={ids.body} x1="0" y1="40" x2="0" y2="150" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor="#6d8093" />
-          <stop offset="0.28" stopColor="#33475a" />
-          <stop offset="0.62" stopColor="#18273a" />
-          <stop offset="1" stopColor="#0a131d" />
+        {/* Nordic Metallic Paint Gradient */}
+        <linearGradient id={ids.body} x1="0" y1="38" x2="0" y2="150" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#8ecae6" />
+          <stop offset="12%" stopColor="#3d7a99" />
+          <stop offset="35%" stopColor="#126782" />
+          <stop offset="68%" stopColor="#023047" />
+          <stop offset="100%" stopColor="#011420" />
         </linearGradient>
-        <linearGradient id={ids.edge} x1="40" y1="0" x2="616" y2="0" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor="#aab8c5" stopOpacity="0.1" />
-          <stop offset="0.55" stopColor="#e8f1f8" stopOpacity="0.9" />
-          <stop offset="1" stopColor="#35c8f4" stopOpacity="0.7" />
+
+        {/* Laser Shoulder Highlight */}
+        <linearGradient id={ids.edge} x1="40" y1="0" x2="618" y2="0" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#8ecae6" stopOpacity="0.1" />
+          <stop offset="45%" stopColor="#ffffff" stopOpacity="0.95" />
+          <stop offset="78%" stopColor="#219ebc" stopOpacity="0.9" />
+          <stop offset="100%" stopColor="#8ecae6" stopOpacity="1" />
         </linearGradient>
-        <linearGradient id={ids.glass} x1="200" y1="46" x2="480" y2="92" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor="#0b1724" />
-          <stop offset="0.6" stopColor="#14283c" />
-          <stop offset="1" stopColor="#1f4560" />
+
+        {/* Ceramic Tinted Glass */}
+        <linearGradient id={ids.glass} x1="200" y1="44" x2="480" y2="92" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#050e17" />
+          <stop offset="50%" stopColor="#0d2235" />
+          <stop offset="100%" stopColor="#1b4566" />
         </linearGradient>
-        <radialGradient id={ids.rim} cx="0.35" cy="0.3" r="0.9">
-          <stop offset="0" stopColor="#e9eff4" />
-          <stop offset="0.5" stopColor="#8d9caa" />
-          <stop offset="1" stopColor="#3b4855" />
+
+        {/* Projector Matrix Headlight Beam */}
+        <linearGradient id={ids.beam} x1="616" y1="0" x2="920" y2="0" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#dff6ff" stopOpacity="0.75" />
+          <stop offset="30%" stopColor="#219ebc" stopOpacity="0.35" />
+          <stop offset="100%" stopColor="#219ebc" stopOpacity="0" />
+        </linearGradient>
+
+        {/* Deep Ground Contact Shadow */}
+        <radialGradient id={ids.shadow} cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#000000" stopOpacity="0.9" />
+          <stop offset="60%" stopColor="#000000" stopOpacity="0.4" />
+          <stop offset="100%" stopColor="#000000" stopOpacity="0" />
         </radialGradient>
-        <linearGradient id={ids.beam} x1="616" y1="0" x2="900" y2="0" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor="#dff6ff" stopOpacity="0.55" />
-          <stop offset="1" stopColor="#35c8f4" stopOpacity="0" />
-        </linearGradient>
-        <radialGradient id={ids.shadow} cx="0.5" cy="0.5" r="0.5">
-          <stop offset="0" stopColor="#000" stopOpacity="0.55" />
-          <stop offset="1" stopColor="#000" stopOpacity="0" />
+
+        {/* Atmospheric Cyan Underglow */}
+        <radialGradient id={ids.underglow} cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#219ebc" stopOpacity="0.4" />
+          <stop offset="70%" stopColor="#126782" stopOpacity="0.1" />
+          <stop offset="100%" stopColor="#021824" stopOpacity="0" />
+        </radialGradient>
+
+        {/* Machined Rim Radial Gradient */}
+        <radialGradient id={ids.rim} cx="35%" cy="30%" r="90%">
+          <stop offset="0%" stopColor="#ffffff" />
+          <stop offset="40%" stopColor="#94a3b8" />
+          <stop offset="85%" stopColor="#1e293b" />
+          <stop offset="100%" stopColor="#0f172a" />
+        </radialGradient>
+
+        {/* Slotted Brake Rotor */}
+        <radialGradient id={ids.rotor} cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#334155" />
+          <stop offset="70%" stopColor="#64748b" />
+          <stop offset="100%" stopColor="#1e293b" />
         </radialGradient>
       </defs>
 
-      {/* Ground shadow */}
-      <ellipse cx="328" cy="182" rx="300" ry="10" fill={`url(#${ids.shadow})`} />
+      {/* Ground Contact Shadow & Cyan Ambient Underglow */}
+      <ellipse cx="328" cy="182" rx="300" ry="12" fill={`url(#${ids.shadow})`} />
+      <ellipse cx="330" cy="178" rx="250" ry="8" fill={`url(#${ids.underglow})`} />
 
-      {headlights && <path d="M612 112 L900 92 L900 168 L612 124 Z" fill={`url(#${ids.beam})`} />}
+      {/* Matrix Headlight Beam Projection */}
+      {headlights && <path d="M615 113 L920 86 L920 178 L615 128 Z" fill={`url(#${ids.beam})`} />}
 
+      {/* Aerodynamic Airflow Wake */}
       {airflow && (
-        <g fill="none" stroke="#35c8f4" strokeLinecap="round" strokeWidth={1.4} aria-hidden="true">
-          <path className="airflow-line" d="M600 58 C480 30 260 26 -40 46" strokeOpacity={0.55} />
-          <path className="airflow-line" style={{ animationDelay: '-0.9s' }} d="M560 80 C430 64 250 60 -60 72" strokeOpacity={0.35} />
-          <path className="airflow-line" style={{ animationDelay: '-1.7s' }} d="M40 120 C-20 118 -80 116 -160 118" strokeOpacity={0.45} />
-          <path className="airflow-line" style={{ animationDelay: '-0.4s' }} d="M60 100 C0 96 -60 94 -140 96" strokeOpacity={0.3} />
+        <g fill="none" stroke="#219ebc" strokeLinecap="round" strokeWidth={1.6} opacity={0.85} aria-hidden="true">
+          <path className="airflow-line" d="M605 54 C480 26 260 22 -40 42" strokeOpacity={0.75} />
+          <path className="airflow-line" style={{ animationDelay: '-0.9s' }} d="M565 78 C430 60 250 56 -60 68" strokeOpacity={0.45} />
+          <path className="airflow-line" style={{ animationDelay: '-1.7s' }} d="M40 120 C-20 118 -80 116 -160 118" strokeOpacity={0.55} />
+          <path className="airflow-line" style={{ animationDelay: '-0.4s' }} d="M60 100 C0 96 -60 94 -140 96" strokeOpacity={0.35} />
         </g>
       )}
 
-      {/* Body */}
+      {/* Main Sculpted Body Shell */}
       <path d={CAR_BODY_PATH} fill={`url(#${ids.body})`} />
-      <path d={CAR_GLASS_PATH} fill={`url(#${ids.glass})`} />
-      {/* Glass sheen */}
-      <path d="M300 50 L352 47 L318 88 L272 89 Z" fill="#ffffff" fillOpacity={0.06} />
-      {/* B-pillar */}
-      <path d="M338 46 L348 46 L346 92 L338 92 Z" fill="#0b141e" />
 
-      {/* Upper body edge highlight */}
+      {/* Ceramic Tinted Windows */}
+      <path d={CAR_GLASS_PATH} fill={`url(#${ids.glass})`} />
+
+      {/* Dual Reflection Sheen on Glass */}
+      <path d="M298 48 L350 45 L316 86 L270 87 Z" fill="#ffffff" fillOpacity={0.09} />
+      <path d="M410 52 L438 60 L418 86 L392 86 Z" fill="#ffffff" fillOpacity={0.05} />
+
+      {/* B-Pillar & Rear Quarter Dividers */}
+      <path d="M336 44 L346 44 L344 90 L336 90 Z" fill="#061019" />
+      <path d="M440 62 L446 65 L436 88 L430 88 Z" fill="#061019" opacity="0.8" />
+
+      {/* Laser Chrome Shoulder Crease Highlight */}
       <path
         d="M60 98 L168 90 C196 86 222 66 256 54 C290 42 340 38 384 40 C418 42 440 50 462 64 C478 74 494 84 510 90 L586 100 C604 103 614 110 616 122"
         fill="none"
         stroke={`url(#${ids.edge})`}
-        strokeWidth={1.4}
+        strokeWidth={1.6}
       />
-      {/* Shoulder line */}
-      <path d="M62 106 C200 98 420 100 604 110" fill="none" stroke="#dce7f0" strokeOpacity={0.22} strokeWidth={1.2} />
-      {/* Sill */}
-      <path d="M192 140 L448 140" stroke="#03080d" strokeOpacity={0.7} strokeWidth={2} />
 
-      {/* Door shut lines & handles */}
-      <g stroke="#04090f" strokeOpacity={0.75} strokeWidth={1.2} fill="none">
-        <path d="M232 92 L230 146" />
-        <path d="M343 92 L343 147" />
-        <path d="M470 92 C474 110 474 130 470 146" />
+      {/* Dynamic Body Feature Lines */}
+      <path d="M62 106 C200 98 420 100 604 110" fill="none" stroke="#8ecae6" strokeOpacity={0.3} strokeWidth={1.2} />
+      <path d="M188 132 C260 130 380 130 450 134" fill="none" stroke="#219ebc" strokeOpacity={0.25} strokeWidth={1} />
+
+      {/* Lower Aero Sill with Winglet */}
+      <path d="M188 142 L450 142" stroke="#021824" strokeWidth="3" />
+      <path d="M448 138 L454 144 L448 144 Z" fill="#219ebc" opacity="0.75" />
+
+      {/* Door Shut Lines */}
+      <g stroke="#03101c" strokeWidth={1.2} fill="none" opacity="0.85">
+        <path d="M232 91 L230 146" />
+        <path d="M343 91 L343 147" />
+        <path d="M470 91 C474 109 474 129 470 146" />
       </g>
-      <rect x="298" y="103" width="18" height="3" rx="1.5" fill="#c9d4de" fillOpacity={0.5} />
-      <rect x="412" y="103" width="18" height="3" rx="1.5" fill="#c9d4de" fillOpacity={0.5} />
 
-      {/* Mirror */}
-      <path d="M470 84 C478 77 492 79 494 88 L476 91 Z" fill="#1b2a39" stroke="#aab8c5" strokeOpacity={0.35} strokeWidth={0.8} />
+      {/* Flush Cyber Door Handles with Cyan Glow */}
+      <rect x="296" y="101" width="20" height="3.5" rx="1.75" fill="#0b2438" stroke="#219ebc" strokeWidth="0.7" />
+      <rect x="412" y="101" width="20" height="3.5" rx="1.75" fill="#0b2438" stroke="#219ebc" strokeWidth="0.7" />
 
-      {/* Lights */}
-      <path d="M588 104 C600 106 610 110 614 117 L597 115 C592 113 589 109 588 104 Z" fill="#e6f8ff" />
-      <path d="M590 106 L612 115" stroke="#35c8f4" strokeWidth={1} />
-      <path d="M40 112 L58 104 L62 111 L42 118 Z" fill="#b8343f" />
+      {/* Aerodynamic Digital Side Mirror */}
+      <path d="M468 82 C476 75 490 77 493 86 L474 89 Z" fill="#091b29" stroke="#8ecae6" strokeOpacity="0.6" strokeWidth={1} />
 
-      {/* Front intake */}
-      <path d="M598 130 L614 130 L613 138 L600 138 Z" fill="#050b11" />
+      {/* Jewel-Eye Matrix LED Headlights */}
+      <path d="M588 102 C600 104 610 108 616 116 L597 114 C592 112 589 108 588 102 Z" fill="#dff6ff" />
+      <circle cx="598" cy="110" r="2.2" fill="#219ebc" />
+      <circle cx="605" cy="112" r="2.2" fill="#ffffff" />
+      <circle cx="612" cy="114" r="1.8" fill="#dff6ff" />
+      {/* Cyan DRL Eyebrow */}
+      <path d="M586 102 L616 114" stroke="#8ecae6" strokeWidth="1.8" strokeLinecap="round" />
 
+      {/* Continuous Red Cyber Tail Light Bar */}
+      <path d="M40 112 L58 104 L62 111 L42 118 Z" fill="#ef4444" />
+      <path d="M39 112 L57 104" stroke="#ff7878" strokeWidth="1.2" />
+
+      {/* Front Honeycomb Lower Intake & Splitter */}
+      <path d="M598 128 L616 128 L614 138 L600 138 Z" fill="#030b12" />
+      <path d="M594 140 L618 140" stroke="#219ebc" strokeWidth="1.4" opacity="0.8" />
+
+      {/* Interactive Rotating Wheels */}
       {WHEELS.map((w) => (
-        <Wheel key={w.cx} cx={w.cx} cy={w.cy} rimId={ids.rim} rotate={wheelRotate} />
+        <Wheel key={w.cx} cx={w.cx} cy={w.cy} rimId={ids.rim} rotorId={ids.rotor} rotate={wheelRotate} />
       ))}
     </svg>
   );

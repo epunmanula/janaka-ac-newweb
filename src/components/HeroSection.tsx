@@ -3,12 +3,21 @@
 import React, { useRef } from 'react';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import { CivicHeroCar } from '@/components/brand/CivicHeroCar';
+import { Car } from '@/components/brand/Car';
 import { InfoIcon } from '@/components/brand/InfoIcons';
 import { INTRO_DURATION } from '@/components/IntroLoader';
 import { businessHours, businessInfo } from '@/data/janakaData';
 import { PhotoBackdrop } from '@/components/PhotoBackdrop';
 import { AnimatedStripes } from '@/components/brand/AnimatedStripes';
+
+/** Leader-line labels pinned to points on the car (percent of the car's 640×200 box). */
+const annotations = [
+  { label: 'Cabin air', x: 56, y: 30, lift: 54 },
+  { label: 'Evaporator', x: 72, y: 52, lift: 92 },
+  { label: 'Compressor', x: 85.6, y: 67, lift: 128 },
+  // Right-aligned so the label hangs inward at the frame edge
+  { label: 'Condenser', x: 94.6, y: 61, lift: 60, end: true },
+];
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -98,14 +107,55 @@ export const HeroSection: React.FC = () => {
             </motion.div>
           </motion.div>
 
-          {/* Honda Civic RS Showcase Stage */}
+          {/* Car stage */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.2, delay: start + 0.15, ease }}
-            className="relative lg:col-span-6 w-full pt-4 sm:pt-6 lg:pt-0"
+            initial={{ opacity: 0, x: -60 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1.4, delay: start + 0.15, ease }}
+            className="relative lg:col-span-6 w-full"
           >
-            <CivicHeroCar carX={carX} labelsOpacity={labelsOpacity} />
+            <motion.div style={{ x: carX }} className="relative w-full pt-8 sm:pt-14 lg:pt-16">
+              <div className="relative mx-auto w-full max-w-[580px] lg:max-w-none">
+                <motion.div style={{ opacity: labelsOpacity }} aria-hidden="true" className="pointer-events-none absolute inset-0 z-10 hidden sm:block">
+                  {annotations.map((a) => (
+                    <div
+                      key={a.label}
+                      className={`absolute flex flex-col ${a.end ? 'items-end' : 'items-center'}`}
+                      style={{ left: `${a.x}%`, top: `${a.y}%`, transform: `translate(${a.end ? 'calc(-100% + 4px)' : '-50%'}, calc(-100% + 4px))` }}
+                    >
+                      <span className="eyebrow whitespace-nowrap text-[10px] text-[#8ecae6] font-semibold">{a.label}</span>
+                      <span className={`mt-1.5 w-px bg-gradient-to-b from-[#8ecae6] to-[#126782] ${a.end ? 'mr-[3.5px]' : ''}`} style={{ height: a.lift - 22 }} />
+                      <span className="h-2 w-2 rounded-full border-2 border-[#219ebc] bg-[#021824]" />
+                    </div>
+                  ))}
+                </motion.div>
+                <Car className="relative w-full" wheelRotate={wheelRotate} airflow headlights />
+              </div>
+              {/* Floor reflection */}
+              <div aria-hidden="true" className="pointer-events-none -mt-[9%] h-24 scale-y-[-1] opacity-[0.14] [mask-image:linear-gradient(to_top,black,transparent_70%)]">
+                <Car className="w-full" wheelRotate={wheelRotate} title="" />
+              </div>
+            </motion.div>
+
+            {/* Mobile interactive component badges */}
+            <div className="mt-4 grid grid-cols-2 gap-2 sm:hidden px-1">
+              {[
+                { label: 'Condenser', desc: 'Releases heat outside' },
+                { label: 'Compressor', desc: 'Pumps high-pressure gas' },
+                { label: 'Evaporator', desc: 'Chills air down to 4.5°C' },
+                { label: 'Cabin Filter', desc: 'Purifies tropical air' },
+              ].map((c) => (
+                <div key={c.label} className="rounded-lg border border-[#126782]/40 bg-[#023047]/60 p-2.5 backdrop-blur-sm">
+                  <div className="flex items-center gap-1.5">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#219ebc]" />
+                    <span className="font-mono text-[10px] uppercase font-bold text-[#8ecae6]">{c.label}</span>
+                  </div>
+                  <p className="mt-0.5 text-[11px] leading-snug text-slate-300">{c.desc}</p>
+                </div>
+              ))}
+            </div>
+
+            <div aria-hidden="true" className="absolute inset-x-[-20%] bottom-16 h-px bg-gradient-to-r from-transparent via-[#219ebc]/30 to-transparent" />
           </motion.div>
         </div>
 
