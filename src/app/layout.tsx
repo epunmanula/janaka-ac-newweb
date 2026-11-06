@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     type: 'website',
     url: '/',
     siteName: businessInfo.name,
-    title: 'Janaka Auto AC – Precision Cooling. Exceptional Comfort.',
+    title: 'Janaka Auto AC – Car A/C Specialists | Gampaha',
     description,
     locale: 'en_LK',
     images: [{ url: '/og.jpg', width: 1200, height: 630, alt: 'Janaka Auto AC – Keep cool. Drive comfortable.' }],

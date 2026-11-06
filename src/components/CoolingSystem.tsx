@@ -175,7 +175,7 @@ export const CoolingSystem: React.FC = () => {
                 <span aria-hidden="true" className="h-0.5 w-6 bg-[#fb8500]" /> <span className="text-[#ffb703]">High pressure · Heat extraction</span>
               </span>
               <span className="flex items-center gap-2">
-                <span aria-hidden="true" className="h-0.5 w-6 bg-[#219ebc]" /> <span className="text-[#8ecae6]">Low pressure · Sub-Zero cold</span>
+                <span aria-hidden="true" className="h-0.5 w-6 bg-[#219ebc]" /> <span className="text-[#8ecae6]">Low pressure · Chilled vapour</span>
               </span>
             </div>
           </Reveal>

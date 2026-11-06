@@ -33,7 +33,7 @@ export const siteUrl = 'https://janaka-ac-newweb.vercel.app';
 // 1. Business & Contact Information
 export const businessInfo = {
   name: 'Janaka Auto AC',
-  tagline: 'Precision Cooling. Exceptional Comfort.',
+  tagline: 'Car A/C Diagnosis & Repairs in Gampaha',
   subTagline: 'Keep cool. Drive comfortable.',
   phone: '+94 71 455 1409',
   phoneRaw: '+94714551409',

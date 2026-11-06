@@ -97,7 +97,7 @@ export const AboutSection: React.FC = () => {
             <div className="mt-6 flex items-center gap-3 rounded-lg border border-[#fb8500]/50 bg-[#fb8500]/12 px-4 py-3 text-xs shadow-xs">
               <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#fb8500] font-bold text-[10px] text-white">★</span>
               <p className="font-semibold text-white">
-                15+ Years Specialized Automotive A/C Experience <span className="font-normal text-[#a2b8c2]">· Certified Sub-Zero 4.5°C Standard in Gampaha</span>
+                15+ Years Specialized Automotive A/C Experience <span className="font-normal text-[#a2b8c2]">· Miriswatta Road, Gampaha</span>
               </p>
             </div>
           </Reveal>

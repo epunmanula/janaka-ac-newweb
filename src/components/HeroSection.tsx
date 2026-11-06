@@ -17,7 +17,7 @@ const annotations = [
   { label: 'Compressor', x: 85.6, y: 67, lift: 128 },
   // Right-aligned so the label hangs inward at the frame edge
   { label: 'Condenser', x: 94.6, y: 61, lift: 60, end: true },
-];
+];  
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -58,10 +58,6 @@ export const HeroSection: React.FC = () => {
                 <span aria-hidden="true" className="h-px w-8 bg-[#219ebc]" />
                 <span>Automotive A/C Specialists · Gampaha</span>
               </p>
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-[#fb8500]/50 bg-[#fb8500]/12 px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-[#ffb703] font-semibold shadow-xs">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#fb8500] animate-pulse" />
-                <span>Sub-Zero 4.5°C Standard</span>
-              </span>
             </motion.div>
 
             <motion.h1
@@ -71,8 +67,8 @@ export const HeroSection: React.FC = () => {
               transition={{ duration: 1, delay: start + 0.1, ease }}
               className="mt-6 font-wide text-[2.6rem] font-bold leading-[1.02] tracking-[-0.02em] text-balance text-white sm:text-6xl lg:text-[clamp(3rem,4.6vw,4.5rem)]"
             >
-              Precision Cooling.
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#8ecae6] via-[#219ebc] to-[#126782]">Exceptional Comfort.</span>
+              Car A/C Specialists.
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#8ecae6] via-[#219ebc] to-[#126782]">Diagnosed & Repaired Right.</span>
             </motion.h1>
 
             <motion.p
@@ -137,23 +133,6 @@ export const HeroSection: React.FC = () => {
               </div>
             </motion.div>
 
-            {/* Mobile interactive component badges */}
-            <div className="mt-4 grid grid-cols-2 gap-2 sm:hidden px-1">
-              {[
-                { label: 'Condenser', desc: 'Releases heat outside' },
-                { label: 'Compressor', desc: 'Pumps high-pressure gas' },
-                { label: 'Evaporator', desc: 'Chills air down to 4.5°C' },
-                { label: 'Cabin Filter', desc: 'Purifies tropical air' },
-              ].map((c) => (
-                <div key={c.label} className="rounded-lg border border-[#126782]/40 bg-[#023047]/60 p-2.5 backdrop-blur-sm">
-                  <div className="flex items-center gap-1.5">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#219ebc]" />
-                    <span className="font-mono text-[10px] uppercase font-bold text-[#8ecae6]">{c.label}</span>
-                  </div>
-                  <p className="mt-0.5 text-[11px] leading-snug text-slate-300">{c.desc}</p>
-                </div>
-              ))}
-            </div>
 
             <div aria-hidden="true" className="absolute inset-x-[-20%] bottom-16 h-px bg-gradient-to-r from-transparent via-[#219ebc]/30 to-transparent" />
           </motion.div>
