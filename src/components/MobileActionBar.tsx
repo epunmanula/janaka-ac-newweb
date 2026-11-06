@@ -16,7 +16,7 @@ export const MobileActionBar: React.FC = () => {
 
   return (
     <div
-      className={`fixed inset-x-0 bottom-0 z-40 border-t border-[#126782]/30 bg-[#021824]/95 backdrop-blur-xl pb-[env(safe-area-inset-bottom)] shadow-[0_-8px_24px_rgba(0,0,0,0.5)] transition-transform duration-500 ease-out-expo md:hidden ${
+      className={`fixed inset-x-0 bottom-0 z-40 border-t border-[#126782]/40 bg-[#021824] pb-[env(safe-area-inset-bottom)] shadow-[0_-8px_24px_rgba(0,0,0,0.6)] transition-transform duration-300 ease-out md:hidden ${
         visible ? 'translate-y-0' : 'translate-y-full'
       }`}
       aria-hidden={!visible}

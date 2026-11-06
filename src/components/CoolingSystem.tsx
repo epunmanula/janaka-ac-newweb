@@ -7,7 +7,6 @@ import { Reveal } from '@/components/motion/Reveal';
 import { SectionHeading } from '@/components/SectionHeading';
 import { coolingComponents } from '@/data/janakaData';
 import { PhotoBackdrop } from '@/components/PhotoBackdrop';
-import { AnimatedStripes } from '@/components/brand/AnimatedStripes';
 
 // Cut-away of the front half of the car
 const VB = { x: 290, y: 30, w: 340, h: 160 };
@@ -33,7 +32,6 @@ export const CoolingSystem: React.FC = () => {
 
   return (
     <section id="system" aria-labelledby="system-title" className="relative isolate overflow-hidden bg-gradient-to-b from-[#021c2a] via-[#032533] to-[#021926] py-24 text-white border-b border-[#126782]/30 md:py-32">
-      <AnimatedStripes variant="ambient" opacity={0.25} />
       <PhotoBackdrop src="/backdrops/system.webp" opacity={0.18} fade="right" base="#021824" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
@@ -204,7 +202,7 @@ export const CoolingSystem: React.FC = () => {
               })}
             </ul>
 
-            <div id="component-detail" aria-live="polite" className="mt-8 min-h-[18rem] rounded-xl border border-[#126782]/30 bg-[#023047]/50 p-6 backdrop-blur-md shadow-xl">
+            <div id="component-detail" aria-live="polite" className="mt-8 min-h-[18rem] rounded-xl border border-[#126782]/30 bg-[#023047]/80 p-6 md:backdrop-blur-md shadow-xl">
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={active.id}

@@ -2,7 +2,6 @@ import React from 'react';
 import Image from 'next/image';
 import { Reveal } from '@/components/motion/Reveal';
 import { businessHours } from '@/data/janakaData';
-import { AnimatedStripes } from '@/components/brand/AnimatedStripes';
 
 const reasons = [
   {
@@ -25,7 +24,6 @@ const reasons = [
 
 export const WhyChooseUs: React.FC = () => (
   <section id="why-us" aria-labelledby="why-title" className="relative overflow-hidden bg-gradient-to-b from-[#021c29] via-[#032533] to-[#021926] py-24 text-white border-b border-[#126782]/30 md:py-32">
-    <AnimatedStripes variant="ambient" opacity={0.22} />
     <div aria-hidden="true" className="absolute -left-48 bottom-0 h-[36rem] w-[36rem] rounded-full bg-[radial-gradient(circle,rgb(33_158_188/0.14),transparent_65%)] pointer-events-none" />
     <div className="relative mx-auto grid max-w-7xl gap-14 px-4 sm:px-6 lg:grid-cols-12 lg:gap-16 lg:px-8">
       <div className="lg:col-span-5">
@@ -59,7 +57,7 @@ export const WhyChooseUs: React.FC = () => (
 
       <ol className="grid gap-6 sm:grid-cols-2 lg:col-span-7 lg:self-end">
         {reasons.map((r, i) => (
-          <Reveal as="li" key={r.title} delay={i * 0.08} className="group rounded-xl border border-[#126782]/30 bg-[#023047]/60 backdrop-blur-sm p-7 shadow-lg shadow-black/20 transition-all duration-300 hover:border-[#219ebc]/60 hover:bg-[#023047]/90 hover:shadow-[#219ebc]/10">
+          <Reveal as="li" key={r.title} delay={i * 0.08} className="group rounded-xl border border-[#126782]/30 bg-[#023047]/85 md:backdrop-blur-sm p-7 shadow-lg shadow-black/20 transition-all duration-300 hover:border-[#219ebc]/60 hover:bg-[#023047]/95 hover:shadow-[#219ebc]/10">
             <span className="font-mono text-sm font-bold text-[#219ebc]">0{i + 1}</span>
             <h3 className="mt-3 font-wide text-xl font-semibold leading-snug text-white group-hover:text-[#8ecae6] transition-colors">{r.title}</h3>
             <p className="mt-2.5 text-[15px] leading-relaxed text-slate-300">{r.body}</p>

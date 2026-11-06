@@ -24,8 +24,8 @@ const ease = [0.16, 1, 0.3, 1] as const;
 export const HeroSection: React.FC = () => {
   const ref = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
-  // Begin as the intro curtain lifts
-  const start = reduceMotion ? 0.7 : INTRO_DURATION - 0.55;
+  // Fast snappy entrance
+  const start = reduceMotion ? 0.2 : 0.3;
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
 
   // The car pulls away to the right as the hero scrolls out of view
@@ -127,9 +127,9 @@ export const HeroSection: React.FC = () => {
                 </motion.div>
                 <Car className="relative w-full" wheelRotate={wheelRotate} airflow headlights />
               </div>
-              {/* Floor reflection */}
-              <div aria-hidden="true" className="pointer-events-none -mt-[9%] h-24 scale-y-[-1] opacity-[0.14] [mask-image:linear-gradient(to_top,black,transparent_70%)]">
-                <Car className="w-full" wheelRotate={wheelRotate} title="" />
+              {/* Floor reflection - hidden on mobile to avoid double SVG rendering */}
+              <div aria-hidden="true" className="pointer-events-none -mt-[9%] h-24 scale-y-[-1] opacity-[0.14] [mask-image:linear-gradient(to_top,black,transparent_70%)] hidden sm:block">
+                <Car className="w-full" title="" />
               </div>
             </motion.div>
 
@@ -139,7 +139,7 @@ export const HeroSection: React.FC = () => {
         </div>
 
         {/* Verified business facts */}
-        <ul className="grid gap-px border-t border-[#126782]/30 bg-[#032533]/85 backdrop-blur-md sm:grid-cols-3">
+        <ul className="grid gap-px border-t border-[#126782]/30 bg-[#032533]/92 md:backdrop-blur-md sm:grid-cols-3">
           {[
             { icon: 'pin' as const, label: 'Workshop', value: businessInfo.addressShort, hint: 'Get directions', href: businessInfo.googleMapsDirectionsUrl, external: true },
             { icon: 'clock' as const, label: `Open ${businessHours.openDaysShort}`, value: businessHours.hours, hint: businessHours.closed, href: '#contact' },

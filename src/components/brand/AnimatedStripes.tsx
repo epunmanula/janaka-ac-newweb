@@ -33,13 +33,13 @@ export const AnimatedStripes: React.FC<AnimatedStripesProps> = ({
     <div
       aria-hidden="true"
       className={`pointer-events-none absolute inset-0 -z-10 overflow-hidden select-none ${className}`}
-      style={{ opacity }}
+      style={{ opacity, contain: 'strict' }}
     >
       {/* Deep canvas foundation */}
       <div className="absolute inset-0 bg-[#021824]" />
 
       {/* Skewed Stage for Jitter-style 24-degree angled stripes */}
-      <div className="absolute -inset-x-40 -inset-y-32 flex items-center justify-center overflow-hidden [transform:skewX(-24deg)_scale(1.2)]">
+      <div className="absolute -inset-x-20 -inset-y-16 flex items-center justify-center overflow-hidden [transform:skewX(-20deg)_scale(1.1)] md:-inset-x-40 md:-inset-y-32 md:[transform:skewX(-24deg)_scale(1.2)]">
         {/* Layer 1: Wide Deep Petrol & Marine Oceanic Bands (Slow ambient glide) */}
         <div
           className={`stripes-layer-slow absolute flex h-full will-change-transform ${
@@ -77,19 +77,19 @@ export const AnimatedStripes: React.FC<AnimatedStripesProps> = ({
             <div key={copy} className="flex h-full w-[1600px] shrink-0">
               <div className="h-full w-[140px] bg-[#126782]/45" />
               {/* Hairline Arctic Cyan Pinstripe */}
-              <div className="h-full w-[2px] bg-[#8ecae6]/70 shadow-[0_0_12px_rgba(142,202,230,0.6)]" />
+              <div className="h-full w-[2px] bg-[#8ecae6] opacity-90" />
               <div className="h-full w-[210px] bg-transparent" />
               {/* Cerulean Accent Ribbon */}
               <div className="h-full w-[65px] bg-[#219ebc]/35" />
-              <div className="h-full w-[1.5px] bg-[#219ebc]/80 shadow-[0_0_8px_rgba(33,158,188,0.7)]" />
+              <div className="h-full w-[1.5px] bg-[#219ebc] opacity-90" />
               <div className="h-full w-[280px] bg-transparent" />
               {/* Jitter signature Sea Teal band */}
               <div className="h-full w-[120px] bg-[#126782]/50" />
-              <div className="h-full w-[3px] bg-[#8ecae6]/55" />
+              <div className="h-full w-[3px] bg-[#8ecae6]/60" />
               <div className="h-full w-[190px] bg-transparent" />
               <div className="h-full w-[85px] bg-[#177797]/40" />
               {/* Fine precision streak */}
-              <div className="h-full w-[2px] bg-[#219ebc]/75" />
+              <div className="h-full w-[2px] bg-[#219ebc]/80" />
               <div className="h-full w-[240px] bg-transparent" />
               <div className="h-full w-[150px] bg-[#0e5673]/40" />
               <div className="h-full w-[111.5px] bg-transparent" />
@@ -97,20 +97,20 @@ export const AnimatedStripes: React.FC<AnimatedStripesProps> = ({
           ))}
         </div>
 
-        {/* Layer 3: High-Frequency Micro Pinstripes (Hero only) */}
+        {/* Layer 3: High-Frequency Micro Pinstripes (Hero only, desktop only for max mobile performance) */}
         {isHero && (
           <div
-            className="stripes-layer-micro absolute flex h-full will-change-transform animate-stripes-micro"
+            className="stripes-layer-micro absolute hidden md:flex h-full will-change-transform animate-stripes-micro"
             style={{ width: '2800px' }}
           >
             {[0, 1].map((copy) => (
               <div key={copy} className="flex h-full w-[1400px] shrink-0">
                 <div className="h-full w-[340px] bg-transparent" />
-                <div className="h-full w-[1px] bg-[#8ecae6]/60 shadow-[0_0_10px_rgba(142,202,230,0.8)]" />
+                <div className="h-full w-[1px] bg-[#8ecae6] opacity-80" />
                 <div className="h-full w-[420px] bg-transparent" />
-                <div className="h-full w-[1.5px] bg-[#219ebc]/70 shadow-[0_0_8px_rgba(33,158,188,0.6)]" />
+                <div className="h-full w-[1.5px] bg-[#219ebc] opacity-80" />
                 <div className="h-full w-[290px] bg-transparent" />
-                <div className="h-full w-[1px] bg-[#8ecae6]/50" />
+                <div className="h-full w-[1px] bg-[#8ecae6]/60" />
                 <div className="h-full w-[346.5px] bg-transparent" />
               </div>
             ))}

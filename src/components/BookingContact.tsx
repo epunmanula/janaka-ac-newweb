@@ -5,7 +5,6 @@ import { ArrowUpRight, MessageCircle, Phone } from 'lucide-react';
 import { InfoIcon } from '@/components/brand/InfoIcons';
 import { Reveal } from '@/components/motion/Reveal';
 import { businessHours, businessInfo } from '@/data/janakaData';
-import { AnimatedStripes } from '@/components/brand/AnimatedStripes';
 
 const symptomPresets = ['Blowing warm air', 'Gas recharge', 'Noise when A/C is on', 'Weak cooling in traffic', 'Bad smell from vents'];
 
@@ -72,7 +71,6 @@ export const BookingContact: React.FC = () => {
 
   return (
     <section id="contact" aria-labelledby="contact-title" className="relative isolate overflow-hidden bg-gradient-to-b from-[#021824] via-[#032533] to-[#021824] text-white py-20 md:py-28 border-b border-[#126782]/30">
-      <AnimatedStripes variant="ambient" opacity={0.2} direction="reverse" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-14 lg:grid-cols-12 lg:gap-16">
           {/* Direct contact */}
@@ -169,7 +167,7 @@ export const BookingContact: React.FC = () => {
 
           {/* Enquiry form */}
           <Reveal delay={0.1} className="lg:col-span-7">
-            <div className="rounded-2xl border border-[#126782]/35 bg-[#023047]/80 p-6 shadow-2xl shadow-black/40 backdrop-blur-md sm:p-10">
+            <div className="rounded-2xl border border-[#126782]/35 bg-[#023047]/95 p-6 shadow-2xl shadow-black/40 md:backdrop-blur-md sm:p-10">
               <h3 className="font-wide text-2xl font-semibold text-white">Send a service enquiry</h3>
               <p className="mt-2 text-sm leading-relaxed text-slate-300">
                 Your details open in WhatsApp, ready to send to the workshop. Nothing is stored on this website.

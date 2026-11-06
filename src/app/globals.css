@@ -47,9 +47,15 @@ body {
   overflow-x: clip;
 }
 
-/* Anchor targets clear the fixed header */
+/* Anchor targets clear the fixed header and defer offscreen painting */
 section[id] {
   scroll-margin-top: 4.5rem;
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 700px;
+}
+
+#home {
+  content-visibility: visible;
 }
 
 ::selection {
@@ -165,7 +171,15 @@ section[id] {
   animation: stripes-flow-reverse-fast 32s linear infinite;
 }
 
-/* ── Brand intro (≈1.9s): ring draws, mark settles, curtain lifts ── */
+.stripes-layer-slow,
+.stripes-layer-fast,
+.stripes-layer-micro {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* ── Brand intro (≈1.6s): ring draws, mark settles, curtain lifts ── */
 .intro {
   position: fixed;
   inset: 0;
@@ -174,7 +188,8 @@ section[id] {
   place-items: center;
   background: radial-gradient(circle at 50% 45%, var(--color-navy-800), var(--color-navy-950) 65%);
   clip-path: inset(0 0 0 0);
-  animation: intro-lift 0.65s cubic-bezier(0.76, 0, 0.24, 1) 1.25s forwards;
+  pointer-events: none;
+  animation: intro-lift 0.6s cubic-bezier(0.76, 0, 0.24, 1) 1.05s forwards;
 }
 
 .intro-ring {

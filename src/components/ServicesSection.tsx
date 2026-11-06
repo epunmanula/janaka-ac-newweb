@@ -7,7 +7,6 @@ import { ArrowUpRight } from 'lucide-react';
 import { Reveal } from '@/components/motion/Reveal';
 import { SectionHeading } from '@/components/SectionHeading';
 import { businessInfo, servicesData } from '@/data/janakaData';
-import { AnimatedStripes } from '@/components/brand/AnimatedStripes';
 
 export const ServicesSection: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -30,9 +29,6 @@ export const ServicesSection: React.FC = () => {
 
   return (
     <section id="services" aria-labelledby="services-title" className="relative isolate overflow-hidden bg-gradient-to-b from-[#021824] via-[#032533] to-[#021c2a] py-24 text-white md:py-32 border-b border-[#126782]/30">
-      {/* Subtle ambient animated stripes gliding in reverse */}
-      <AnimatedStripes variant="ambient" opacity={0.35} direction="reverse" />
-
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           id="services-title"
@@ -117,7 +113,7 @@ export const ServicesSection: React.FC = () => {
           </ol>
         </div>
 
-        <Reveal className="mt-14 flex flex-col items-start justify-between gap-5 rounded-2xl border border-[#219ebc]/40 bg-gradient-to-r from-[#023047] via-[#084564] to-[#023047] px-6 py-7 text-white shadow-2xl shadow-black/40 sm:flex-row sm:items-center sm:px-10 backdrop-blur-md">
+        <Reveal className="mt-14 flex flex-col items-start justify-between gap-5 rounded-2xl border border-[#219ebc]/40 bg-gradient-to-r from-[#023047] via-[#084564] to-[#023047] px-6 py-7 text-white shadow-2xl shadow-black/40 sm:flex-row sm:items-center sm:px-10 md:backdrop-blur-md">
           <p className="max-w-xl text-base leading-relaxed text-[#e0f2fe]">
             <span className="font-semibold text-white">Not sure what the problem is?</span> Describe the symptoms on
             WhatsApp and we&apos;ll advise on the next step.

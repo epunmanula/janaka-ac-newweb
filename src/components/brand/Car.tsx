@@ -48,7 +48,7 @@ const Wheel: React.FC<WheelProps> = ({ cx, cy, rimId, rotorId, rotate }) => (
     />
 
     {/* Rotating Turbine Alloy Rim */}
-    <motion.g style={rotate ? { rotate } : undefined}>
+    <motion.g style={rotate ? { rotate, transformOrigin: `${cx}px ${cy}px` } : undefined}>
       <circle cx={cx} cy={cy} r={22} fill={`url(#${rimId})`} />
       {/* 5 Double Turbine Spokes */}
       {[0, 72, 144, 216, 288].map((angle) => (

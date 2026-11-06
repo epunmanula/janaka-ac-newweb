@@ -46,10 +46,10 @@ export const Navbar: React.FC = () => {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,box-shadow] duration-500 ${
+      className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,box-shadow] duration-300 ${
         solid
-          ? 'border-b border-[#126782]/30 bg-[#021824]/92 backdrop-blur-md shadow-xl shadow-black/40'
-          : 'border-b border-[#126782]/15 bg-[#021824]/70 backdrop-blur-sm'
+          ? 'border-b border-[#126782]/30 bg-[#021824]/98 md:backdrop-blur-md shadow-xl shadow-black/40'
+          : 'border-b border-[#126782]/15 bg-[#021824]/90 md:backdrop-blur-sm'
       }`}
     >
       <div className="mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
@@ -122,7 +122,7 @@ export const Navbar: React.FC = () => {
         </div>
       </div>
 
-      <div id="mobile-menu" hidden={!menuOpen} className="border-t border-[#126782]/30 bg-[#032533]/98 px-4 pb-6 pt-2 shadow-2xl backdrop-blur-xl sm:px-6 lg:hidden">
+      <div id="mobile-menu" hidden={!menuOpen} className="border-t border-[#126782]/30 bg-[#021824] px-4 pb-6 pt-2 shadow-2xl sm:px-6 lg:hidden">
         <nav aria-label="Mobile">
           <ul className="divide-y divide-[#126782]/20">
             {navSections.map((link, i) => (

@@ -11,9 +11,15 @@ import { galleryItems } from '@/data/janakaData';
 
 export const Gallery: React.FC = () => {
   const [selected, setSelected] = useState<number | null>(null);
-  const [viewMode, setViewMode] = useState<'drift' | 'grid'>('drift');
+  const [viewMode, setViewMode] = useState<'drift' | 'grid'>('grid');
   const closeRef = useRef<HTMLButtonElement>(null);
   const openerRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.innerWidth >= 768) {
+      setViewMode('drift');
+    }
+  }, []);
 
   const driftItems = useMemo(
     () => galleryItems.map((item) => ({ src: item.thumb || item.image, alt: item.title, label: item.title, category: item.category })),
