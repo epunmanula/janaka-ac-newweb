@@ -48,7 +48,7 @@ export const Gallery: React.FC = () => {
   const photo = selected !== null ? galleryItems[selected] : null;
 
   return (
-    <section id="gallery" aria-labelledby="gallery-title" className="relative isolate bg-gradient-to-b from-[#040e1e] via-[#071936] to-[#030b18] py-24 text-white border-b border-sky-500/20 md:py-32">
+    <section id="gallery" aria-labelledby="gallery-title" className="relative isolate bg-gradient-to-b from-[#021926] via-[#032533] to-[#021824] py-24 text-white border-b border-[#126782]/30 md:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           id="gallery-title"
@@ -59,7 +59,7 @@ export const Gallery: React.FC = () => {
         />
 
         <Reveal className="mt-12 flex justify-end">
-          <div role="group" aria-label="Gallery view" className="inline-flex rounded-lg border border-sky-500/25 bg-[#081d3a] p-1 shadow-md">
+          <div role="group" aria-label="Gallery view" className="inline-flex rounded-lg border border-[#126782]/30 bg-[#023047]/80 p-1 shadow-md">
             {(['drift', 'grid'] as const).map((mode) => (
               <button
                 key={mode}
@@ -67,7 +67,7 @@ export const Gallery: React.FC = () => {
                 onClick={() => setViewMode(mode)}
                 aria-pressed={viewMode === mode}
                 className={`min-h-10 px-4 rounded-md font-mono text-[11px] uppercase tracking-[0.14em] transition-all ${
-                  viewMode === mode ? 'bg-gradient-to-r from-blue-600 to-sky-500 text-white font-semibold shadow-md shadow-sky-500/20' : 'text-slate-400 hover:text-white'
+                  viewMode === mode ? 'bg-gradient-to-r from-[#126782] to-[#219ebc] text-white font-semibold shadow-md shadow-[#219ebc]/20' : 'text-slate-400 hover:text-white'
                 }`}
               >
                 {mode === 'drift' ? '3D Wall' : 'Grid'}
@@ -96,7 +96,7 @@ export const Gallery: React.FC = () => {
               {galleryItems.map((item, i) => (
                 <Reveal as="li" key={item.id} delay={(i % 3) * 0.06}>
                   <button type="button" onClick={() => open(i)} className="group block w-full text-left">
-                    <span className="relative block aspect-[4/5] overflow-hidden rounded-xl border border-sky-500/20 bg-[#091f3d]/60 shadow-lg backdrop-blur-sm transition-all duration-300 group-hover:border-sky-400/50">
+                    <span className="relative block aspect-[4/5] overflow-hidden rounded-xl border border-[#126782]/30 bg-[#023047]/60 shadow-lg backdrop-blur-sm transition-all duration-300 group-hover:border-[#219ebc]/50">
                       <Image
                         src={item.image}
                         alt={item.caption}
@@ -106,8 +106,8 @@ export const Gallery: React.FC = () => {
                       />
                     </span>
                     <span className="mt-4 flex items-baseline justify-between gap-4">
-                      <span className="font-wide text-lg font-semibold text-white group-hover:text-sky-300 transition-colors">{item.title}</span>
-                      <span className="eyebrow shrink-0 text-[10px] text-sky-400 font-semibold">{item.category}</span>
+                      <span className="font-wide text-lg font-semibold text-white group-hover:text-[#8ecae6] transition-colors">{item.title}</span>
+                      <span className="eyebrow shrink-0 text-[10px] text-[#219ebc] font-semibold">{item.category}</span>
                     </span>
                   </button>
                 </Reveal>
@@ -125,7 +125,7 @@ export const Gallery: React.FC = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-[60] flex items-center justify-center bg-navy-950/96 p-3 sm:p-8"
+            className="fixed inset-0 z-[60] flex items-center justify-center bg-[#021824]/96 backdrop-blur-md p-3 sm:p-8"
             onClick={close}
             role="dialog"
             aria-modal="true"

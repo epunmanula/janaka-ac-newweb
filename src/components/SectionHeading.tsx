@@ -16,9 +16,9 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({ id, index, eyebr
   return (
     <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-16">
       <Reveal className="lg:col-span-7">
-        <p className={`eyebrow flex items-center gap-3 ${dark ? 'text-sky-400 font-semibold' : 'text-ice-deep'}`}>
+        <p className={`eyebrow flex items-center gap-3 ${dark ? 'text-[#219ebc] font-semibold' : 'text-ice-deep'}`}>
           <span>{index}</span>
-          <span aria-hidden="true" className={`h-px w-8 ${dark ? 'bg-sky-400' : 'bg-ice-deep'}`} />
+          <span aria-hidden="true" className={`h-px w-8 ${dark ? 'bg-[#219ebc]' : 'bg-ice-deep'}`} />
           <span>{eyebrow}</span>
         </p>
         <h2
@@ -32,7 +32,7 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({ id, index, eyebr
       </Reveal>
       {intro && (
         <Reveal delay={0.1} className="lg:col-span-5">
-          <p className={`max-w-md text-base leading-relaxed ${dark ? 'text-slate-300' : 'text-steel'}`}>{intro}</p>
+          <p className={`max-w-md text-base leading-relaxed ${dark ? 'text-[#a2b8c2]' : 'text-steel'}`}>{intro}</p>
         </Reveal>
       )}
     </div>

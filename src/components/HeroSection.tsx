@@ -8,6 +8,7 @@ import { InfoIcon } from '@/components/brand/InfoIcons';
 import { INTRO_DURATION } from '@/components/IntroLoader';
 import { businessHours, businessInfo } from '@/data/janakaData';
 import { PhotoBackdrop } from '@/components/PhotoBackdrop';
+import { AnimatedStripes } from '@/components/brand/AnimatedStripes';
 
 /** Leader-line labels pinned to points on the car (percent of the car's 640×200 box). */
 const annotations = [
@@ -38,14 +39,11 @@ export const HeroSection: React.FC = () => {
       id="home"
       ref={ref}
       aria-labelledby="hero-title"
-      className="relative isolate overflow-hidden bg-gradient-to-b from-[#030b18] via-[#06152d] to-[#040e1c] text-white border-b border-sky-500/20"
+      className="relative isolate overflow-hidden bg-[#021824] text-white border-b border-[#126782]/35"
     >
-      {/* Studio lighting */}
-      <PhotoBackdrop src="/backdrops/hero.webp" opacity={0.36} fade="left" base="var(--color-navy-950)" />
-      <div
-        aria-hidden="true"
-        className="absolute -right-40 -top-40 -z-10 h-[48rem] w-[48rem] rounded-full bg-[radial-gradient(circle,rgb(14_165_233/0.18),transparent_65%)]"
-      />
+      {/* Jitter-inspired precision animated stripes flow */}
+      <AnimatedStripes variant="hero" opacity={0.88} />
+      <PhotoBackdrop src="/backdrops/hero.webp" opacity={0.16} fade="left" base="#021824" />
 
       <div className="mx-auto grid min-h-[100svh] max-w-7xl grid-rows-[1fr_auto] px-4 pt-[4.5rem] sm:px-6 lg:px-8">
         <div className="grid items-center gap-10 py-12 lg:grid-cols-12 lg:gap-6 lg:py-16">
@@ -56,12 +54,12 @@ export const HeroSection: React.FC = () => {
               transition={{ duration: 0.8, delay: start, ease }}
               className="flex flex-wrap items-center gap-3"
             >
-              <p className="eyebrow flex items-center gap-3 text-sky-400 font-semibold">
-                <span aria-hidden="true" className="h-px w-8 bg-sky-400" />
+              <p className="eyebrow flex items-center gap-3 text-[#219ebc] font-semibold">
+                <span aria-hidden="true" className="h-px w-8 bg-[#219ebc]" />
                 <span>Automotive A/C Specialists · Gampaha</span>
               </p>
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/40 bg-amber-500/10 px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-amber-300 font-semibold shadow-xs">
-                <span className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse" />
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-[#fb8500]/50 bg-[#fb8500]/12 px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-[#ffb703] font-semibold shadow-xs">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#fb8500] animate-pulse" />
                 <span>Sub-Zero 4.5°C Standard</span>
               </span>
             </motion.div>
@@ -74,14 +72,14 @@ export const HeroSection: React.FC = () => {
               className="mt-6 font-wide text-[2.6rem] font-bold leading-[1.02] tracking-[-0.02em] text-balance text-white sm:text-6xl lg:text-[clamp(3rem,4.6vw,4.5rem)]"
             >
               Precision Cooling.
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-blue-400 to-cyan-300">Exceptional Comfort.</span>
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#8ecae6] via-[#219ebc] to-[#126782]">Exceptional Comfort.</span>
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: start + 0.2, ease }}
-              className="mt-6 max-w-lg text-base leading-relaxed text-slate-300 sm:text-lg"
+              className="mt-6 max-w-lg text-base leading-relaxed text-[#a2b8c2] sm:text-lg"
             >
               Car air-conditioning diagnosis, servicing and repairs in Gampaha — from a gas recharge to compressor,
               condenser and leak repairs. We find the cause, explain it clearly, and get your cabin cold again.
@@ -95,14 +93,14 @@ export const HeroSection: React.FC = () => {
             >
               <a
                 href="#contact"
-                className="group inline-flex items-center justify-center gap-3 rounded-md bg-gradient-to-r from-blue-600 via-sky-600 to-sky-500 px-7 py-4 text-sm font-semibold text-white shadow-lg shadow-sky-500/30 transition-all duration-300 hover:brightness-110 hover:shadow-sky-400/50 active:translate-y-px"
+                className="group inline-flex items-center justify-center gap-3 rounded-md bg-gradient-to-r from-[#126782] via-[#219ebc] to-[#126782] bg-[length:200%_auto] px-7 py-4 text-sm font-semibold text-white shadow-xl shadow-[#021824]/80 transition-all duration-300 hover:bg-right hover:shadow-[#219ebc]/25 active:translate-y-px"
               >
                 Book a Service
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
               </a>
               <a
                 href="#services"
-                className="inline-flex items-center justify-center rounded-md border border-sky-500/30 bg-sky-950/40 backdrop-blur-sm px-7 py-4 text-sm font-semibold text-sky-200 shadow-sm transition-all duration-300 hover:border-sky-400 hover:bg-sky-900/40 hover:text-white active:translate-y-px"
+                className="inline-flex items-center justify-center rounded-md border border-[#126782]/50 bg-[#023047]/60 backdrop-blur-md px-7 py-4 text-sm font-semibold text-[#8ecae6] shadow-sm transition-all duration-300 hover:border-[#219ebc] hover:bg-[#064261]/80 hover:text-white active:translate-y-px"
               >
                 Explore Our Services
               </a>
@@ -125,9 +123,9 @@ export const HeroSection: React.FC = () => {
                       className={`absolute flex flex-col ${a.end ? 'items-end' : 'items-center'}`}
                       style={{ left: `${a.x}%`, top: `${a.y}%`, transform: `translate(${a.end ? 'calc(-100% + 4px)' : '-50%'}, calc(-100% + 4px))` }}
                     >
-                      <span className="eyebrow whitespace-nowrap text-[10px] text-sky-300 font-semibold">{a.label}</span>
-                      <span className={`mt-1.5 w-px bg-gradient-to-b from-sky-400 to-blue-600 ${a.end ? 'mr-[3.5px]' : ''}`} style={{ height: a.lift - 22 }} />
-                      <span className="h-2 w-2 rounded-full border-2 border-sky-400 bg-sky-950" />
+                      <span className="eyebrow whitespace-nowrap text-[10px] text-[#8ecae6] font-semibold">{a.label}</span>
+                      <span className={`mt-1.5 w-px bg-gradient-to-b from-[#8ecae6] to-[#126782] ${a.end ? 'mr-[3.5px]' : ''}`} style={{ height: a.lift - 22 }} />
+                      <span className="h-2 w-2 rounded-full border-2 border-[#219ebc] bg-[#021824]" />
                     </div>
                   ))}
                 </motion.div>
@@ -138,12 +136,12 @@ export const HeroSection: React.FC = () => {
                 <Car className="w-full" wheelRotate={wheelRotate} title="" />
               </div>
             </motion.div>
-            <div aria-hidden="true" className="absolute inset-x-[-20%] bottom-24 h-px bg-gradient-to-r from-transparent via-sky-500/30 to-transparent" />
+            <div aria-hidden="true" className="absolute inset-x-[-20%] bottom-24 h-px bg-gradient-to-r from-transparent via-[#219ebc]/30 to-transparent" />
           </motion.div>
         </div>
 
         {/* Verified business facts */}
-        <ul className="grid gap-px border-t border-sky-500/20 bg-[#06162d]/85 backdrop-blur-md sm:grid-cols-3">
+        <ul className="grid gap-px border-t border-[#126782]/30 bg-[#032533]/85 backdrop-blur-md sm:grid-cols-3">
           {[
             { icon: 'pin' as const, label: 'Workshop', value: businessInfo.addressShort, hint: 'Get directions', href: businessInfo.googleMapsDirectionsUrl, external: true },
             { icon: 'clock' as const, label: `Open ${businessHours.openDaysShort}`, value: businessHours.hours, hint: businessHours.closed, href: '#contact' },
@@ -153,13 +151,13 @@ export const HeroSection: React.FC = () => {
               <a
                 href={fact.href}
                 {...(fact.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                className="group flex items-center gap-4 py-5 transition-colors duration-300 sm:px-5 sm:first:pl-0 hover:bg-sky-900/30"
+                className="group flex items-center gap-4 py-5 transition-colors duration-300 sm:px-5 sm:first:pl-0 hover:bg-[#064261]/40"
               >
                 <InfoIcon name={fact.icon} tone="dark" />
                 <span className="min-w-0">
-                  <span className="block font-mono text-[10px] uppercase tracking-[0.2em] text-sky-300/70">{fact.label}</span>
-                  <span className="mt-1 block truncate text-[15px] font-semibold text-white group-hover:text-sky-300 transition-colors">{fact.value}</span>
-                  <span className="mt-0.5 block text-xs text-sky-400 transition-colors">{fact.hint}</span>
+                  <span className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#8ecae6]/70">{fact.label}</span>
+                  <span className="mt-1 block truncate text-[15px] font-semibold text-white group-hover:text-[#8ecae6] transition-colors">{fact.value}</span>
+                  <span className="mt-0.5 block text-xs text-[#219ebc] transition-colors">{fact.hint}</span>
                 </span>
               </a>
             </li>

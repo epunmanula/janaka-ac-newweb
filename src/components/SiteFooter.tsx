@@ -3,9 +3,9 @@ import Image from 'next/image';
 import { businessHours, businessInfo, navSections } from '@/data/janakaData';
 
 export const SiteFooter: React.FC = () => (
-  <footer className="bg-navy-950 pb-28 pt-16 text-silver md:pb-12">
+  <footer className="bg-[#021824] border-t border-[#126782]/25 pb-28 pt-16 text-silver md:pb-12">
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div className="grid gap-12 border-b border-white/10 pb-12 md:grid-cols-12">
+      <div className="grid gap-12 border-b border-[#126782]/25 pb-12 md:grid-cols-12">
         <div className="md:col-span-5">
           <div className="relative h-11 w-56 sm:h-12 sm:w-64">
             <Image
@@ -13,7 +13,7 @@ export const SiteFooter: React.FC = () => (
               alt={businessInfo.name}
               fill
               sizes="(max-width: 640px) 224px, 256px"
-              className="object-contain object-left filter drop-shadow-[0_2px_14px_rgba(56,189,248,0.4)]"
+              className="object-contain object-left filter drop-shadow-[0_2px_14px_rgba(33,158,188,0.35)]"
             />
           </div>
           <p className="mt-5 max-w-sm text-sm leading-relaxed">
@@ -44,7 +44,7 @@ export const SiteFooter: React.FC = () => (
               {businessHours.closed}
             </p>
             <p>
-              <a href={`tel:${businessInfo.phoneRaw}`} className="text-white transition-colors hover:text-ice">
+              <a href={`tel:${businessInfo.phoneRaw}`} className="text-white transition-colors hover:text-[#219ebc]">
                 {businessInfo.phone}
               </a>
             </p>
@@ -69,10 +69,10 @@ export const SiteFooter: React.FC = () => (
               href="https://www.emmelabs.tech/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 font-semibold text-white transition-colors duration-200 hover:text-ice underline decoration-white/20 underline-offset-4 hover:decoration-ice"
+              className="inline-flex items-center gap-1 font-semibold text-white transition-colors duration-200 hover:text-[#219ebc] underline decoration-white/20 underline-offset-4 hover:decoration-[#219ebc]"
             >
               <span>EMME Labs</span>
-              <span className="text-[10px] text-ice transition-transform hover:-translate-y-0.5 hover:translate-x-0.5" aria-hidden="true">↗</span>
+              <span className="text-[10px] text-[#219ebc] transition-transform hover:-translate-y-0.5 hover:translate-x-0.5" aria-hidden="true">↗</span>
             </a>
           </p>
         </div>

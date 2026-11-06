@@ -2,22 +2,25 @@
 
 /* ── Brand tokens ─────────────────────────────────────────────── */
 @theme {
-  --color-navy-950: #030b18;
-  --color-navy-900: #06152d;
-  --color-navy-800: #0c2347;
-  --color-graphite: #081a36;
-  --color-ice: #38bdf8;
-  --color-ice-deep: #0284c7;
-  --color-frost: #091e3e;
-  --color-paper: #0b254d;
-  --color-mist: #102e5c;
-  --color-silver: #94a3b8;
-  --color-steel: #64748b;
+  --color-navy-950: #021824;
+  --color-navy-900: #032332;
+  --color-navy-800: #023047;
+  --color-graphite: #063d59;
+  --color-petrol: #094f6f;
+  --color-teal: #126782;
+  --color-ice: #219ebc;
+  --color-ice-deep: #126782;
+  --color-ice-light: #8ecae6;
+  --color-frost: #042535;
+  --color-paper: #083348;
+  --color-mist: #0d415b;
+  --color-silver: #a2b8c2;
+  --color-steel: #6b8896;
 
   /* Complementary Warm Amber / Champagne Gold for Certifications & Heat Dynamics */
-  --color-amber: #d97706;
-  --color-amber-glow: #f59e0b;
-  --color-amber-light: #fef3c7;
+  --color-amber: #fb8500;
+  --color-amber-glow: #ffb703;
+  --color-amber-light: #fff3cd;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -94,6 +97,72 @@ section[id] {
 .flow-line {
   stroke-dasharray: 5 11;
   animation: flow 1.4s linear infinite;
+}
+
+/* ── Jitter-style Animated Stripes (Nordic Petrol & Arctic Cerulean Flow) ── */
+@keyframes stripes-flow-slow {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-1800px, 0, 0);
+  }
+}
+
+@keyframes stripes-flow-fast {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-1600px, 0, 0);
+  }
+}
+
+@keyframes stripes-flow-micro {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-1400px, 0, 0);
+  }
+}
+
+@keyframes stripes-flow-reverse-slow {
+  0% {
+    transform: translate3d(-1800px, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes stripes-flow-reverse-fast {
+  0% {
+    transform: translate3d(-1600px, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-stripes-slow {
+  animation: stripes-flow-slow 48s linear infinite;
+}
+
+.animate-stripes-fast {
+  animation: stripes-flow-fast 32s linear infinite;
+}
+
+.animate-stripes-micro {
+  animation: stripes-flow-micro 22s linear infinite;
+}
+
+.animate-stripes-reverse-slow {
+  animation: stripes-flow-reverse-slow 48s linear infinite;
+}
+
+.animate-stripes-reverse-fast {
+  animation: stripes-flow-reverse-fast 32s linear infinite;
 }
 
 /* ── Brand intro (≈1.9s): ring draws, mark settles, curtain lifts ── */
@@ -191,8 +260,13 @@ section[id] {
   }
 
   .airflow-line,
-  .flow-line {
-    animation: none;
+  .flow-line,
+  .animate-stripes-slow,
+  .animate-stripes-fast,
+  .animate-stripes-micro,
+  .animate-stripes-reverse-slow,
+  .animate-stripes-reverse-fast {
+    animation: none !important;
   }
 
   /* Static logo, then a quick fade instead of the wipe */

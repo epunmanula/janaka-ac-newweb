@@ -16,14 +16,14 @@ export const MobileActionBar: React.FC = () => {
 
   return (
     <div
-      className={`fixed inset-x-0 bottom-0 z-40 border-t border-sky-500/25 bg-[#030b18]/95 backdrop-blur-xl pb-[env(safe-area-inset-bottom)] shadow-[0_-8px_24px_rgba(0,0,0,0.5)] transition-transform duration-500 ease-out-expo md:hidden ${
+      className={`fixed inset-x-0 bottom-0 z-40 border-t border-[#126782]/30 bg-[#021824]/95 backdrop-blur-xl pb-[env(safe-area-inset-bottom)] shadow-[0_-8px_24px_rgba(0,0,0,0.5)] transition-transform duration-500 ease-out-expo md:hidden ${
         visible ? 'translate-y-0' : 'translate-y-full'
       }`}
       aria-hidden={!visible}
     >
       <div className="grid grid-cols-3 text-[13px] font-semibold text-slate-200">
-        <a href={`tel:${businessInfo.phoneRaw}`} tabIndex={visible ? 0 : -1} className="flex min-h-14 items-center justify-center gap-2 hover:text-sky-300 transition-colors">
-          <Phone className="h-4 w-4 text-sky-400" aria-hidden="true" />
+        <a href={`tel:${businessInfo.phoneRaw}`} tabIndex={visible ? 0 : -1} className="flex min-h-14 items-center justify-center gap-2 hover:text-[#8ecae6] transition-colors">
+          <Phone className="h-4 w-4 text-[#219ebc]" aria-hidden="true" />
           Call
         </a>
         <a
@@ -31,12 +31,12 @@ export const MobileActionBar: React.FC = () => {
           target="_blank"
           rel="noopener noreferrer"
           tabIndex={visible ? 0 : -1}
-          className="flex min-h-14 items-center justify-center gap-2 border-x border-sky-500/20 hover:text-emerald-300 transition-colors"
+          className="flex min-h-14 items-center justify-center gap-2 border-x border-[#126782]/30 hover:text-emerald-300 transition-colors"
         >
           <MessageCircle className="h-4 w-4 text-emerald-400" aria-hidden="true" />
           WhatsApp
         </a>
-        <a href="#contact" tabIndex={visible ? 0 : -1} className="flex min-h-14 items-center justify-center bg-gradient-to-r from-blue-600 via-sky-600 to-sky-500 text-white font-bold hover:brightness-110 transition-all">
+        <a href="#contact" tabIndex={visible ? 0 : -1} className="flex min-h-14 items-center justify-center bg-gradient-to-r from-[#126782] via-[#219ebc] to-[#126782] text-white font-bold hover:brightness-110 transition-all">
           Book
         </a>
       </div>
