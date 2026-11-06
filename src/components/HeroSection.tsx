@@ -28,25 +28,26 @@ export const HeroSection: React.FC = () => {
   const start = reduceMotion ? 0.2 : 0.3;
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
 
-  // The car pulls away to the right as the hero scrolls out of view
-  const carX = useTransform(scrollYProgress, [0, 1], ['0%', reduceMotion ? '0%' : '62%']);
-  const wheelRotate = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : 1080]);
-  const labelsOpacity = useTransform(scrollYProgress, [0, 0.18], [1, reduceMotion ? 1 : 0]);
-  const copyY = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : -80]);
+  // The car gently glides as the hero scrolls away (delayed start so it remains grounded and visible)
+  const carX = useTransform(scrollYProgress, [0.35, 1], ['0%', reduceMotion ? '0%' : '35%']);
+  const wheelRotate = useTransform(scrollYProgress, [0.35, 1], [0, reduceMotion ? 0 : 540]);
+  const labelsOpacity = useTransform(scrollYProgress, [0.3, 0.7], [1, reduceMotion ? 1 : 0]);
+  const copyY = useTransform(scrollYProgress, [0.3, 1], [0, reduceMotion ? 0 : -40]);
 
   return (
     <section
       id="home"
       ref={ref}
       aria-labelledby="hero-title"
-      className="relative isolate overflow-hidden bg-[#021824] text-white border-b border-[#126782]/35"
+      className="relative isolate flex min-h-[100svh] flex-col justify-between overflow-hidden bg-[#021824] text-white border-b border-[#126782]/35"
     >
       {/* Jitter-inspired precision animated stripes flow */}
       <AnimatedStripes variant="hero" opacity={0.88} />
       <PhotoBackdrop src="/backdrops/hero.webp" opacity={0.16} fade="left" base="#021824" />
 
-      <div className="mx-auto grid min-h-[100svh] max-w-7xl grid-rows-[1fr_auto] px-4 pt-[4.5rem] sm:px-6 lg:px-8">
-        <div className="grid items-center gap-10 py-12 lg:grid-cols-12 lg:gap-6 lg:py-16">
+      {/* Hero stage & content */}
+      <div className="mx-auto flex flex-1 w-full max-w-7xl flex-col justify-center px-4 pt-[5rem] pb-8 sm:px-6 lg:px-8">
+        <div className="grid items-center gap-10 py-6 sm:py-8 lg:grid-cols-12 lg:gap-8 lg:py-10">
           <motion.div style={{ y: copyY }} className="relative z-10 lg:col-span-6">
             <motion.div
               initial={{ opacity: 0, y: 12 }}
@@ -65,7 +66,7 @@ export const HeroSection: React.FC = () => {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: start + 0.1, ease }}
-              className="mt-6 font-wide text-[2.6rem] font-bold leading-[1.02] tracking-[-0.02em] text-balance text-white sm:text-6xl lg:text-[clamp(3rem,4.6vw,4.5rem)]"
+              className="mt-6 font-wide text-[2.5rem] font-bold leading-[1.04] tracking-[-0.02em] text-balance text-white sm:text-6xl lg:text-[clamp(3rem,4.5vw,4.4rem)]"
             >
               Car A/C Specialists.
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#8ecae6] via-[#219ebc] to-[#126782]">Diagnosed & Repaired Right.</span>
@@ -75,7 +76,7 @@ export const HeroSection: React.FC = () => {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: start + 0.2, ease }}
-              className="mt-6 max-w-lg text-base leading-relaxed text-[#a2b8c2] sm:text-lg"
+              className="mt-5 max-w-lg text-base leading-relaxed text-[#a2b8c2] sm:text-lg"
             >
               Car air-conditioning diagnosis, servicing and repairs in Gampaha — from a gas recharge to compressor,
               condenser and leak repairs. We find the cause, explain it clearly, and get your cabin cold again.
@@ -85,7 +86,7 @@ export const HeroSection: React.FC = () => {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: start + 0.3, ease }}
-              className="mt-9 flex flex-col gap-3 sm:flex-row"
+              className="mt-8 flex flex-col gap-3 sm:flex-row"
             >
               <a
                 href="#contact"
@@ -110,7 +111,7 @@ export const HeroSection: React.FC = () => {
             transition={{ duration: 1.4, delay: start + 0.15, ease }}
             className="relative lg:col-span-6 w-full"
           >
-            <motion.div style={{ x: carX }} className="relative w-full pt-8 sm:pt-14 lg:pt-16">
+            <motion.div style={{ x: carX }} className="relative w-full pt-4 sm:pt-10 lg:pt-12">
               <div className="relative mx-auto w-full max-w-[580px] lg:max-w-none">
                 <motion.div style={{ opacity: labelsOpacity }} aria-hidden="true" className="pointer-events-none absolute inset-0 z-10 hidden sm:block">
                   {annotations.map((a) => (
@@ -133,13 +134,14 @@ export const HeroSection: React.FC = () => {
               </div>
             </motion.div>
 
-
             <div aria-hidden="true" className="absolute inset-x-[-20%] bottom-16 h-px bg-gradient-to-r from-transparent via-[#219ebc]/30 to-transparent" />
           </motion.div>
         </div>
+      </div>
 
-        {/* Verified business facts */}
-        <div className="border-t border-[#126782]/35 bg-[#021824]/95 md:backdrop-blur-md">
+      {/* Verified business facts - Full-width docked bar */}
+      <div className="relative z-20 w-full border-t border-[#126782]/35 bg-[#021824]/95 md:backdrop-blur-md">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 divide-y divide-[#126782]/25 sm:grid-cols-3 sm:divide-y-0 sm:divide-x">
             {[
               { icon: 'pin' as const, label: 'Workshop', value: businessInfo.addressShort, hint: 'Get directions', href: businessInfo.googleMapsDirectionsUrl, external: true },
@@ -164,7 +166,6 @@ export const HeroSection: React.FC = () => {
             ))}
           </div>
         </div>
-
       </div>
     </section>
   );
