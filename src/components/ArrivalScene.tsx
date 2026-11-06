@@ -3,7 +3,6 @@
 import React, { useRef } from 'react';
 import Image from 'next/image';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
-import { Car } from '@/components/brand/Car';
 import { PhotoBackdrop } from '@/components/PhotoBackdrop';
 
 /** Final scene of the scroll story: the car pulls into the workshop bay. */
@@ -13,7 +12,6 @@ export const ArrivalScene: React.FC = () => {
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end 0.85'] });
 
   const carX = useTransform(scrollYProgress, [0, 0.85], reduceMotion ? ['0%', '0%'] : ['-100%', '0%']);
-  const wheelRotate = useTransform(scrollYProgress, [0, 0.85], [0, reduceMotion ? 0 : 1100]);
   const lampOpacity = useTransform(scrollYProgress, [0.4, 0.9], reduceMotion ? [1, 1] : [0.25, 1]);
   const captionOpacity = useTransform(scrollYProgress, [0.8, 1], reduceMotion ? [1, 1] : [0, 1]);
 
@@ -46,9 +44,17 @@ export const ArrivalScene: React.FC = () => {
         />
 
         {/* Car */}
-        <motion.div style={{ x: carX }} className="absolute inset-x-0 bottom-[22px]">
+        <motion.div style={{ x: carX }} className="absolute inset-x-0 bottom-[14px]">
           <div className="ml-[34%] w-[56%] sm:ml-[44%] sm:w-[46%] lg:ml-[48%] lg:w-[40%]">
-            <Car className="w-full" wheelRotate={wheelRotate} title="Illustrated car arriving at the Janaka Auto AC workshop" />
+            <div className="relative aspect-[729/402] w-full">
+              <Image
+                src="/brand/honda-civic-rs.webp"
+                alt="Honda Civic RS arriving at Janaka Auto AC workshop"
+                fill
+                sizes="(max-width: 640px) 240px, 360px"
+                className="object-contain filter drop-shadow-[0_12px_24px_rgba(0,0,0,0.7)]"
+              />
+            </div>
           </div>
         </motion.div>
 

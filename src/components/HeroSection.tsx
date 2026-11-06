@@ -3,21 +3,12 @@
 import React, { useRef } from 'react';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import { Car } from '@/components/brand/Car';
+import { CivicHeroCar } from '@/components/brand/CivicHeroCar';
 import { InfoIcon } from '@/components/brand/InfoIcons';
 import { INTRO_DURATION } from '@/components/IntroLoader';
 import { businessHours, businessInfo } from '@/data/janakaData';
 import { PhotoBackdrop } from '@/components/PhotoBackdrop';
 import { AnimatedStripes } from '@/components/brand/AnimatedStripes';
-
-/** Leader-line labels pinned to points on the car (percent of the car's 640×200 box). */
-const annotations = [
-  { label: 'Cabin air', x: 56, y: 30, lift: 54 },
-  { label: 'Evaporator', x: 72, y: 52, lift: 92 },
-  { label: 'Compressor', x: 85.6, y: 67, lift: 128 },
-  // Right-aligned so the label hangs inward at the frame edge
-  { label: 'Condenser', x: 94.6, y: 61, lift: 60, end: true },
-];
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -107,36 +98,14 @@ export const HeroSection: React.FC = () => {
             </motion.div>
           </motion.div>
 
-          {/* Car stage */}
+          {/* Honda Civic RS Showcase Stage */}
           <motion.div
-            initial={{ opacity: 0, x: -60 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1.4, delay: start + 0.15, ease }}
-            className="relative lg:col-span-6"
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.2, delay: start + 0.15, ease }}
+            className="relative lg:col-span-6 w-full pt-4 sm:pt-6 lg:pt-0"
           >
-            <motion.div style={{ x: carX }} className="relative -mr-[12%] w-[112%] pt-16 sm:-mr-[4%] sm:w-[104%] lg:-mr-[4%] lg:w-[106%] lg:pt-24">
-              <div className="relative">
-                <motion.div style={{ opacity: labelsOpacity }} aria-hidden="true" className="pointer-events-none absolute inset-0 z-10 hidden sm:block">
-                  {annotations.map((a) => (
-                    <div
-                      key={a.label}
-                      className={`absolute flex flex-col ${a.end ? 'items-end' : 'items-center'}`}
-                      style={{ left: `${a.x}%`, top: `${a.y}%`, transform: `translate(${a.end ? 'calc(-100% + 4px)' : '-50%'}, calc(-100% + 4px))` }}
-                    >
-                      <span className="eyebrow whitespace-nowrap text-[10px] text-[#8ecae6] font-semibold">{a.label}</span>
-                      <span className={`mt-1.5 w-px bg-gradient-to-b from-[#8ecae6] to-[#126782] ${a.end ? 'mr-[3.5px]' : ''}`} style={{ height: a.lift - 22 }} />
-                      <span className="h-2 w-2 rounded-full border-2 border-[#219ebc] bg-[#021824]" />
-                    </div>
-                  ))}
-                </motion.div>
-                <Car className="relative w-full" wheelRotate={wheelRotate} airflow headlights />
-              </div>
-              {/* Floor reflection */}
-              <div aria-hidden="true" className="pointer-events-none -mt-[9%] h-24 scale-y-[-1] opacity-[0.14] [mask-image:linear-gradient(to_top,black,transparent_70%)]">
-                <Car className="w-full" wheelRotate={wheelRotate} title="" />
-              </div>
-            </motion.div>
-            <div aria-hidden="true" className="absolute inset-x-[-20%] bottom-24 h-px bg-gradient-to-r from-transparent via-[#219ebc]/30 to-transparent" />
+            <CivicHeroCar carX={carX} labelsOpacity={labelsOpacity} />
           </motion.div>
         </div>
 
