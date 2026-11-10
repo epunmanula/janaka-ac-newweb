@@ -141,13 +141,13 @@ export const HeroSection: React.FC = () => {
       {/* Full-width Verified Business Facts Dock */}
       <div className="w-full border-t border-[#E5E3DE] bg-[#FFFFFF] shadow-xs">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 divide-y divide-[#E5E3DE] sm:grid-cols-3 sm:divide-y-0 sm:divide-x">
+          <div className="grid grid-cols-1 divide-y divide-[#E5E3DE] sm:grid-cols-3 sm:divide-y-0 sm:divide-x border-x sm:border-x-0 border-[#E5E3DE]">
             {/* Workshop Address */}
             <a
               href={businessInfo.googleMapsDirectionsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-start gap-4 py-5 sm:py-6 sm:px-6 first:pl-0 transition-colors duration-200 hover:bg-[#F6F4EF]"
+              className="group flex items-start gap-4 p-6 sm:p-7 transition-colors duration-200 hover:bg-[#F6F4EF]"
             >
               <div className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[#E5E3DE] bg-[#F6F4EF] text-[#123D4A] group-hover:border-[#2586A3] group-hover:bg-[#123D4A] group-hover:text-white transition-all">
                 <MapPin className="h-5 w-5" />
@@ -164,7 +164,7 @@ export const HeroSection: React.FC = () => {
             </a>
 
             {/* Operating Hours */}
-            <div className="flex items-start gap-4 py-5 sm:py-6 sm:px-6 transition-colors duration-200">
+            <div className="flex items-start gap-4 p-6 sm:p-7 transition-colors duration-200">
               <div className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[#E5E3DE] bg-[#F6F4EF] text-[#123D4A]">
                 <Clock className="h-5 w-5" />
               </div>
@@ -184,7 +184,7 @@ export const HeroSection: React.FC = () => {
             {/* Direct Calling & WhatsApp */}
             <a
               href={`tel:${businessInfo.phoneRaw}`}
-              className="group flex items-start gap-4 py-5 sm:py-6 sm:px-6 transition-colors duration-200 hover:bg-[#F6F4EF]"
+              className="group flex items-start gap-4 p-6 sm:p-7 transition-colors duration-200 hover:bg-[#F6F4EF]"
             >
               <div className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[#E5E3DE] bg-[#F6F4EF] text-[#123D4A] group-hover:border-[#2586A3] group-hover:bg-[#123D4A] group-hover:text-white transition-all">
                 <Phone className="h-5 w-5" />

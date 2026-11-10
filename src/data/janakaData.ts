@@ -77,8 +77,8 @@ export const servicesData: ServiceItem[] = [
       'System vacuum to remove air and moisture before charging',
       'High- and low-side pressure check with manifold gauges',
     ],
-    image: '/ac-diagnostics.webp',
-    imageAlt: 'Manifold gauges connected to a black hatchback in the Janaka Auto AC workshop',
+    image: '/ac-gas-filling.webp',
+    imageAlt: 'Refrigerant recovery and charging equipment in the workshop',
   },
   {
     id: 'compressor',
@@ -91,8 +91,8 @@ export const servicesData: ServiceItem[] = [
       'Clutch, bearing and seal repairs',
       'Replacement when a repair is not the right option',
     ],
-    image: '/ac-repair-job.webp',
-    imageAlt: 'Technician working beneath the front of a van in the workshop at night',
+    image: '/compressor-repair.webp',
+    imageAlt: 'Disassembled automotive AC compressor unit under precision inspection',
   },
   {
     id: 'leak-testing',
@@ -105,8 +105,8 @@ export const servicesData: ServiceItem[] = [
       'Inspection of hoses, O-rings, joints and service valves',
       'Repair of the leaking part before recharging',
     ],
-    image: '/workshop-vehicles.webp',
-    imageAlt: 'Vehicles parked in the covered service bays at Janaka Auto AC',
+    image: '/ac-diagnostics.webp',
+    imageAlt: 'High and low side manifold gauge set connected to vehicle service ports',
   },
   {
     id: 'condenser-evaporator',
@@ -133,8 +133,8 @@ export const servicesData: ServiceItem[] = [
       'Electrical, sensor and control checks',
       'A clear explanation of what was found before work begins',
     ],
-    image: '/ac-diagnostics.webp',
-    imageAlt: 'A/C service equipment connected to a vehicle under diagnosis',
+    image: '/ac-temp-test.webp',
+    imageAlt: 'Digital thermometer measuring chilled vent air temperature in vehicle cabin',
   },
   {
     id: 'airflow-sanitization',
@@ -148,7 +148,7 @@ export const servicesData: ServiceItem[] = [
       'Vent and duct cleaning for odours',
     ],
     image: '/completed-job.webp',
-    imageAlt: 'Blue saloon car after service, parked outside',
+    imageAlt: 'Customer vehicle completed and ready for pickup outside the workshop',
   },
 ];
 

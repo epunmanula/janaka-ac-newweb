@@ -103,6 +103,10 @@ export const SiteFooter: React.FC = () => (
           <span className="hidden text-white/20 sm:inline" aria-hidden="true">
             •
           </span>
+          <span className="font-mono text-[11px] text-[#2586A3]">v1.2 · Luxury Minimalism</span>
+          <span className="hidden text-white/20 sm:inline" aria-hidden="true">
+            •
+          </span>
           <p className="flex items-center gap-1.5 text-[#A0B1BA]">
             <span>Designed & Developed by</span>
             <a
