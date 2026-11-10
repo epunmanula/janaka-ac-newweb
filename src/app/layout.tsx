@@ -61,6 +61,9 @@ export const metadata: Metadata = {
     description,
     images: ['/og.jpg'],
   },
+  verification: {
+    google: 'b437797fb60cd181',
+  },
 };
 
 const structuredData = {
