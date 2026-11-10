@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import Script from 'next/script';
 import { Archivo, JetBrains_Mono, Manrope } from 'next/font/google';
 import { businessHours, businessInfo, siteUrl } from '@/data/janakaData';
 import './globals.css';
@@ -29,74 +30,146 @@ export const viewport: Viewport = {
   themeColor: '#071522',
 };
 
-const description =
-  'Automotive air-conditioning specialists in Gampaha, Sri Lanka. A/C diagnosis, gas recharge, leak detection, compressor and condenser repairs. Open Tuesday to Sunday.';
+const metaDescription =
+  'Top-rated Car AC Garage in Gampaha, Sri Lanka. Specialized automotive air conditioning repairs, genuine R134a/R1234yf gas recharging, nitrogen leak testing, compressor overhauls & climate diagnostics at Miriswatta. 15+ years experience.';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: 'Janaka Auto AC – Car A/C Specialists | Gampaha, Sri Lanka',
-  description,
+  title: {
+    default: 'Car AC Garage in Gampaha | Janaka Auto AC Sri Lanka',
+    template: '%s | Janaka Auto AC Gampaha',
+  },
+  description: metaDescription,
   keywords: [
-    'Janaka Auto AC',
+    'AC Garage Gampaha',
+    'Gampaha AC',
+    'Gampaha Garage AC',
     'Car AC Repair Gampaha',
-    'Auto Air Conditioning Sri Lanka',
-    'Car AC Gas Refill Miriswatta',
-    'Car AC Compressor Repair',
-    'Automotive Climate Control Gampaha',
+    'Car AC Service Gampaha',
+    'Car AC Gas Refill Gampaha',
+    'Auto AC Gampaha',
+    'Vehicle AC Repair Gampaha',
+    'Best AC Garage in Sri Lanka',
+    'Car AC Repair Sri Lanka',
+    'Car AC Gas Refill Sri Lanka',
+    'Car AC Compressor Repair Sri Lanka',
+    'Janaka Auto AC',
+    'Miriswatta Gampaha AC garage',
+    'වාහන AC රෙපයාර් ගම්පහ',
   ],
-  authors: [{ name: businessInfo.name }],
-  alternates: { canonical: '/' },
+  authors: [{ name: businessInfo.name, url: siteUrl }],
+  creator: businessInfo.name,
+  publisher: businessInfo.name,
+  alternates: {
+    canonical: siteUrl,
+  },
   openGraph: {
     type: 'website',
-    url: '/',
+    url: siteUrl,
     siteName: businessInfo.name,
-    title: 'Janaka Auto AC – Car A/C Specialists | Gampaha',
-    description,
+    title: 'Car AC Garage in Gampaha | Janaka Auto AC Sri Lanka',
+    description: metaDescription,
     locale: 'en_LK',
-    images: [{ url: '/og.jpg', width: 1200, height: 630, alt: 'Janaka Auto AC – Keep cool. Drive comfortable.' }],
+    images: [
+      {
+        url: `${siteUrl}/og.jpg`,
+        width: 1200,
+        height: 630,
+        alt: 'Janaka Auto AC – Specialist Car Air Conditioning Garage in Miriswatta, Gampaha',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Janaka Auto AC – Car A/C Specialists in Gampaha',
-    description,
-    images: ['/og.jpg'],
+    title: 'Car AC Garage in Gampaha | Janaka Auto AC',
+    description: metaDescription,
+    images: [`${siteUrl}/og.jpg`],
   },
   verification: {
     google: 'b437797fb60cd181',
   },
+  other: {
+    'geo.region': 'LK-1',
+    'geo.placename': 'Gampaha, Miriswatta',
+    'geo.position': '7.085055;80.0085464',
+    'ICBM': '7.085055, 80.0085464',
+  },
 };
 
-const structuredData = {
+// Comprehensive Local Business & Entity Schema Graph
+const rootSchemaGraph = {
   '@context': 'https://schema.org',
-  '@type': 'AutoRepair',
-  name: businessInfo.name,
-  url: siteUrl,
-  image: `${siteUrl}/og.jpg`,
-  logo: `${siteUrl}/janaka-logo-wide.png`,
-  telephone: businessInfo.phoneRaw,
-  email: businessInfo.email,
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: businessInfo.streetAddress,
-    addressLocality: businessInfo.locality,
-    addressCountry: businessInfo.country,
-  },
-  geo: {
-    '@type': 'GeoCoordinates',
-    latitude: businessInfo.geo.lat,
-    longitude: businessInfo.geo.lng,
-  },
-  hasMap: businessInfo.googleMapsPlaceUrl,
-  openingHoursSpecification: [
+  '@graph': [
     {
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-      opens: businessHours.opens,
-      closes: businessHours.closes,
+      '@type': 'AutoRepair',
+      '@id': `${siteUrl}/#autorepair`,
+      name: businessInfo.name,
+      alternateName: ['Janaka Auto Air Conditioning', 'Janaka AC Miriswatta', 'ජානක ඔටෝ AC'],
+      url: siteUrl,
+      image: `${siteUrl}/og.jpg`,
+      logo: `${siteUrl}/janaka-logo-wide.png`,
+      telephone: businessInfo.phoneRaw,
+      email: businessInfo.email,
+      priceRange: '$$',
+      currenciesAccepted: 'LKR',
+      paymentAccepted: 'Cash, Bank Transfer',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: businessInfo.streetAddress,
+        addressLocality: businessInfo.locality,
+        addressRegion: 'Western Province',
+        postalCode: '11000',
+        addressCountry: 'LK',
+      },
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: businessInfo.geo.lat,
+        longitude: businessInfo.geo.lng,
+      },
+      hasMap: businessInfo.googleMapsPlaceUrl,
+      openingHoursSpecification: [
+        {
+          '@type': 'OpeningHoursSpecification',
+          dayOfWeek: ['Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+          opens: businessHours.opens,
+          closes: businessHours.closes,
+        },
+      ],
+      areaServed: [
+        {
+          '@type': 'AdministrativeArea',
+          name: 'Gampaha District',
+        },
+        {
+          '@type': 'AdministrativeArea',
+          name: 'Western Province',
+        },
+        {
+          '@type': 'Country',
+          name: 'Sri Lanka',
+        },
+      ],
+      sameAs: [businessInfo.facebookUrl],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}/#website`,
+      url: siteUrl,
+      name: 'Janaka Auto AC',
+      description: metaDescription,
+      publisher: {
+        '@id': `${siteUrl}/#autorepair`,
+      },
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: `${siteUrl}/services/{search_term_string}`,
+        'query-input': 'required name=search_term_string',
+      },
     },
   ],
-  sameAs: [businessInfo.facebookUrl],
 };
+
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-7N9R3P2LK1';
 
 export default function RootLayout({
   children,
@@ -105,10 +178,33 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${archivo.variable} ${manrope.variable} ${jetbrains.variable}`}>
-      <body className="min-h-screen antialiased">
+      <head>
+        <link rel="canonical" href={siteUrl} />
+      </head>
+      <body className="min-h-screen antialiased bg-[#021824] text-white">
+        {/* GA4 Scripts */}
+        {GA_MEASUREMENT_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${GA_MEASUREMENT_ID}', {
+                  page_path: window.location.pathname,
+                });
+              `}
+            </Script>
+          </>
+        )}
+
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(rootSchemaGraph) }}
         />
         {children}
       </body>

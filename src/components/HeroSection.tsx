@@ -11,10 +11,9 @@ import { AnimatedStripes } from '@/components/brand/AnimatedStripes';
 
 /** Precision technical annotations pinned to automotive climate subsystems */
 const annotations = [
-  { label: 'CABIN AIR FLOW', sub: 'Chilled Vent Delivery', x: 50, y: 22, lift: 56 },
-  { label: 'EVAPORATOR CORE', sub: 'Sub-Dash Absorption', x: 65.6, y: 42, lift: 90 },
-  { label: 'COMPRESSOR UNIT', sub: 'High-Side Displacement', x: 77.5, y: 63, lift: 128 },
-  { label: 'CONDENSER RAD', sub: 'Front Heat Rejection', x: 85, y: 52, lift: 64, end: true },
+  { label: 'CABIN AIR FLOW', sub: 'Chilled Vent Delivery', x: 38, y: 28, lift: 54 },
+  { label: 'COMPRESSOR UNIT', sub: 'High-Side Pressure', x: 68, y: 60, lift: 108 },
+  { label: 'CONDENSER RAD', sub: 'Front Heat Rejection', x: 88, y: 52, lift: 54, end: true },
 ];
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -76,9 +75,9 @@ export const HeroSection: React.FC = () => {
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: start + 0.1, ease }}
-              className="mt-6 font-wide text-[2.75rem] font-bold leading-[1.03] tracking-[-0.03em] text-balance text-white sm:text-6xl lg:text-[clamp(3.1rem,4.6vw,4.5rem)]"
+              className="mt-6 font-wide text-[2.65rem] font-bold leading-[1.04] tracking-[-0.03em] text-balance text-white sm:text-6xl lg:text-[clamp(2.9rem,4.2vw,4.3rem)]"
             >
-              Car A/C Specialists.
+              Car AC Garage in Gampaha.
               <span className="block text-[#CDE6F5] font-medium tracking-[-0.02em]">
                 Diagnosed & Repaired Right.
               </span>

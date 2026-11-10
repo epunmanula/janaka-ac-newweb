@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowUpRight, CheckCircle2, MessageCircle } from 'lucide-react';
 import { Reveal } from '@/components/motion/Reveal';
@@ -152,18 +153,25 @@ export const ServicesSection: React.FC = () => {
                         ))}
                       </ul>
 
-                      {/* Direct WhatsApp booking trigger for this service */}
-                      <div className="mt-6 pt-4 border-t border-[#144B66]/20">
+                      {/* Dedicated Service Details + Direct WhatsApp booking trigger */}
+                      <div className="mt-6 flex flex-wrap items-center gap-4 pt-4 border-t border-[#144B66]/20">
+                        <Link
+                          href={`/services/${service.id}`}
+                          className="inline-flex items-center gap-2 rounded-lg bg-[#06354B] px-4 py-2 text-xs font-semibold text-[#38BDF8] border border-[#2586A3]/30 hover:border-[#38BDF8] hover:bg-[#126782] hover:text-white transition-all"
+                        >
+                          <span>Full Service Guide & Pricing</span>
+                          <ArrowUpRight className="h-3.5 w-3.5" />
+                        </Link>
                         <a
                           href={`${businessInfo.whatsappUrl}?text=${encodeURIComponent(
                             `Hello Janaka Auto AC, I would like to enquire about your "${service.title}" service for my vehicle.`
                           )}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 text-xs font-semibold text-[#38BDF8] transition-colors hover:text-[#CDE6F5]"
+                          className="inline-flex items-center gap-2 text-xs font-semibold text-[#A2B8C2] hover:text-[#25D366] transition-colors"
                         >
-                          <MessageCircle className="h-3.5 w-3.5" />
-                          <span>Book this service via WhatsApp</span>
+                          <MessageCircle className="h-3.5 w-3.5 text-[#25D366]" />
+                          <span>Book via WhatsApp</span>
                           <ArrowUpRight className="h-3.5 w-3.5" />
                         </a>
                       </div>

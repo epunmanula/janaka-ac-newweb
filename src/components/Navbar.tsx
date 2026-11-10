@@ -54,9 +54,9 @@ export const Navbar: React.FC = () => {
     >
       <div className="mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
         <a
-          href="#home"
+          href="/"
           className="group relative flex items-center shrink-0 h-9 w-[190px] sm:h-10 sm:w-[220px] lg:h-11 lg:w-[245px] transition-transform duration-300 hover:scale-[1.01]"
-          aria-label={`${businessInfo.name} – back to top`}
+          aria-label={`${businessInfo.name} – home`}
         >
           <Image
             src="/brand/logo-navbar.webp"
@@ -75,7 +75,7 @@ export const Navbar: React.FC = () => {
               return (
                 <li key={link.id}>
                   <a
-                    href={`#${link.id}`}
+                    href={`/#${link.id}`}
                     aria-current={isActive ? 'location' : undefined}
                     className={`group relative py-2 text-[13px] font-medium tracking-wide transition-colors duration-300 ${
                       isActive ? 'text-[#CDE6F5] font-semibold' : 'text-[#A2B8C2] hover:text-white'
@@ -104,7 +104,7 @@ export const Navbar: React.FC = () => {
             <span>{businessInfo.phone}</span>
           </a>
           <a
-            href="#contact"
+            href="/#contact"
             className="hidden rounded-xl bg-gradient-to-r from-[#126782] via-[#1B7796] to-[#126782] px-5 py-2.5 text-xs font-bold text-white shadow-md border border-[#2586A3]/40 transition-all duration-300 hover:brightness-110 active:translate-y-px sm:inline-flex"
           >
             Book a Service
@@ -133,7 +133,7 @@ export const Navbar: React.FC = () => {
             {navSections.map((link, i) => (
               <li key={link.id}>
                 <a
-                  href={`#${link.id}`}
+                  href={`/#${link.id}`}
                   onClick={() => setMenuOpen(false)}
                   aria-current={active === link.id ? 'location' : undefined}
                   className={`flex items-baseline gap-4 py-3.5 font-wide text-lg font-semibold ${
@@ -156,7 +156,7 @@ export const Navbar: React.FC = () => {
             <span>Call Now</span>
           </a>
           <a
-            href="#contact"
+            href="/#contact"
             onClick={() => setMenuOpen(false)}
             className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-[#126782] via-[#1B7796] to-[#126782] py-3.5 text-xs font-bold text-white shadow-md border border-[#2586A3]/40 hover:brightness-110 transition-all"
           >

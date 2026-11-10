@@ -1,15 +1,16 @@
 import React from 'react';
 import Image from 'next/image';
-import { businessHours, businessInfo, navSections } from '@/data/janakaData';
+import Link from 'next/link';
+import { businessHours, businessInfo, dedicatedServices, blogArticles, navSections } from '@/data/janakaData';
 import { Phone, Mail, MapPin, ArrowUpRight } from 'lucide-react';
 
 export const SiteFooter: React.FC = () => (
   <footer className="bg-[#02141F] border-t border-[#144B66]/40 pb-28 pt-16 text-[#A2B8C2] md:pb-12">
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div className="grid gap-12 border-b border-[#144B66]/30 pb-12 md:grid-cols-12">
+      <div className="grid gap-10 border-b border-[#144B66]/30 pb-12 sm:grid-cols-2 lg:grid-cols-12">
         {/* Brand & Introduction */}
-        <div className="md:col-span-5">
-          <div className="relative h-11 w-56 sm:h-12 sm:w-64">
+        <div className="lg:col-span-4">
+          <Link href="/" className="relative block h-11 w-56 sm:h-12 sm:w-64">
             <Image
               src="/brand/logo-navbar.webp"
               alt={businessInfo.name}
@@ -17,34 +18,75 @@ export const SiteFooter: React.FC = () => (
               sizes="(max-width: 640px) 224px, 256px"
               className="object-contain object-left filter drop-shadow-[0_2px_12px_rgba(56,189,248,0.35)]"
             />
-          </div>
+          </Link>
           <p className="mt-5 max-w-sm text-xs leading-relaxed text-[#8FAEC0]">
-            Automotive air-conditioning diagnosis, gas recharge, and precision mechanical repairs in Gampaha, Sri Lanka. {businessInfo.subTagline}
+            Top-rated vehicle air conditioning specialists in Miriswatta, Gampaha, Sri Lanka. Electronic diagnostics, virgin R134a/R1234yf gas recharging, nitrogen leak detection, and compressor restoration.
           </p>
+
+          <div className="mt-5 flex flex-wrap gap-2 text-[11px] font-mono text-[#38BDF8]">
+            <span className="rounded-md border border-[#144B66] bg-[#052436] px-2.5 py-1">
+              15+ Yrs Craftsmanship
+            </span>
+            <span className="rounded-md border border-[#144B66] bg-[#052436] px-2.5 py-1">
+              Gampaha District
+            </span>
+          </div>
         </div>
 
-        {/* Quick Nav */}
-        <nav aria-label="Footer" className="md:col-span-3">
-          <p className="font-mono text-xs font-bold uppercase tracking-wider text-white">Explore</p>
-          <ul className="mt-4 grid grid-cols-2 gap-x-6 gap-y-2.5 text-xs md:grid-cols-1">
-            {navSections.map((s) => (
-              <li key={s.id}>
-                <a href={`#${s.id}`} className="transition-colors hover:text-white">
-                  {s.label}
-                </a>
+        {/* Dedicated Services Links */}
+        <div className="lg:col-span-3">
+          <p className="font-mono text-xs font-bold uppercase tracking-wider text-white">
+            Specialist Services
+          </p>
+          <ul className="mt-4 space-y-2 text-xs">
+            {dedicatedServices.map((service) => (
+              <li key={service.slug}>
+                <Link
+                  href={`/services/${service.slug}`}
+                  className="transition-colors hover:text-[#38BDF8]"
+                >
+                  {service.title}
+                </Link>
               </li>
             ))}
           </ul>
-        </nav>
+        </div>
+
+        {/* Educational Guides & Navigation */}
+        <div className="lg:col-span-2">
+          <p className="font-mono text-xs font-bold uppercase tracking-wider text-white">
+            Guides & Advice
+          </p>
+          <ul className="mt-4 space-y-2 text-xs">
+            {blogArticles.slice(0, 5).map((article) => (
+              <li key={article.slug}>
+                <Link
+                  href={`/blog/${article.slug}`}
+                  className="transition-colors hover:text-[#38BDF8] line-clamp-1"
+                  title={article.title}
+                >
+                  {article.title}
+                </Link>
+              </li>
+            ))}
+            <li className="pt-2 border-t border-[#144B66]/30">
+              <Link href="/#faq" className="text-[#38BDF8] font-semibold hover:underline">
+                View Workshop FAQs →
+              </Link>
+            </li>
+          </ul>
+        </div>
 
         {/* Workshop Location & Hours */}
-        <div className="md:col-span-4">
-          <p className="font-mono text-xs font-bold uppercase tracking-wider text-white">Workshop Facility</p>
+        <div className="lg:col-span-3">
+          <p className="font-mono text-xs font-bold uppercase tracking-wider text-white">
+            Workshop Facility
+          </p>
           <address className="mt-4 space-y-3 text-xs not-italic leading-relaxed">
             <div className="flex items-start gap-2.5">
               <MapPin className="h-4 w-4 shrink-0 text-[#38BDF8] mt-0.5" />
               <div>
-                <p className="text-white">{businessInfo.address}</p>
+                <p className="text-white font-medium">{businessInfo.address}</p>
                 <a
                   href={businessInfo.googleMapsDirectionsUrl}
                   target="_blank"
@@ -86,6 +128,8 @@ export const SiteFooter: React.FC = () => (
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
           <p>© 2026 {businessInfo.name}. All rights reserved.</p>
           <span className="hidden text-white/20 sm:inline" aria-hidden="true">•</span>
+          <p className="text-[#8FAEC0]">Miriswatta, Gampaha, Sri Lanka</p>
+          <span className="hidden text-white/20 sm:inline" aria-hidden="true">•</span>
           <p className="flex items-center gap-1.5 text-[#8FAEC0]">
             <span>Designed & Developed by</span>
             <a
@@ -100,23 +144,15 @@ export const SiteFooter: React.FC = () => (
           </p>
         </div>
 
-        <ul className="flex gap-6">
-          <li>
-            <a href={businessInfo.facebookUrl} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-white">
-              Facebook
-            </a>
-          </li>
-          <li>
-            <a href={businessInfo.tiktokUrl} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-white">
-              TikTok
-            </a>
-          </li>
-          <li>
-            <a href={businessInfo.googleMapsPlaceUrl} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-white">
-              Google Maps
-            </a>
-          </li>
-        </ul>
+        <div className="flex items-center gap-4 text-[#8FAEC0]">
+          <Link href="/services/car-ac-repair-gampaha" className="hover:text-white">
+            AC Garage Gampaha
+          </Link>
+          <span>•</span>
+          <Link href="/services/car-ac-gas-refilling" className="hover:text-white">
+            Car AC Gas Refill
+          </Link>
+        </div>
       </div>
     </div>
   </footer>

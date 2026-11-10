@@ -4,6 +4,7 @@ import { BookingContact } from '@/components/BookingContact';
 import { CoolingSystem } from '@/components/CoolingSystem';
 import { Gallery } from '@/components/Gallery';
 import { HeroSection } from '@/components/HeroSection';
+import { HomepageFAQ } from '@/components/HomepageFAQ';
 import { IntroLoader } from '@/components/IntroLoader';
 import { MobileActionBar } from '@/components/MobileActionBar';
 import { MotionProvider } from '@/components/motion/Reveal';
@@ -30,6 +31,7 @@ export default function Home() {
         <AboutSection />
         <WhyChooseUs />
         <Gallery />
+        <HomepageFAQ />
         <ArrivalScene />
         <BookingContact />
       </main>
