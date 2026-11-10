@@ -25,11 +25,21 @@ export const HeroSection: React.FC = () => {
   const start = reduceMotion ? 0.15 : 0.25;
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
 
-  // Smooth, grounded gliding motion as the car coasts on scroll
-  const carX = useTransform(scrollYProgress, [0.3, 1], ['0%', reduceMotion ? '0%' : '32%']);
-  const wheelRotate = useTransform(scrollYProgress, [0.3, 1], [0, reduceMotion ? 0 : 500]);
-  const labelsOpacity = useTransform(scrollYProgress, [0.25, 0.65], [1, reduceMotion ? 1 : 0]);
-  const copyY = useTransform(scrollYProgress, [0.3, 1], [0, reduceMotion ? 0 : -35]);
+  // Dynamic, speed-ramped launch as the car accelerates and drives off as soon as scrolling starts
+  const carX = useTransform(
+    scrollYProgress,
+    [0, 0.85],
+    ['0%', '115%'],
+    { ease: (t) => Math.pow(t, 1.6) } // smooth progressive acceleration curve
+  );
+  const wheelRotate = useTransform(
+    scrollYProgress,
+    [0, 0.85],
+    [0, 1800],
+    { ease: (t) => Math.pow(t, 1.4) }
+  );
+  const labelsOpacity = useTransform(scrollYProgress, [0, 0.12], [1, 0]);
+  const copyY = useTransform(scrollYProgress, [0, 0.85], [0, -50]);
 
   return (
     <section
@@ -175,7 +185,7 @@ export const HeroSection: React.FC = () => {
                 aria-hidden="true"
                 className="pointer-events-none -mt-[9%] h-24 scale-y-[-1] opacity-[0.14] [mask-image:linear-gradient(to_top,black,transparent_75%)] hidden sm:block"
               >
-                <Car className="w-full" title="" />
+                <Car className="w-full" wheelRotate={wheelRotate} title="" />
               </div>
             </motion.div>
 

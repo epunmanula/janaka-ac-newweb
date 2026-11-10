@@ -16,17 +16,17 @@ export const ArrivalScene: React.FC = () => {
   const carX = useTransform(
     scrollYProgress,
     [0.1, 0.85],
-    reduceMotion ? ['0%', '0%'] : ['-55%', '0%'],
+    ['-55%', '0%'],
     { ease: easeOut }
   );
   const wheelRotate = useTransform(
     scrollYProgress,
     [0.1, 0.85],
-    [0, reduceMotion ? 0 : 420],
+    [0, 420],
     { ease: easeOut }
   );
-  const lampOpacity = useTransform(scrollYProgress, [0.35, 0.8], reduceMotion ? [1, 1] : [0.2, 1]);
-  const captionOpacity = useTransform(scrollYProgress, [0.65, 0.88], reduceMotion ? [1, 1] : [0, 1]);
+  const lampOpacity = useTransform(scrollYProgress, [0.35, 0.8], [0.2, 1]);
+  const captionOpacity = useTransform(scrollYProgress, [0.65, 0.88], [0, 1]);
 
   return (
     <div id="arrival" ref={ref} className="relative isolate overflow-hidden bg-[#021824] text-white border-b border-[#144B66]/40">
