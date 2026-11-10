@@ -76,7 +76,7 @@ export const BookingContact: React.FC = () => {
       `*Preferred Date:* ${form.date || 'Earliest available'}`,
       `*Reported Issue:* ${form.message.trim()}`,
       `---------------------------------`,
-      `Sent via janakaac.vercel.app`,
+      `Sent via www.janakaac.lk`,
     ].join('\n');
     const url = `https://wa.me/${businessInfo.whatsappNumber}?text=${encodeURIComponent(text)}`;
 

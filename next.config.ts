@@ -12,6 +12,28 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'janakaac.lk' }],
+        destination: 'https://www.janakaac.lk/:path*',
+        permanent: true,
+      },
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'janakaac.vercel.app' }],
+        destination: 'https://www.janakaac.lk/:path*',
+        permanent: true,
+      },
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'janaka-ac-newweb.vercel.app' }],
+        destination: 'https://www.janakaac.lk/:path*',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

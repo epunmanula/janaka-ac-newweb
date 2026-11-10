@@ -151,3 +151,4 @@ export const HomepageFAQ: React.FC = () => {
     </section>
   );
 };
+

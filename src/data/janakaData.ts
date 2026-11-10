@@ -71,7 +71,7 @@ export interface CoolingComponent {
 }
 
 // Canonical Production Domain
-export const siteUrl = 'https://janakaac.lk';
+export const siteUrl = 'https://www.janakaac.lk';
 
 // 1. Business & Contact Information (NAP - Verified)
 export const businessInfo = {
