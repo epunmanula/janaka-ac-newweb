@@ -1366,5 +1366,6 @@ export const navSections = [
   { id: 'about', label: 'About' },
   { id: 'why-us', label: 'Why Us' },
   { id: 'gallery', label: 'Gallery' },
+  { id: 'reviews', label: 'Reviews' },
   { id: 'contact', label: 'Contact' },
 ] as const;

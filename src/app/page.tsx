@@ -2,6 +2,7 @@ import { AboutSection } from '@/components/AboutSection';
 import { ArrivalScene } from '@/components/ArrivalScene';
 import { BookingContact } from '@/components/BookingContact';
 import { CoolingSystem } from '@/components/CoolingSystem';
+import { CustomerReviews } from '@/components/CustomerReviews';
 import { Gallery } from '@/components/Gallery';
 import { HeroSection } from '@/components/HeroSection';
 import { HomepageFAQ } from '@/components/HomepageFAQ';
@@ -34,6 +35,7 @@ export default function Home() {
         <HomepageFAQ />
         <ArrivalScene />
         <BookingContact />
+        <CustomerReviews />
       </main>
       <SiteFooter />
       <MobileActionBar />
