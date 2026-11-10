@@ -13,6 +13,8 @@ import {
   MapPin,
   CheckCircle2,
   Sparkles,
+  Play,
+  Pause,
 } from 'lucide-react';
 import { verifiedCustomerReviews, googleReviewsSummary, CustomerReview } from '@/data/customerReviews';
 import { businessInfo } from '@/data/janakaData';
@@ -22,16 +24,28 @@ export const CustomerReviews: React.FC = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [isPaused, setIsPaused] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [reviews] = useState<CustomerReview[]>(verifiedCustomerReviews);
 
   const featuredReview = reviews.find((r) => r.isFeatured) || reviews[0];
   const carouselReviews = reviews.filter((r) => !r.isFeatured);
+
+  const getStep = () => {
+    if (!scrollRef.current) return 380;
+    const firstChild = scrollRef.current.firstElementChild as HTMLElement | null;
+    return firstChild ? firstChild.offsetWidth + 20 : 380;
+  };
 
   const checkScroll = () => {
     if (!scrollRef.current) return;
     const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
     setCanScrollLeft(scrollLeft > 10);
     setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+
+    const step = getStep();
+    const idx = Math.round(scrollLeft / step);
+    setActiveIndex(Math.min(Math.max(idx, 0), carouselReviews.length - 1));
   };
 
   useEffect(() => {
@@ -44,12 +58,39 @@ export const CustomerReviews: React.FC = () => {
       el.removeEventListener('scroll', checkScroll);
       window.removeEventListener('resize', checkScroll);
     };
-  }, []);
+  }, [carouselReviews.length]);
+
+  // Smooth Auto-sliding loop: advances horizontally every 3.8s, smoothly loops back at end
+  useEffect(() => {
+    if (isPaused) return;
+
+    const timer = setInterval(() => {
+      if (!scrollRef.current) return;
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      const step = getStep();
+
+      // If at or near the end, loop smoothly back to start
+      if (scrollLeft + clientWidth >= scrollWidth - 20) {
+        scrollRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        scrollRef.current.scrollBy({ left: step, behavior: 'smooth' });
+      }
+    }, 3800);
+
+    return () => clearInterval(timer);
+  }, [isPaused, carouselReviews.length]);
 
   const scroll = (direction: 'left' | 'right') => {
     if (!scrollRef.current) return;
-    const offset = direction === 'left' ? -380 : 380;
+    const step = getStep();
+    const offset = direction === 'left' ? -step : step;
     scrollRef.current.scrollBy({ left: offset, behavior: 'smooth' });
+  };
+
+  const scrollToIndex = (index: number) => {
+    if (!scrollRef.current) return;
+    const step = getStep();
+    scrollRef.current.scrollTo({ left: index * step, behavior: 'smooth' });
   };
 
   return (
@@ -211,15 +252,42 @@ export const CustomerReviews: React.FC = () => {
         {/* Compact Horizontal Slider / Carousel Section */}
         <div className="mt-12">
           {/* Slider Controls Bar */}
-          <div className="flex items-center justify-between pb-4">
-            <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center justify-between gap-3 pb-4">
+            <div className="flex items-center gap-3">
               <span className="font-mono text-xs font-semibold uppercase tracking-wider text-[#38BDF8]">
                 More Verified Customer Reviews
               </span>
-              <span className="hidden sm:inline text-xs text-[#8FAEC0]">• Drag or scroll horizontally</span>
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-[#144B66]/60 bg-[#031c2b] px-2.5 py-0.5 text-[11px] text-[#A2B8C2]">
+                <span
+                  className={`inline-block h-2 w-2 rounded-full ${
+                    isPaused ? 'bg-amber-400' : 'bg-emerald-400 animate-pulse'
+                  }`}
+                />
+                <span>{isPaused ? 'Paused (hovered)' : 'Auto-sliding'}</span>
+              </span>
             </div>
 
             <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setIsPaused((prev) => !prev)}
+                aria-label={isPaused ? 'Resume auto-sliding' : 'Pause auto-sliding'}
+                className="flex h-10 items-center gap-1.5 rounded-xl border border-[#2586A3]/40 bg-[#06354B] px-3 text-xs font-medium text-[#CDE6F5] hover:border-[#38BDF8] hover:bg-[#126782] hover:text-white transition-all shadow-sm"
+                title={isPaused ? 'Resume auto-sliding' : 'Pause auto-sliding'}
+              >
+                {isPaused ? (
+                  <>
+                    <Play className="h-3.5 w-3.5 fill-current" />
+                    <span className="hidden sm:inline">Play</span>
+                  </>
+                ) : (
+                  <>
+                    <Pause className="h-3.5 w-3.5 fill-current" />
+                    <span className="hidden sm:inline">Pause</span>
+                  </>
+                )}
+              </button>
+
               <button
                 type="button"
                 onClick={() => scroll('left')}
@@ -249,10 +317,14 @@ export const CustomerReviews: React.FC = () => {
             </div>
           </div>
 
-          {/* Smooth Snap Scroll Container */}
+          {/* Smooth Snap Scroll Container with Auto-slide & Hover Pause */}
           <div
             ref={scrollRef}
-            className="flex gap-5 overflow-x-auto pb-6 pt-2 scroll-smooth snap-x snap-mandatory scrollbar-none"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+            onTouchStart={() => setIsPaused(true)}
+            onTouchEnd={() => setIsPaused(false)}
+            className="flex gap-5 overflow-x-auto pb-4 pt-2 scroll-smooth snap-x snap-mandatory scrollbar-none"
             style={{
               scrollbarWidth: 'none',
               msOverflowStyle: 'none',
@@ -261,7 +333,7 @@ export const CustomerReviews: React.FC = () => {
             {carouselReviews.map((review) => (
               <motion.article
                 key={review.id}
-                className="w-[320px] sm:w-[360px] shrink-0 snap-start rounded-2xl border border-[#17465E]/70 bg-[#031c2b]/90 p-6 backdrop-blur-sm shadow-lg hover:border-[#38BDF8]/50 hover:bg-[#04253a] transition-all flex flex-col justify-between"
+                className="w-[310px] sm:w-[360px] min-h-[290px] shrink-0 snap-start rounded-2xl border border-[#17465E]/70 bg-[#031c2b]/90 p-6 backdrop-blur-sm shadow-lg hover:border-[#38BDF8]/50 hover:bg-[#04253a] transition-all flex flex-col justify-between"
               >
                 <div>
                   {/* Rating Stars & Verified Pill */}
@@ -327,6 +399,23 @@ export const CustomerReviews: React.FC = () => {
                   </a>
                 </div>
               </motion.article>
+            ))}
+          </div>
+
+          {/* Interactive Pagination Dots */}
+          <div className="mt-4 flex items-center justify-center gap-1.5">
+            {carouselReviews.map((review, i) => (
+              <button
+                key={review.id}
+                type="button"
+                onClick={() => scrollToIndex(i)}
+                aria-label={`Go to review by ${review.reviewerName}`}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  activeIndex === i
+                    ? 'w-7 bg-[#38BDF8]'
+                    : 'w-2 bg-[#17465E] hover:bg-[#2586A3]'
+                }`}
+              />
             ))}
           </div>
         </div>

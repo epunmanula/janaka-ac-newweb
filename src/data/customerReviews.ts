@@ -26,8 +26,7 @@ export const googleReviewsSummary: GoogleReviewsSummary = {
   totalReviewCount: 66,
   fiveStarCount: 63,
   googleMapsPlaceUrl: 'https://maps.app.goo.gl/c9k8vEhjb2CKCU176',
-  googleMapsWriteReviewUrl:
-    'https://search.google.com/local/writereview?placeid=ChIJyZYEKvb74joRROHgnvAuGRg',
+  googleMapsWriteReviewUrl: 'https://maps.app.goo.gl/c9k8vEhjb2CKCU176',
 };
 
 /**
