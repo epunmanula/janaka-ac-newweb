@@ -25,8 +25,7 @@ export const googleReviewsSummary: GoogleReviewsSummary = {
   averageRating: 4.9,
   totalReviewCount: 66,
   fiveStarCount: 63,
-  googleMapsPlaceUrl:
-    'https://www.google.com/maps/place/Janaka+Auto+AC/@7.0846245,80.0086957,17z',
+  googleMapsPlaceUrl: 'https://maps.app.goo.gl/c9k8vEhjb2CKCU176',
   googleMapsWriteReviewUrl:
     'https://search.google.com/local/writereview?placeid=ChIJyZYEKvb74joRROHgnvAuGRg',
 };
@@ -50,7 +49,7 @@ export const verifiedCustomerReviews: CustomerReview[] = [
     reviewText:
       "I've been servicing my vehicles from Mr. Janaka from years ago due to their quality service and the guarantee they give for the work. Recently I did a full AC Service to my Mitsubishi Lancer CB8 and they did an amazing job with most accurate time. Highly Recommend anyone seeking for professional work in AC related work.",
     googleReviewUrl:
-      'https://www.google.com/maps/place/Janaka+Auto+AC/@7.0846245,80.0086957',
+      'https://maps.app.goo.gl/c9k8vEhjb2CKCU176',
   },
   {
     id: 'janaka-lakmal',
@@ -65,7 +64,7 @@ export const verifiedCustomerReviews: CustomerReview[] = [
     reviewText:
       'Went there to fix my 2019 Honda Civic AC issue, and they quickly identified the problem as a leaking condenser. Replaced the faulty condenser and completely checked and serviced the AC system within 4–5 hours, all for 50k. …',
     googleReviewUrl:
-      'https://www.google.com/maps/place/Janaka+Auto+AC/@7.0846245,80.0086957',
+      'https://maps.app.goo.gl/c9k8vEhjb2CKCU176',
   },
   {
     id: 'milinda-gimhana',
@@ -80,7 +79,7 @@ export const verifiedCustomerReviews: CustomerReview[] = [
     reviewText:
       'Well trusted and reputed place around Gampaha to get your A/C system repaired or upgraded. Highly recommend for all vehicles including German vehicles. Skilled technicians and great after service! 💯',
     googleReviewUrl:
-      'https://www.google.com/maps/place/Janaka+Auto+AC/@7.0846245,80.0086957',
+      'https://maps.app.goo.gl/c9k8vEhjb2CKCU176',
   },
   {
     id: 'chamath-bandara',
@@ -93,7 +92,7 @@ export const verifiedCustomerReviews: CustomerReview[] = [
     reviewText:
       'I went to several places and they said that they have to replace my cooler but it was only an electrical fault and only this place found it.',
     googleReviewUrl:
-      'https://www.google.com/maps/place/Janaka+Auto+AC/@7.0846245,80.0086957',
+      'https://maps.app.goo.gl/c9k8vEhjb2CKCU176',
   },
   {
     id: 'udaya-wanigasooriya',
@@ -106,7 +105,7 @@ export const verifiedCustomerReviews: CustomerReview[] = [
     reviewText:
       'Replaced my evaporator with ease great customer service definitely recommending service',
     googleReviewUrl:
-      'https://www.google.com/maps/place/Janaka+Auto+AC/@7.0846245,80.0086957',
+      'https://maps.app.goo.gl/c9k8vEhjb2CKCU176',
   },
   {
     id: 'tame-the-game',
@@ -121,7 +120,7 @@ export const verifiedCustomerReviews: CustomerReview[] = [
     reviewText:
       "Got an issue with my Mazda Axela 2014's AC cooler (leaking coolant pressure) and these guys fixed it up right away. Gave me a new cooler and simplifyied a big hassle to nothing but a convenient experience. Highly recommended. A+++++",
     googleReviewUrl:
-      'https://www.google.com/maps/place/Janaka+Auto+AC/@7.0846245,80.0086957',
+      'https://maps.app.goo.gl/c9k8vEhjb2CKCU176',
   },
   {
     id: 'ishani-udeshika',
@@ -136,7 +135,7 @@ export const verifiedCustomerReviews: CustomerReview[] = [
     reviewText:
       'Mr.Janaka did an amazing job for a reasonable price. I got his service to replace AC Evaporator, AC filter replacement and AC Gas refill for my Honda Grace. Thank you!',
     googleReviewUrl:
-      'https://www.google.com/maps/place/Janaka+Auto+AC/@7.0846245,80.0086957',
+      'https://maps.app.goo.gl/c9k8vEhjb2CKCU176',
   },
   {
     id: 'nuwan-thilanka',
@@ -149,7 +148,7 @@ export const verifiedCustomerReviews: CustomerReview[] = [
     reviewText:
       "Great service! My car's AC wasn’t working properly, but they accurately diagnosed the issue and fixed it completely. Highly professional and efficient. Thank you very much for the excellent service.",
     googleReviewUrl:
-      'https://www.google.com/maps/place/Janaka+Auto+AC/@7.0846245,80.0086957',
+      'https://maps.app.goo.gl/c9k8vEhjb2CKCU176',
   },
   {
     id: 'nithula-ratnayake',
@@ -162,7 +161,7 @@ export const verifiedCustomerReviews: CustomerReview[] = [
     reviewText:
       "Best in the business. Can recommend to anyone who's having AC issues in their vehicles. They will get the job done perfectly 10/10",
     googleReviewUrl:
-      'https://www.google.com/maps/place/Janaka+Auto+AC/@7.0846245,80.0086957',
+      'https://maps.app.goo.gl/c9k8vEhjb2CKCU176',
   },
   {
     id: 'panduka-rajapaksha',
@@ -176,7 +175,7 @@ export const verifiedCustomerReviews: CustomerReview[] = [
     reviewText:
       'I did a cooler replacement to my avanza van\nDid a good job removing and fitting the dashboard\nWell experienced staff\n100% satisfied',
     googleReviewUrl:
-      'https://www.google.com/maps/place/Janaka+Auto+AC/@7.0846245,80.0086957',
+      'https://maps.app.goo.gl/c9k8vEhjb2CKCU176',
   },
   {
     id: 'sunera-munasinghe',
@@ -191,7 +190,7 @@ export const verifiedCustomerReviews: CustomerReview[] = [
     reviewText:
       "Extremely reliable, trustworthy, and affordable. I have taken a Toyota Premio and Mitsubishi Montero for various AC related issues and the workshop owner's quick diagnosis always fixed the issue.",
     googleReviewUrl:
-      'https://www.google.com/maps/place/Janaka+Auto+AC/@7.0846245,80.0086957',
+      'https://maps.app.goo.gl/c9k8vEhjb2CKCU176',
   },
   {
     id: 'hirusha-weerasuriya',
@@ -205,7 +204,7 @@ export const verifiedCustomerReviews: CustomerReview[] = [
     reviewText:
       'I went to replace my Benz c220 Compressor they did a amazing job',
     googleReviewUrl:
-      'https://www.google.com/maps/place/Janaka+Auto+AC/@7.0846245,80.0086957',
+      'https://maps.app.goo.gl/c9k8vEhjb2CKCU176',
   },
   {
     id: 'nalin-hettiarachchi',
@@ -219,7 +218,7 @@ export const verifiedCustomerReviews: CustomerReview[] = [
     reviewText:
       'Repaired my honda graze 2017 did a excellent job.installed a new discharge hose they have a fully automated machine for that keep up the good work',
     googleReviewUrl:
-      'https://www.google.com/maps/place/Janaka+Auto+AC/@7.0846245,80.0086957',
+      'https://maps.app.goo.gl/c9k8vEhjb2CKCU176',
   },
   {
     id: 'thishura-silva',
@@ -233,6 +232,7 @@ export const verifiedCustomerReviews: CustomerReview[] = [
     reviewText:
       "Mr Janaka replaced my brother's Wagon R AC compressor, condenser and cooler under warranty without charging a single penny. Very genuine and professional service. Do not hesitate to visit the workshop for any kind of AC repair. Truly a genuine humble person.",
     googleReviewUrl:
-      'https://www.google.com/maps/place/Janaka+Auto+AC/@7.0846245,80.0086957',
+      'https://maps.app.goo.gl/c9k8vEhjb2CKCU176',
   },
 ];
+

@@ -91,8 +91,8 @@ export const metadata: Metadata = {
   other: {
     'geo.region': 'LK-1',
     'geo.placename': 'Gampaha, Miriswatta',
-    'geo.position': '7.085055;80.0085464',
-    'ICBM': '7.085055, 80.0085464',
+    'geo.position': '7.0846245;80.0086957',
+    'ICBM': '7.0846245, 80.0086957',
   },
 };
 

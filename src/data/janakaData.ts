@@ -93,9 +93,9 @@ export const businessInfo = {
   region: 'Western Province',
   postalCode: '11000',
   country: 'LK',
-  geo: { lat: 7.085055, lng: 80.0085464 },
-  googleMapsPlaceUrl: 'https://www.google.com/maps/place/Janaka+Auto+AC/@7.085055,80.0085464,17z',
-  googleMapsDirectionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=7.085055,80.0085464',
+  geo: { lat: 7.0846245, lng: 80.0086957 },
+  googleMapsPlaceUrl: 'https://maps.app.goo.gl/c9k8vEhjb2CKCU176',
+  googleMapsDirectionsUrl: 'https://maps.app.goo.gl/c9k8vEhjb2CKCU176',
   googleMapsEmbedUrl:
     'https://www.google.com/maps?q=Janaka+Auto+AC%2C+366+Minuwangoda-Gampaha-Miriswatta+Rd%2C+Gampaha&z=17&output=embed',
   facebookUrl: 'https://www.facebook.com/p/Janaka-AUTO-AC-61552238811366/',
