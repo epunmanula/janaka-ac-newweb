@@ -307,12 +307,12 @@ export const DriftWall: React.FC<DriftWallProps> = ({
   );
 
   const innerClass = cx(
-    'relative block h-full w-full overflow-hidden bg-navy-900',
-    'rounded-[var(--dw-radius)] opacity-90 [transform:translateZ(0)]',
-    'transition-[transform,opacity,box-shadow,border-color] duration-[320ms] ease-out border border-white/10',
-    'hover:opacity-100 hover:[transform:translateZ(var(--dw-lift))] hover:border-ice/90',
-    'hover:shadow-[0_20px_50px_-10px_rgba(0,0,0,0.9),0_0_0_1.5px_rgba(53,200,244,0.7)]',
-    'focus-visible:opacity-100 focus-visible:[transform:translateZ(var(--dw-lift))] focus-visible:border-ice'
+    'relative block h-full w-full overflow-hidden bg-[#052436]',
+    'rounded-[var(--dw-radius)] opacity-95 [transform:translateZ(0)]',
+    'transition-[transform,opacity,box-shadow,border-color] duration-[320ms] ease-out border border-[#144B66]',
+    'hover:opacity-100 hover:[transform:translateZ(var(--dw-lift))] hover:border-[#38BDF8]',
+    'hover:shadow-[0_20px_50px_-10px_rgba(0,0,0,0.9),0_0_0_1.5px_rgba(56,189,248,0.5)]',
+    'focus-visible:opacity-100 focus-visible:[transform:translateZ(var(--dw-lift))] focus-visible:border-[#38BDF8]'
   );
 
   const imgClass = cx(
@@ -369,7 +369,7 @@ export const DriftWall: React.FC<DriftWallProps> = ({
             <span className="font-sans text-[11px] font-semibold sm:text-xs text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] truncate max-w-[80%]">
               {item.label}
             </span>
-            <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-ice text-navy-950 grid place-items-center opacity-0 group-hover/tile:opacity-100 transition-opacity shadow-lg shrink-0">
+            <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[#126782] text-white grid place-items-center opacity-0 group-hover/tile:opacity-100 transition-opacity shadow-lg shrink-0 border border-[#38BDF8]">
               <ZoomIn className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5" />
             </span>
           </span>

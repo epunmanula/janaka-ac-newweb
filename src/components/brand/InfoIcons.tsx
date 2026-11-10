@@ -46,9 +46,9 @@ interface InfoIconProps {
 export const InfoIcon: React.FC<InfoIconProps> = ({ name, tone = 'dark', className = '' }) => (
   <span
     aria-hidden="true"
-    className={`relative grid h-11 w-11 shrink-0 place-items-center rounded-md border transition-all duration-300 ${
+    className={`relative grid h-11 w-11 shrink-0 place-items-center rounded-xl border transition-all duration-300 ${
       tone === 'dark'
-        ? 'border-[#126782]/40 bg-[#023047]/60 text-[#8ecae6] group-hover:border-[#219ebc] group-hover:bg-[#126782] group-hover:text-white group-hover:shadow-[0_0_16px_rgba(33,158,188,0.45)]'
+        ? 'border-[#144B66] bg-[#052436] text-[#38BDF8] group-hover:border-[#38BDF8] group-hover:bg-[#144B66] group-hover:text-white group-hover:shadow-[0_0_12px_rgba(56,189,248,0.35)]'
         : 'border-sky-700/20 bg-sky-50 text-ice-deep group-hover:border-ice-deep group-hover:bg-ice-deep group-hover:text-white group-hover:shadow-[0_4px_12px_rgba(2,132,199,0.2)]'
     } ${className}`}
   >

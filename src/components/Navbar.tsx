@@ -13,7 +13,7 @@ export const Navbar: React.FC = () => {
   const [active, setActive] = useState<string>('home');
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
@@ -48,14 +48,14 @@ export const Navbar: React.FC = () => {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,box-shadow] duration-300 ${
         solid
-          ? 'border-b border-[#126782]/30 bg-[#021824]/98 md:backdrop-blur-md shadow-xl shadow-black/40'
-          : 'border-b border-[#126782]/15 bg-[#021824]/90 md:backdrop-blur-sm'
+          ? 'border-b border-[#144B66]/50 bg-[#021824]/95 md:backdrop-blur-md shadow-xl shadow-black/50'
+          : 'border-b border-[#144B66]/25 bg-[#021824]/85 md:backdrop-blur-sm'
       }`}
     >
       <div className="mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
         <a
           href="#home"
-          className="group relative flex items-center shrink-0 h-9 w-[190px] sm:h-10 sm:w-[220px] lg:h-11 lg:w-[245px] transition-transform duration-300 hover:scale-[1.02]"
+          className="group relative flex items-center shrink-0 h-9 w-[190px] sm:h-10 sm:w-[220px] lg:h-11 lg:w-[245px] transition-transform duration-300 hover:scale-[1.01]"
           aria-label={`${businessInfo.name} – back to top`}
         >
           <Image
@@ -63,7 +63,7 @@ export const Navbar: React.FC = () => {
             alt={businessInfo.name}
             fill
             sizes="(max-width: 640px) 190px, (max-width: 1024px) 220px, 245px"
-            className="object-contain object-left filter drop-shadow-[0_2px_14px_rgba(33,158,188,0.5)] group-hover:drop-shadow-[0_2px_22px_rgba(142,202,230,0.8)] transition-all duration-300"
+            className="object-contain object-left filter drop-shadow-[0_2px_12px_rgba(56,189,248,0.4)] transition-all duration-300"
             priority
           />
         </a>
@@ -78,13 +78,13 @@ export const Navbar: React.FC = () => {
                     href={`#${link.id}`}
                     aria-current={isActive ? 'location' : undefined}
                     className={`group relative py-2 text-[13px] font-medium tracking-wide transition-colors duration-300 ${
-                      isActive ? 'text-[#8ecae6] font-semibold' : 'text-[#a2b8c2] hover:text-white'
+                      isActive ? 'text-[#CDE6F5] font-semibold' : 'text-[#A2B8C2] hover:text-white'
                     }`}
                   >
                     {link.label}
                     <span
                       aria-hidden="true"
-                      className={`absolute inset-x-0 -bottom-0.5 h-[2px] origin-left bg-[#219ebc] shadow-[0_0_8px_rgba(33,158,188,0.7)] transition-transform duration-500 ease-out-expo ${
+                      className={`absolute inset-x-0 -bottom-0.5 h-[2px] origin-left bg-[#38BDF8] shadow-[0_0_8px_rgba(56,189,248,0.7)] transition-transform duration-300 ${
                         isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
                       }`}
                     />
@@ -95,17 +95,17 @@ export const Navbar: React.FC = () => {
           </ul>
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <a
             href={`tel:${businessInfo.phoneRaw}`}
-            className="hidden items-center gap-2 px-3 py-2 text-[13px] font-medium text-[#e0f2fe] transition-colors hover:text-[#8ecae6] xl:inline-flex"
+            className="hidden items-center gap-2 px-3 py-2 text-[13px] font-medium text-[#E0F2FE] transition-colors hover:text-[#38BDF8] xl:inline-flex"
           >
-            <Phone className="h-4 w-4 text-[#219ebc]" aria-hidden="true" />
-            {businessInfo.phone}
+            <Phone className="h-4 w-4 text-[#38BDF8]" aria-hidden="true" />
+            <span>{businessInfo.phone}</span>
           </a>
           <a
             href="#contact"
-            className="hidden rounded-md bg-gradient-to-r from-[#126782] via-[#219ebc] to-[#126782] bg-[length:200%_auto] px-5 py-2.5 text-[13px] font-semibold text-white shadow-md shadow-[#023047]/60 transition-all duration-300 hover:bg-right hover:shadow-[#219ebc]/30 sm:inline-flex"
+            className="hidden rounded-xl bg-gradient-to-r from-[#126782] via-[#1B7796] to-[#126782] px-5 py-2.5 text-xs font-bold text-white shadow-md border border-[#2586A3]/40 transition-all duration-300 hover:brightness-110 active:translate-y-px sm:inline-flex"
           >
             Book a Service
           </a>
@@ -115,16 +115,21 @@ export const Navbar: React.FC = () => {
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-            className="inline-flex h-11 w-11 items-center justify-center text-slate-200 hover:text-[#8ecae6] lg:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center text-slate-200 hover:text-[#38BDF8] lg:hidden"
           >
             {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
       </div>
 
-      <div id="mobile-menu" hidden={!menuOpen} className="border-t border-[#126782]/30 bg-[#021824] px-4 pb-6 pt-2 shadow-2xl sm:px-6 lg:hidden">
+      {/* Mobile Drawer Navigation */}
+      <div
+        id="mobile-menu"
+        hidden={!menuOpen}
+        className="border-t border-[#144B66]/40 bg-[#021824] px-4 pb-6 pt-2 shadow-2xl sm:px-6 lg:hidden"
+      >
         <nav aria-label="Mobile">
-          <ul className="divide-y divide-[#126782]/20">
+          <ul className="divide-y divide-[#144B66]/20">
             {navSections.map((link, i) => (
               <li key={link.id}>
                 <a
@@ -132,11 +137,11 @@ export const Navbar: React.FC = () => {
                   onClick={() => setMenuOpen(false)}
                   aria-current={active === link.id ? 'location' : undefined}
                   className={`flex items-baseline gap-4 py-3.5 font-wide text-lg font-semibold ${
-                    active === link.id ? 'text-[#8ecae6]' : 'text-slate-200 hover:text-white'
+                    active === link.id ? 'text-[#CDE6F5]' : 'text-slate-200 hover:text-white'
                   }`}
                 >
-                  <span className="font-mono text-[11px] font-normal text-[#8faec0]">0{i + 1}</span>
-                  {link.label}
+                  <span className="font-mono text-[11px] font-normal text-[#8FAEC0]">0{i + 1}</span>
+                  <span>{link.label}</span>
                 </a>
               </li>
             ))}
@@ -145,15 +150,15 @@ export const Navbar: React.FC = () => {
         <div className="mt-5 grid grid-cols-2 gap-3">
           <a
             href={`tel:${businessInfo.phoneRaw}`}
-            className="inline-flex items-center justify-center gap-2 rounded-md border border-[#126782]/40 bg-[#023047]/60 py-3.5 text-sm font-semibold text-slate-200 hover:border-[#219ebc] hover:text-white transition-colors"
+            className="inline-flex items-center justify-center gap-2 rounded-xl border border-[#144B66] bg-[#052436] py-3.5 text-xs font-semibold text-white hover:border-[#38BDF8] transition-colors"
           >
-            <Phone className="h-4 w-4 text-[#219ebc]" aria-hidden="true" />
-            Call Now
+            <Phone className="h-4 w-4 text-[#38BDF8]" aria-hidden="true" />
+            <span>Call Now</span>
           </a>
           <a
             href="#contact"
             onClick={() => setMenuOpen(false)}
-            className="inline-flex items-center justify-center rounded-md bg-gradient-to-r from-[#126782] via-[#219ebc] to-[#126782] py-3.5 text-sm font-semibold text-white shadow-md shadow-[#023047]/60 hover:brightness-110 transition-all"
+            className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-[#126782] via-[#1B7796] to-[#126782] py-3.5 text-xs font-bold text-white shadow-md border border-[#2586A3]/40 hover:brightness-110 transition-all"
           >
             Book a Service
           </a>
